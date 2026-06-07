@@ -13,9 +13,12 @@
       --stroke:rgba(255,255,255,.18);
       --text:#fff8ee;
       --muted:rgba(255,248,238,.72);
-      --orange:#ff7a18;
-      --red:#ff2f46;
-      --gold:#ffd166;
+      --primary:#ff7a18;
+      --secondary:#ff2f46;
+      --accent:#ffd166;
+      --orange:var(--primary);
+      --red:var(--secondary);
+      --gold:var(--accent);
       --dark:#151823;
       --green:#18c86f;
     }
@@ -26,10 +29,10 @@
       margin:0;min-height:100vh;color:var(--text);
       font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at 18% 12%, rgba(255,122,24,.45), transparent 30%),
-        radial-gradient(circle at 88% 10%, rgba(255,47,70,.30), transparent 28%),
-        radial-gradient(circle at 60% 88%, rgba(255,209,102,.18), transparent 35%),
-        linear-gradient(145deg,#07070c 0%,#190b10 42%,#0c101b 100%);
+        radial-gradient(circle at 18% 12%, var(--primary), transparent 30%),
+        radial-gradient(circle at 88% 10%, var(--secondary), transparent 28%),
+        radial-gradient(circle at 60% 88%, var(--accent), transparent 35%),
+        linear-gradient(145deg,var(--bg) 0%,#190b10 42%,#0c101b 100%);
       overflow-x:hidden;
     }
     body:before{
@@ -51,6 +54,17 @@
     .screen{display:none;animation:rise .24s ease both}
     .screen.active{display:block}
     @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+    .yks-counter{
+      display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:7px 12px;border-radius:999px;
+      background:linear-gradient(135deg,rgba(255,209,102,.18),rgba(255,47,70,.12));
+      border:1px solid rgba(255,209,102,.28);color:#fff8ee;font-size:12px;font-weight:900;
+      box-shadow:0 10px 28px rgba(0,0,0,.22),0 0 22px rgba(255,122,24,.16);
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)
+    }
+    .yks-counter .dot{width:7px;height:7px;border-radius:50%;background:#ffd166;box-shadow:0 0 12px rgba(255,209,102,.9)}
+    .yks-counter b{color:#ffd166}
+
 
     .hero{text-align:center;padding:16px 4px 22px}
     .pill{
@@ -198,6 +212,66 @@
   margin-bottom:8px;
   color:#ffc26b;
 }
+
+
+/* Sabit tema sistemi */
+body.theme-light{
+  --bg:#fff3df;
+  --glass:rgba(255,255,255,.66);
+  --glass-2:rgba(255,255,255,.82);
+  --stroke:rgba(124,45,18,.16);
+  --text:#24110a;
+  --muted:rgba(36,17,10,.66);
+  --primary:#ff8a00;
+  --secondary:#d9480f;
+  --accent:#7c2d12;
+}
+body.theme-light{
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255,138,0,.32), transparent 30%),
+    radial-gradient(circle at 88% 10%, rgba(217,72,15,.20), transparent 28%),
+    radial-gradient(circle at 60% 88%, rgba(255,193,7,.22), transparent 35%),
+    linear-gradient(145deg,#fff7ed 0%,#ffe8c7 45%,#fffaf0 100%);
+}
+body.theme-light:before{opacity:.32;background-image:linear-gradient(rgba(124,45,18,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(124,45,18,.055) 1px,transparent 1px)}
+body.theme-light:after{opacity:.18;background:conic-gradient(from 120deg,transparent,rgba(255,138,0,.18),transparent,rgba(217,72,15,.12),transparent)}
+body.theme-light .pill, body.theme-light .yks-counter, body.theme-light .progress{
+  background:rgba(255,255,255,.72);
+  border-color:rgba(124,45,18,.16);
+  color:#7c2d12;
+  box-shadow:0 12px 30px rgba(124,45,18,.10);
+}
+body.theme-light .menu-card, body.theme-light .panel, body.theme-light .settings-card{
+  background:linear-gradient(135deg,rgba(255,255,255,.82),rgba(255,255,255,.54));
+  border-color:rgba(124,45,18,.16);
+  box-shadow:0 22px 55px rgba(124,45,18,.14), inset 0 1px 0 rgba(255,255,255,.65);
+}
+body.theme-light .menu-card:before{background:linear-gradient(120deg,rgba(255,255,255,.70),transparent 34%,transparent 68%,rgba(255,255,255,.30))}
+body.theme-light .settings-fab, body.theme-light .settings-close, body.theme-light .ghost-btn{
+  color:#24110a;
+  background:rgba(255,255,255,.66);
+  border-color:rgba(124,45,18,.16);
+}
+body.theme-light .question-card{
+  background:linear-gradient(180deg,#ffffff,#fff4e1);
+  color:#24110a;
+  box-shadow:0 24px 60px rgba(124,45,18,.16);
+}
+body.theme-light .answer{
+  color:#2b1209;
+  background:linear-gradient(135deg,#fff8ed,#ffd8a8);
+  border:1px solid rgba(124,45,18,.13);
+  box-shadow:0 10px 22px rgba(124,45,18,.10);
+}
+body.theme-light .analysis-box, body.theme-light .wrong-item{
+  background:rgba(255,255,255,.62);
+  border-color:rgba(124,45,18,.14);
+  color:rgba(36,17,10,.82);
+}
+body.theme-light .analysis-box b, body.theme-light .analysis-box .analysis-title, body.theme-light .wrong-item b{color:#b45309}
+body.theme-light label{color:rgba(36,17,10,.70)}
+body.theme-light select{background:#fffaf2;color:#24110a;border:1px solid rgba(124,45,18,.12)}
+
 @media(max-width:430px){.app{padding:14px 13px 30px}h1{font-size:34px}.question{font-size:19px}.menu-card{border-radius:24px}}
   </style>
 </head>
@@ -208,6 +282,7 @@
 <div class="hero">
 <div class="pill">⚡ YKS Edebiyat</div>
 <h1>Edebiyat Test</h1>
+<div class="yks-counter" id="yksCounter"><span class="dot"></span><span>YKS sayacı yükleniyor...</span></div>
 </div>
 <div class="menu">
 <button class="menu-card" data-open="frequent" type="button"><div class="menu-top"><div class="icon">⭐</div><h2>Sık Sorulanlar</h2></div><p>Sık gelen eser-yazar ve roman kahramanı sorularını çöz.</p></button>
@@ -240,6 +315,7 @@
     <div class="settings-grid">
       <div><label>Şık sayısı</label><select id="optionCountSelect"><option value="4">4 şık</option><option selected value="5">5 şık</option></select></div>
       <div><label>Zorluk</label><select id="difficultySelect"><option value="easy">Kolay</option><option value="medium">Orta</option><option value="hard">Zor</option></select></div>
+      <div><label>Tema</label><select id="themeModeSelect"><option value="dark">Koyu Tema</option><option value="light">Açık Tema</option></select></div>
     </div>
     <button class="main-btn settings-save" id="globalSettingsSave" type="button">Ayarları Kaydet</button>
   </div>
@@ -558,9 +634,86 @@ function getRandomWrong(arr,correct,count){var u=[],w=[];for(var i=0;i<arr.lengt
 function shuffle(array){var arr=array.slice();for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),tmp=arr[i];arr[i]=arr[j];arr[j]=tmp}return arr}
 function escapeHtml(text){return String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
 
+
+
+function getThemeSettings(){
+  var mode=localStorage.getItem('edebiyatThemeMode')||'dark';
+  if(mode!=='light')mode='dark';
+  return {mode:mode};
+}
+function applyThemeSettings(t){
+  if(!t)t=getThemeSettings();
+  document.body.classList.toggle('theme-light',t.mode==='light');
+  if(t.mode==='light'){
+    document.documentElement.style.setProperty('--primary','#ff8a00');
+    document.documentElement.style.setProperty('--secondary','#d9480f');
+    document.documentElement.style.setProperty('--accent','#7c2d12');
+  }else{
+    document.documentElement.style.setProperty('--primary','#ff7a18');
+    document.documentElement.style.setProperty('--secondary','#ff2f46');
+    document.documentElement.style.setProperty('--accent','#ffd166');
+  }
+}
+function loadThemeControls(){
+  var t=getThemeSettings();
+  if(byId('themeModeSelect'))byId('themeModeSelect').value=t.mode;
+  var opt=localStorage.getItem('edebiyatOptionCount');
+  var diff=localStorage.getItem('edebiyatDifficulty');
+  if(opt&&byId('optionCountSelect'))byId('optionCountSelect').value=opt;
+  if(diff&&byId('difficultySelect'))byId('difficultySelect').value=diff;
+}
+function saveGlobalSettings(){
+  var mode=byId('themeModeSelect')?byId('themeModeSelect').value:'dark';
+  localStorage.setItem('edebiyatThemeMode',mode);
+  if(byId('optionCountSelect'))localStorage.setItem('edebiyatOptionCount',byId('optionCountSelect').value);
+  if(byId('difficultySelect'))localStorage.setItem('edebiyatDifficulty',byId('difficultySelect').value);
+  applyThemeSettings({mode:mode});
+  closeGlobalSettings();
+}
+function resetThemeDefaults(){
+  localStorage.setItem('edebiyatThemeMode','dark');
+  applyThemeSettings({mode:'dark'});loadThemeControls();
+}
+
+
+function updateYksCounter(){
+  var el=byId('yksCounter');
+  if(!el)return;
+  var target=new Date('2026-06-20T10:15:00+03:00');
+  var now=new Date();
+  var diff=target.getTime()-now.getTime();
+  if(diff<=0){
+    el.innerHTML='<span class="dot"></span><span><b>YKS başladı.</b></span>';
+    return;
+  }
+  var totalSeconds=Math.floor(diff/1000);
+  var days=Math.floor(totalSeconds/86400);
+  var hours=Math.floor((totalSeconds%86400)/3600);
+  var mins=Math.floor((totalSeconds%3600)/60);
+  el.innerHTML='<span class="dot"></span><span>TYT’ye <b>'+days+'</b> gün <b>'+hours+'</b> saat <b>'+mins+'</b> dk kaldı</span>';
+}
+
 function openGlobalSettings(){byId('globalSettingsModal').classList.add('active');byId('globalSettingsModal').setAttribute('aria-hidden','false')}
 function closeGlobalSettings(){byId('globalSettingsModal').classList.remove('active');byId('globalSettingsModal').setAttribute('aria-hidden','true')}
-document.addEventListener('DOMContentLoaded',function(){var opens=document.querySelectorAll('[data-open]');for(var i=0;i<opens.length;i++)opens[i].addEventListener('click',function(){openSettings(this.getAttribute('data-open'))});var homes=document.querySelectorAll('[data-home]');for(var h=0;h<homes.length;h++)homes[h].addEventListener('click',goHome);byId('btnWrongs').addEventListener('click',showWrongs);byId('startBtn').addEventListener('click',startTest);byId('repeatBtn').addEventListener('click',repeatSameTest);byId('clearWrongBtn').addEventListener('click',clearWrongs);byId('globalSettingsBtn').addEventListener('click',openGlobalSettings);byId('globalSettingsClose').addEventListener('click',closeGlobalSettings);byId('globalSettingsSave').addEventListener('click',closeGlobalSettings);byId('globalSettingsModal').addEventListener('click',function(e){if(e.target===this)closeGlobalSettings()})});
+document.addEventListener('DOMContentLoaded',function(){
+  applyThemeSettings();
+  loadThemeControls();
+  updateYksCounter();
+  setInterval(updateYksCounter,60000);
+  var opens=document.querySelectorAll('[data-open]');
+  for(var i=0;i<opens.length;i++)opens[i].addEventListener('click',function(){openSettings(this.getAttribute('data-open'))});
+  var homes=document.querySelectorAll('[data-home]');
+  for(var h=0;h<homes.length;h++)homes[h].addEventListener('click',goHome);
+  byId('btnWrongs').addEventListener('click',showWrongs);
+  byId('startBtn').addEventListener('click',startTest);
+  byId('repeatBtn').addEventListener('click',repeatSameTest);
+  byId('clearWrongBtn').addEventListener('click',clearWrongs);
+  byId('globalSettingsBtn').addEventListener('click',function(){loadThemeControls();openGlobalSettings()});
+  byId('globalSettingsClose').addEventListener('click',closeGlobalSettings);
+  byId('globalSettingsSave').addEventListener('click',saveGlobalSettings);
+  byId('globalSettingsModal').addEventListener('click',function(e){if(e.target===this)closeGlobalSettings()});
+  if(byId('themeModeSelect'))byId('themeModeSelect').addEventListener('change',function(){applyThemeSettings({mode:this.value})});
+});
 })();
 </script>
 </body>
