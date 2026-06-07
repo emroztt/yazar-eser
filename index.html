@@ -215,13 +215,13 @@
     <div class="settings-head">
       <div>
         <h2>⚙️ Ayarlar</h2>
-        <div class="mini">Şık sayısı tüm bölümleri etkiler. Zorluk yazar-eser ve sık sorulanları etkiler.</div>
+        <div class="mini">Şık sayısı tüm bölümleri etkiler. Zorluk sık sorulanlarda dönem bazlı çeldirici üretir.</div>
       </div>
       <button class="settings-close" id="globalSettingsClose" type="button">×</button>
     </div>
     <div class="settings-grid">
       <div><label>Şık sayısı</label><select id="optionCountSelect"><option value="4">4 şık</option><option selected value="5">5 şık</option></select></div>
-      <div><label>Zorluk</label><select id="difficultySelect"><option value="easy">Kolay - Rastgele şıklar</option><option value="medium">Orta - Aynı döneme yakın şıklar</option><option value="hard">Zor - Aynı dönemden güçlü çeldiriciler</option></select></div>
+      <div><label>Zorluk</label><select id="difficultySelect"><option value="easy">Kolay</option><option value="medium">Orta</option><option value="hard">Zor</option></select></div>
     </div>
     <button class="main-btn settings-save" id="globalSettingsSave" type="button">Ayarları Kaydet</button>
   </div>
@@ -248,20 +248,72 @@ function byId(id){return document.getElementById(id)}
 function showScreen(id){var s=document.getElementsByClassName('screen');for(var i=0;i<s.length;i++)s[i].classList.remove('active');byId(id).classList.add('active');window.scrollTo(0,0)}
 function goHome(){showScreen('homeScreen')}
 function addOption(sel,val,text){var o=document.createElement('option');o.value=val;o.text=text;sel.appendChild(o)}
-function openSettings(cat){currentCategory=cat;var title=byId('settingsTitle'),periodBox=byId('periodBox'),typeBox=byId('typeBox'),pSel=byId('periodSelect'),tSel=byId('typeSelect'),cSel=byId('countSelect');pSel.innerHTML='';tSel.innerHTML='';cSel.innerHTML='';for(var i=10;i<=100;i+=10)addOption(cSel,String(i),i+' soru');if(cat==='authorWork'){title.innerText='Yazar - Eser';periodBox.style.display='block';typeBox.style.display='block';var ps=['Tüm Dönemler','İslamiyet İlk Dönem','Halk Edebiyatı','Divan / Geçiş','Tanzimat','Servetifünun','Fecriati','Milli Edebiyat','Cumhuriyet'];for(var p=0;p<ps.length;p++)addOption(pSel,ps[p],ps[p]);addOption(tSel,'authorToWork','Yazar - Eser');addOption(tSel,'workToAuthor','Eser - Yazar')}else{periodBox.style.display='none';typeBox.style.display='none';title.innerText=cat==='frequent'?'Sık Sorulanlar':cat==='movements'?'Edebi Akımlar':'Roman Kahramanları'}showScreen('settingsScreen')}
+function openSettings(cat){currentCategory=cat;var title=byId('settingsTitle'),periodBox=byId('periodBox'),typeBox=byId('typeBox'),pSel=byId('periodSelect'),tSel=byId('typeSelect'),cSel=byId('countSelect');pSel.innerHTML='';tSel.innerHTML='';cSel.innerHTML='';for(var i=10;i<=100;i+=10)addOption(cSel,String(i),i+' soru');if(cat==='authorWork'){title.innerText='Yazar - Eser';periodBox.style.display='block';typeBox.style.display='block';var ps=['İslamiyet İlk Dönem','Halk Edebiyatı','Divan / Geçiş','Tanzimat','Servetifünun','Fecriati','Milli Edebiyat','Cumhuriyet'];for(var p=0;p<ps.length;p++)addOption(pSel,ps[p],ps[p]);addOption(tSel,'authorToWork','Yazar - Eser');addOption(tSel,'workToAuthor','Eser - Yazar')}else{periodBox.style.display='none';typeBox.style.display='none';title.innerText=cat==='frequent'?'Sık Sorulanlar':cat==='movements'?'Edebi Akımlar':'Roman Kahramanları'}showScreen('settingsScreen')}
 function startTest(){currentCount=Number(byId('countSelect').value);currentOptionCount=Number(byId('optionCountSelect').value);currentDifficulty=byId('difficultySelect').value;if(currentCategory==='authorWork'){currentPeriod=byId('periodSelect').value;currentType=byId('typeSelect').value}else{currentPeriod='Tüm Dönemler';currentType=currentCategory}lastSettings=[currentCategory,currentType,currentPeriod,currentCount,currentOptionCount,currentDifficulty];questions=shuffle(buildQuestions());if(questions.length>currentCount)questions=questions.slice(0,currentCount);qIndex=0;correct=0;wrong=0;showScreen('testScreen');showQuestion()}
 function repeatSameTest(){if(!lastSettings){goHome();return}currentCategory=lastSettings[0];currentType=lastSettings[1];currentPeriod=lastSettings[2];currentCount=lastSettings[3];currentOptionCount=lastSettings[4]||5;currentDifficulty=lastSettings[5]||'easy';questions=shuffle(buildQuestions());if(questions.length>currentCount)questions=questions.slice(0,currentCount);qIndex=0;correct=0;wrong=0;showScreen('testScreen');showQuestion()}
 function optionWrongCount(){return Math.max(3,Math.min(4,currentOptionCount-1))}
 function uniquePush(arr,item){if(item&&arr.indexOf(item)===-1)arr.push(item)}
 function getAllAuthors(){var a=[];for(var i=0;i<authorWorks.length;i++)uniquePush(a,authorWorks[i][1]);for(var f=0;f<frequentPairs.length;f++)uniquePush(a,frequentPairs[f][0]);return a}
 function getAllWorks(){var w=[];for(var i=0;i<authorWorks.length;i++)for(var j=0;j<authorWorks[i][2].length;j++)uniquePush(w,authorWorks[i][2][j]);for(var f=0;f<frequentPairs.length;f++)uniquePush(w,frequentPairs[f][1]);return w}
-function getAuthorPeriod(author){for(var i=0;i<authorWorks.length;i++)if(authorWorks[i][1]===author)return authorWorks[i][0];return ''}
+function getAuthorPeriod(author){for(var i=0;i<authorWorks.length;i++)if(authorWorks[i][1]===author)return authorWorks[i][0];return getExtraAuthorPeriod(author)}
+function getExtraAuthorPeriod(author){var m={
+'Moliere':'Yabancı','Molière':'Yabancı','Victor Hugo':'Yabancı','Goethe':'Yabancı','Balzac':'Yabancı','Flaubert':'Yabancı','Stendhal':'Yabancı','Tolstoy':'Yabancı','Emile Zola':'Yabancı',
+'Ahmet Mithat Efendi':'Tanzimat','Ahmet Vefik Paşa':'Tanzimat','Abdülhak Hamit Tarhan':'Tanzimat','Muallim Naci':'Tanzimat','Ziya Paşa':'Tanzimat','Ahmet Rasim':'Servetifünun','Hüseyin Rahmi Gürpınar':'Servetifünun','Süleyman Nazif':'Servetifünun','Hüseyin Cahit Yalçın':'Servetifünun',
+'Baki':'Divan / Geçiş','Nabi':'Divan / Geçiş','Ahmedî':'Divan / Geçiş','Mercimek Ahmet':'Divan / Geçiş','Şeyh Galip':'Divan / Geçiş','Ahmet Hikmet Müftüoğlu':'Milli Edebiyat','Mehmet Akif Ersoy':'Milli Edebiyat','Mehmet Emin Yurdakul':'Milli Edebiyat','Yahya Kemal Beyatlı':'Milli Edebiyat',
+'Behçet Necatigil':'Cumhuriyet','Ahmet Oktay':'Cumhuriyet','Abdülhak Şinasi Hisar':'Cumhuriyet','Yaşar Nabi Nayır':'Cumhuriyet','Cahit Külebi':'Cumhuriyet','Sabri Esat Siyavuşgil':'Cumhuriyet','Oktay Akbal':'Cumhuriyet','Necati Cumalı':'Cumhuriyet','Kemal Bilbaşar':'Cumhuriyet','Rıfat Ilgaz':'Cumhuriyet','Tarık Buğra':'Cumhuriyet','Nurullah Ataç':'Cumhuriyet','Orhan Pamuk':'Cumhuriyet','Sait Faik Abasıyanık':'Cumhuriyet','Özdemir Asaf':'Cumhuriyet','Attila İlhan':'Cumhuriyet','Cemal Süreya':'Cumhuriyet','Ece Ayhan':'Cumhuriyet','İlhan Berk':'Cumhuriyet','Arif Nihat Asya':'Cumhuriyet','Edip Cansever':'Cumhuriyet','Haldun Taner':'Cumhuriyet','Kemal Tahir':'Cumhuriyet','Kenan Hulusi Koray':'Cumhuriyet','Necip Fazıl Kısakürek':'Cumhuriyet','Oktay Rıfat Horozcu':'Cumhuriyet','Orhan Veli Kanık':'Cumhuriyet','Sabahattin Ali':'Cumhuriyet'
+};return m[author]||''}
+function isForeignAuthor(author){return author==='Moliere'||author==='Victor Hugo'||author==='Goethe'||author==='Balzac'||author==='Flaubert'||author==='Stendhal'||author==='Tolstoy'||author==='Emile Zola'||author==='Molière'}
 function getWorkPeriod(work){for(var i=0;i<authorWorks.length;i++)for(var j=0;j<authorWorks[i][2].length;j++)if(authorWorks[i][2][j]===work)return authorWorks[i][0];for(var f=0;f<frequentPairs.length;f++)if(frequentPairs[f][1]===work)return getAuthorPeriod(frequentPairs[f][0]);return ''}
-function getAuthorsByPeriod(period){var a=[];for(var i=0;i<authorWorks.length;i++)if(authorWorks[i][0]===period)uniquePush(a,authorWorks[i][1]);return a}
-function getWorksByPeriod(period){var w=[];for(var i=0;i<authorWorks.length;i++)if(authorWorks[i][0]===period)for(var j=0;j<authorWorks[i][2].length;j++)uniquePush(w,authorWorks[i][2][j]);return w}
+function getAuthorsByPeriod(period){var a=[];for(var i=0;i<authorWorks.length;i++)if(authorWorks[i][0]===period)uniquePush(a,authorWorks[i][1]);for(var f=0;f<frequentPairs.length;f++)if(getAuthorPeriod(frequentPairs[f][0])===period)uniquePush(a,frequentPairs[f][0]);return a}
+function getWorksByPeriod(period){var w=[];for(var i=0;i<authorWorks.length;i++)if(authorWorks[i][0]===period)for(var j=0;j<authorWorks[i][2].length;j++)uniquePush(w,authorWorks[i][2][j]);for(var f=0;f<frequentPairs.length;f++)if(getAuthorPeriod(frequentPairs[f][0])===period)uniquePush(w,frequentPairs[f][1]);return w}
 function getWorksOfAuthor(author){var w=[];for(var i=0;i<authorWorks.length;i++)if(authorWorks[i][1]===author)for(var j=0;j<authorWorks[i][2].length;j++)uniquePush(w,authorWorks[i][2][j]);for(var f=0;f<frequentPairs.length;f++)if(frequentPairs[f][0]===author)uniquePush(w,frequentPairs[f][1]);return w}
-function chooseWrongAuthors(correctAuthor,periodHint){var all=getAllAuthors(),pool=[];if(currentDifficulty==='easy'){pool=all}else{var p=periodHint||getAuthorPeriod(correctAuthor);pool=getAuthorsByPeriod(p);if(pool.length<optionWrongCount()+1)pool=all}return getRandomWrong(pool,correctAuthor,optionWrongCount())}
-function chooseWrongWorks(correctWork,correctAuthor,periodHint){var authorWorksList=getWorksOfAuthor(correctAuthor),pool=[],all=getAllWorks();if(currentDifficulty==='easy'){pool=all}else{var p=periodHint||getAuthorPeriod(correctAuthor)||getWorkPeriod(correctWork);pool=getWorksByPeriod(p);if(pool.length<optionWrongCount()+authorWorksList.length)pool=all}var filtered=[];for(var i=0;i<pool.length;i++)if(authorWorksList.indexOf(pool[i])===-1)filtered.push(pool[i]);return getRandomWrong(filtered,correctWork,optionWrongCount())}
+function getFrequentTurkishAuthors(){var a=[];for(var f=0;f<frequentPairs.length;f++)if(!isForeignAuthor(frequentPairs[f][0]))uniquePush(a,frequentPairs[f][0]);for(var i=0;i<authorWorks.length;i++)if(!isForeignAuthor(authorWorks[i][1]))uniquePush(a,authorWorks[i][1]);return a}
+function removeForeign(list){var out=[];for(var i=0;i<list.length;i++)if(!isForeignAuthor(list[i]))uniquePush(out,list[i]);return out}
+function authorsExceptPeriod(all,period,correct){var out=[];for(var i=0;i<all.length;i++){var a=all[i];if(a!==correct&&getAuthorPeriod(a)!==period&&!isForeignAuthor(a))uniquePush(out,a)}return out}
+function chooseFrequentWrongAuthors(correctAuthor){
+  var need=optionWrongCount();
+  var period=getAuthorPeriod(correctAuthor);
+  var allTurkish=removeForeign(getFrequentTurkishAuthors());
+  var same=removeForeign(getAuthorsByPeriod(period));
+  var diff=authorsExceptPeriod(allTurkish,period,correctAuthor);
+  var result=[];
+
+  // Kolay: tüm dönemlerden rastgele çeldirici.
+  if(currentDifficulty==='easy'){
+    return getRandomWrong(allTurkish,correctAuthor,need);
+  }
+
+  // Orta: 2 kişi aynı dönemden, kalanlar farklı dönemlerden.
+  if(currentDifficulty==='medium'){
+    var sameNeed=Math.min(2,need);
+    var samePick=getRandomWrong(same,correctAuthor,sameNeed);
+    for(var s=0;s<samePick.length;s++)uniquePush(result,samePick[s]);
+
+    var diffNeed=need-result.length;
+    var diffPick=getRandomWrong(diff,correctAuthor,diffNeed);
+    for(var d=0;d<diffPick.length;d++)uniquePush(result,diffPick[d]);
+
+    if(result.length<need){
+      var fill=getRandomWrong(allTurkish.concat(same).concat(diff),correctAuthor,need-result.length);
+      for(var f=0;f<fill.length;f++)uniquePush(result,fill[f]);
+    }
+    return result.slice(0,need);
+  }
+
+  // Zor: mümkünse bütün çeldiriciler aynı dönemden.
+  if(currentDifficulty==='hard'){
+    result=getRandomWrong(same,correctAuthor,need);
+    if(result.length<need){
+      var backup=getRandomWrong(diff,correctAuthor,need-result.length);
+      for(var b=0;b<backup.length;b++)uniquePush(result,backup[b]);
+    }
+    return result.slice(0,need);
+  }
+
+  return getRandomWrong(allTurkish,correctAuthor,need);
+}
+function chooseWrongAuthors(correctAuthor,periodHint){if(currentCategory==='authorWork'){return getRandomWrong(getAuthorsByPeriod(periodHint),correctAuthor,optionWrongCount())}if(currentCategory==='frequent'){return chooseFrequentWrongAuthors(correctAuthor)}return getRandomWrong(getAllAuthors(),correctAuthor,optionWrongCount())}
+function chooseWrongWorks(correctWork,correctAuthor,periodHint){var authorWorksList=getWorksOfAuthor(correctAuthor),pool=getWorksByPeriod(periodHint),filtered=[];for(var i=0;i<pool.length;i++)if(authorWorksList.indexOf(pool[i])===-1)filtered.push(pool[i]);return getRandomWrong(filtered,correctWork,optionWrongCount())}
 function chooseWrongWorksForCharacter(correctWork){var all=[];for(var i=0;i<characters.length;i++)uniquePush(all,characters[i][0]);return getRandomWrong(all,correctWork,optionWrongCount())}
 function buildFrequentAuthorQuestions(){var authors=[],res=[],owner={};for(var i=0;i<frequentPairs.length;i++){var a=frequentPairs[i][0],w=frequentPairs[i][1];uniquePush(authors,a);if(!owner[w])owner[w]=[];uniquePush(owner[w],a)}for(var j=0;j<frequentPairs.length;j++){var author=frequentPairs[j][0],work=frequentPairs[j][1];if(owner[work]&&owner[work].length>1)continue;var period=getAuthorPeriod(author);res.push({question:'"'+work+'" adlı eser kime aittir?',answer:author,options:shuffle([author].concat(chooseWrongAuthors(author,period)))})}return res}
 function buildFrequentAllQuestions(){return shuffle(buildFrequentAuthorQuestions())}
