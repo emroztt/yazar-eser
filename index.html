@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edebiyat Test</title>
+  <title>YKS Edebiyat Test</title>
 
   <style>
     * {
@@ -14,12 +14,13 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Inter, Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       color: #fff;
       background:
-        radial-gradient(circle at top left, rgba(255, 87, 34, 0.35), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(255, 193, 7, 0.22), transparent 28%),
-        linear-gradient(135deg, #130b0b 0%, #251015 35%, #0f111a 100%);
+        radial-gradient(circle at 15% 10%, rgba(255, 92, 0, 0.42), transparent 28%),
+        radial-gradient(circle at 88% 18%, rgba(255, 180, 0, 0.25), transparent 24%),
+        radial-gradient(circle at 75% 90%, rgba(190, 20, 20, 0.35), transparent 30%),
+        linear-gradient(135deg, #130707 0%, #261013 45%, #0c0f18 100%);
       overflow-x: hidden;
     }
 
@@ -32,21 +33,21 @@
         linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
       background-size: 38px 38px;
       pointer-events: none;
-      opacity: 0.45;
+      opacity: 0.38;
     }
 
     .app {
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 540px;
+      max-width: 560px;
       margin: 0 auto;
-      padding: 18px 16px 32px;
+      padding: 18px 15px 34px;
     }
 
     .screen {
       display: none;
-      animation: fadeIn 0.25s ease;
+      animation: fadeIn 0.24s ease;
     }
 
     .screen.active {
@@ -59,36 +60,39 @@
     }
 
     .brand {
-      margin: 18px 0 24px;
       text-align: center;
+      margin: 18px 0 24px;
     }
 
     .badge {
       display: inline-block;
-      padding: 7px 12px;
+      padding: 7px 13px;
       border-radius: 999px;
       background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.14);
-      color: #ffc46b;
+      border: 1px solid rgba(255,255,255,0.16);
+      color: #ffc26b;
       font-size: 12px;
-      letter-spacing: 0.6px;
+      font-weight: 800;
+      letter-spacing: 0.7px;
       text-transform: uppercase;
       margin-bottom: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.22);
     }
 
     h1 {
       margin: 0;
-      font-size: 34px;
+      font-size: 35px;
       line-height: 1.05;
       letter-spacing: -1px;
+      font-weight: 950;
     }
 
     .brand p {
       margin: 10px auto 0;
+      max-width: 410px;
       color: rgba(255,255,255,0.72);
       font-size: 15px;
       line-height: 1.45;
-      max-width: 380px;
     }
 
     .menu {
@@ -100,80 +104,98 @@
     .menu-card {
       position: relative;
       width: 100%;
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 24px;
-      padding: 20px 18px;
+      min-height: 116px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 26px;
+      padding: 19px 18px;
       text-align: left;
       color: white;
       cursor: pointer;
       overflow: hidden;
-      background: rgba(255,255,255,0.085);
-      box-shadow: 0 18px 42px rgba(0,0,0,0.34);
+      background: rgba(255,255,255,0.088);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.36);
       backdrop-filter: blur(14px);
-      transition: transform 0.17s ease, border-color 0.17s ease, background 0.17s ease;
+      transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
     }
 
     .menu-card:hover {
       transform: translateY(-2px);
-      border-color: rgba(255, 193, 7, 0.45);
-      background: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.13);
+      border-color: rgba(255, 185, 70, 0.45);
     }
 
     .menu-card:active {
-      transform: scale(0.98);
+      transform: scale(0.985);
     }
 
     .menu-card::after {
       content: "";
       position: absolute;
-      right: -35px;
-      top: -35px;
-      width: 110px;
-      height: 110px;
+      width: 115px;
+      height: 115px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(255, 87, 34, 0.75), rgba(255, 193, 7, 0.45));
-      opacity: 0.8;
+      right: -38px;
+      top: -38px;
+      background: linear-gradient(135deg, rgba(255, 61, 0, 0.88), rgba(255, 184, 28, 0.58));
+      opacity: 0.82;
     }
 
-    .menu-card .icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 15px;
+    .menu-card::before {
+      content: "";
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      right: 22px;
+      bottom: -36px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 16px;
       display: grid;
       place-items: center;
-      margin-bottom: 14px;
-      font-size: 22px;
-      background: linear-gradient(135deg, #ff3d00, #ffb300);
-      box-shadow: 0 10px 22px rgba(255, 87, 34, 0.25);
+      font-size: 23px;
+      margin-bottom: 13px;
+      background: linear-gradient(135deg, #ff3d00, #ffc107);
+      box-shadow: 0 12px 26px rgba(255, 84, 0, 0.30);
     }
 
     .menu-card h2 {
       margin: 0 0 6px;
       font-size: 21px;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.35px;
+      font-weight: 950;
+      position: relative;
+      z-index: 1;
     }
 
     .menu-card p {
       margin: 0;
       color: rgba(255,255,255,0.72);
       font-size: 14px;
-      line-height: 1.4;
-      padding-right: 35px;
+      line-height: 1.42;
+      padding-right: 42px;
+      position: relative;
+      z-index: 1;
     }
 
     .panel {
-      background: rgba(255,255,255,0.095);
+      background: rgba(255,255,255,0.10);
       border: 1px solid rgba(255,255,255,0.16);
-      border-radius: 26px;
+      border-radius: 27px;
       padding: 18px;
-      box-shadow: 0 18px 42px rgba(0,0,0,0.34);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.38);
       backdrop-filter: blur(14px);
     }
 
     .top-title {
-      margin: 18px 0 14px;
       text-align: center;
+      margin: 18px 0 15px;
       font-size: 29px;
+      font-weight: 950;
       letter-spacing: -0.6px;
     }
 
@@ -183,48 +205,48 @@
 
     label {
       display: block;
-      font-size: 13px;
-      color: rgba(255,255,255,0.78);
       margin: 0 0 8px 2px;
-      font-weight: 700;
+      color: rgba(255,255,255,0.80);
+      font-size: 13px;
+      font-weight: 850;
     }
 
     select {
       width: 100%;
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 17px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 18px;
       padding: 15px 14px;
       outline: none;
       font-size: 16px;
+      font-weight: 850;
+      color: #210c06;
       background: #fff7ed;
-      color: #24100b;
-      font-weight: 700;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.20);
     }
 
     .main-btn, .ghost-btn {
       width: 100%;
-      border: none;
       border-radius: 18px;
       padding: 15px 16px;
       font-size: 16px;
-      font-weight: 900;
+      font-weight: 950;
       cursor: pointer;
-      transition: transform 0.15s ease, filter 0.15s ease;
+      transition: transform 0.14s ease, filter 0.14s ease;
     }
 
     .main-btn {
+      border: none;
       margin-top: 8px;
-      color: #1d0a04;
-      background: linear-gradient(135deg, #ffb300, #ff3d00);
-      box-shadow: 0 14px 30px rgba(255, 91, 0, 0.35);
+      color: #190804;
+      background: linear-gradient(135deg, #ffc107, #ff3d00);
+      box-shadow: 0 14px 30px rgba(255, 84, 0, 0.34);
     }
 
     .ghost-btn {
       margin-top: 10px;
       color: white;
-      background: rgba(255,255,255,0.11);
-      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
     }
 
     .main-btn:hover, .ghost-btn:hover {
@@ -233,32 +255,33 @@
     }
 
     .main-btn:active, .ghost-btn:active {
-      transform: scale(0.98);
+      transform: scale(0.985);
     }
 
     .progress {
       display: inline-block;
-      margin: 8px 0 14px;
-      padding: 8px 12px;
+      margin: 9px 0 14px;
+      padding: 8px 13px;
       border-radius: 999px;
+      background: rgba(255,255,255,0.11);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #ffc26b;
       font-size: 13px;
-      color: #ffcc80;
-      background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.14);
+      font-weight: 850;
     }
 
     .question-card {
-      background: rgba(255,255,255,0.97);
-      color: #160b09;
-      border-radius: 27px;
+      background: rgba(255,255,255,0.98);
+      color: #160907;
+      border-radius: 28px;
       padding: 20px;
-      box-shadow: 0 20px 48px rgba(0,0,0,0.42);
+      box-shadow: 0 22px 52px rgba(0,0,0,0.44);
     }
 
     .question {
       font-size: 21px;
       line-height: 1.35;
-      font-weight: 900;
+      font-weight: 950;
       letter-spacing: -0.35px;
       margin-bottom: 17px;
     }
@@ -272,16 +295,16 @@
     .answer {
       width: 100%;
       border: none;
-      border-radius: 17px;
+      border-radius: 18px;
       padding: 15px;
       text-align: left;
       font-size: 16px;
-      font-weight: 850;
+      font-weight: 900;
       cursor: pointer;
       color: white;
-      background: linear-gradient(135deg, #232631, #11131a);
-      box-shadow: 0 9px 18px rgba(0,0,0,0.18);
-      transition: transform 0.14s ease, filter 0.14s ease;
+      background: linear-gradient(135deg, #262936, #11131b);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+      transition: transform 0.13s ease, filter 0.13s ease;
     }
 
     .answer:hover {
@@ -290,7 +313,7 @@
     }
 
     .answer.correct {
-      background: linear-gradient(135deg, #00b09b, #1fdd6d) !important;
+      background: linear-gradient(135deg, #00a884, #24db6d) !important;
       color: white !important;
     }
 
@@ -307,8 +330,8 @@
       text-align: center;
       font-size: 44px;
       font-weight: 950;
-      margin: 10px 0 4px;
-      color: #ffb300;
+      margin: 8px 0 5px;
+      color: #ffc107;
     }
 
     .result-text {
@@ -320,39 +343,39 @@
 
     .wrong-item {
       background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.14);
       border-radius: 18px;
       padding: 14px;
       margin-bottom: 10px;
-      line-height: 1.45;
       color: rgba(255,255,255,0.88);
       font-size: 14px;
+      line-height: 1.45;
     }
 
     .wrong-item b {
-      color: #ffcc80;
+      color: #ffc26b;
     }
 
     .empty {
       text-align: center;
-      color: rgba(255,255,255,0.70);
-      padding: 30px 10px;
+      color: rgba(255,255,255,0.72);
+      padding: 28px 10px;
     }
 
     .mini-note {
-      text-align: center;
-      color: rgba(255,255,255,0.55);
-      font-size: 12px;
       margin-top: 18px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.50);
     }
 
-    @media (max-width: 420px) {
+    @media (max-width: 430px) {
       .app {
-        padding: 14px 13px 28px;
+        padding: 14px 13px 30px;
       }
 
       h1 {
-        font-size: 30px;
+        font-size: 31px;
       }
 
       .question {
@@ -360,8 +383,7 @@
       }
 
       .menu-card {
-        border-radius: 22px;
-        padding: 18px 16px;
+        border-radius: 23px;
       }
     }
   </style>
@@ -374,26 +396,32 @@
       <div class="brand">
         <div class="badge">YKS Edebiyat</div>
         <h1>Edebiyat Test</h1>
-        <p>Yazar-eser, roman kahramanları ve edebi akımları hızlı tekrar et.</p>
+        <p>Yazar-eser, roman kahramanı, edebi akım ve ÖSYM tarzı sık sorulanları hızlı tekrar et.</p>
       </div>
 
       <div class="menu">
         <button class="menu-card" onclick="openSettings('authorWork')">
           <div class="icon">✍️</div>
           <h2>Yazar - Eser</h2>
-          <p>Dönem seç, istersen yazardan eseri istersen eserden yazarı bul.</p>
+          <p>Dönem seç; yazardan eseri veya eserden yazarı bul.</p>
         </button>
 
         <button class="menu-card" onclick="openSettings('movements')">
           <div class="icon">🔥</div>
           <h2>Edebi Akımlar</h2>
-          <p>Özellik, dönem bilgisi ve temsilciler üzerinden akımı bul.</p>
+          <p>Özellik, bilgi ve az sayıda temsilci üzerinden akımı bul.</p>
         </button>
 
         <button class="menu-card" onclick="openSettings('characters')">
           <div class="icon">🎭</div>
           <h2>Roman Kahramanları</h2>
-          <p>Kahramanlar verilsin, hangi esere ait olduğunu seç.</p>
+          <p>Kahramanlar verilsin, hangi eserin olduğunu seç.</p>
+        </button>
+
+        <button class="menu-card" onclick="openSettings('frequent')">
+          <div class="icon">⭐</div>
+          <h2>Sık Sorulanlar</h2>
+          <p>ÖSYM tarzı sık gelen eserler, ilkler, akımlar ve kahramanlar.</p>
         </button>
 
         <button class="menu-card" onclick="showWrongs()">
@@ -462,6 +490,12 @@
 
   <script>
     var authorWorks = [
+      { period: "İslamiyet İlk Dönem", author: "Kaşgarlı Mahmut", works: ["Divanü Lügati't-Türk"] },
+      { period: "İslamiyet İlk Dönem", author: "Yusuf Has Hacip", works: ["Kutadgu Bilig"] },
+      { period: "İslamiyet İlk Dönem", author: "Edip Ahmet Yükneki", works: ["Atabetü'l-Hakayık"] },
+      { period: "İslamiyet İlk Dönem", author: "Ahmet Yesevi", works: ["Divan-ı Hikmet"] },
+      { period: "İslamiyet İlk Dönem", author: "Dede Korkut", works: ["Dede Korkut Hikâyeleri"] },
+
       { period: "Halk Edebiyatı", author: "Yunus Emre", works: ["Risaletü'n-Nushiyye"] },
       { period: "Halk Edebiyatı", author: "Hacı Bektaş-ı Veli", works: ["Makalat"] },
       { period: "Halk Edebiyatı", author: "Kaygusuz Abdal", works: ["Kitab-ı Miglate", "Budalaname", "Mugalatname", "Vücudname", "Sarayname"] },
@@ -499,6 +533,7 @@
       { period: "Divan / Geçiş", author: "Koçi Bey", works: ["Risale"] },
       { period: "Divan / Geçiş", author: "Yirmisekiz Mehmet Çelebi", works: ["Fransa Sefaretnamesi"] },
       { period: "Divan / Geçiş", author: "Veysi", works: ["Habnâme", "Münşeat", "Siyer-i Veysi"] },
+      { period: "Divan / Geçiş", author: "Babür Şah", works: ["Babürnâme"] },
 
       { period: "Tanzimat", author: "Namık Kemal", works: ["Hürriyet Kasidesi", "Vatan Şarkısı", "Vatan Mersiyesi", "İntibah", "Cezmi", "Vatan yahut Silistre", "Celalettin Harzemşah", "Gülnihal", "Tahrib-i Harabat", "Takib-i Harabat", "Renan Müdafaanamesi"] },
       { period: "Tanzimat", author: "Ziya Paşa", works: ["Harabat", "Terkib-i Bent", "Terci-i Bent", "Eş’ar-ı Ziya", "Defter-i Âmal", "Zafernâme"] },
@@ -646,7 +681,7 @@
       },
       {
         name: "Romantizm",
-        clues: ["Duygu ve hayal öne çıkar", "Sanatçı kişiliğini gizlemez", "Tarihî konulara yönelme görülür", "İyi-kötü, güzel-çirkin gibi zıtlıklardan yararlanılır", "Hürriyet düşüncesi önemlidir"],
+        clues: ["Duygu ve hayal öne çıkar", "Sanatçı kişiliğini gizlemez", "Tarihî konulara yönelme görülür", "İyi-kötü ve güzel-çirkin gibi zıtlıklardan yararlanılır", "Hürriyet düşüncesi önemlidir"],
         info: ["Kuralcı anlayışa tepki olarak doğmuştur", "Tanzimat birinci dönem sanatçıları üzerinde etkili olmuştur"],
         authors: ["Victor Hugo", "Goethe", "Schiller", "Namık Kemal", "Ahmet Mithat Efendi"]
       },
@@ -702,13 +737,13 @@
         name: "Dadaizm",
         clues: ["Kuralsızlık öne çıkar", "Anlamsızlık bilinçli biçimde kullanılır", "Yerleşik sanat anlayışı reddedilir", "Savaş sonrası güvensizlik ve şüphe havası taşır", "Kelimelerin rastgele seçilmesi bile sanat sayılabilir"],
         info: ["Birinci Dünya Savaşı ortamında doğmuştur", "Geleneksel sanata ve mantığa başkaldırır"],
-        authors: ["Tristan Tzara", "Andre Breton"]
+        authors: ["Tristan Tzara"]
       },
       {
         name: "Sürrealizm",
         clues: ["Bilinçaltı önemlidir", "Rüya ve hipnozdan yararlanılır", "Freud'un görüşlerinden etkilenilmiştir", "Otomatik yazı tekniği kullanılır", "Mantık denetimi geri plana itilir"],
         info: ["Psikanalizden etkilenen bir anlayıştır", "Bilinç denetiminin dışında kalan alanlara yönelir"],
-        authors: ["Andre Breton", "Paul Eluard", "Louis Aragon", "Garipçiler bazı yönleriyle etkilenmiştir"]
+        authors: ["Andre Breton", "Paul Eluard", "Louis Aragon"]
       },
       {
         name: "Egzistansiyalizm",
@@ -716,6 +751,98 @@
         info: ["İkinci Dünya Savaşı sonrası etkisi artmıştır", "Bireyin varoluş sorunu üzerinde durur"],
         authors: ["Jean-Paul Sartre", "Albert Camus", "Dostoyevski"]
       }
+    ];
+
+    var firsts = [
+      { clue: "Türk dilinin ilk sözlüğü hangisidir?", answer: "Divanü Lügati't-Türk" },
+      { clue: "Türk dilinin ilk dil bilgisi kitabı kabul edilen eser hangisidir?", answer: "Divanü Lügati't-Türk" },
+      { clue: "İlk siyasetname örneği hangisidir?", answer: "Kutadgu Bilig" },
+      { clue: "İslamî dönem Türk edebiyatının ilk yazılı eseri hangisidir?", answer: "Kutadgu Bilig" },
+      { clue: "Edebiyatımızda ilk mesnevi örneği hangisidir?", answer: "Kutadgu Bilig" },
+      { clue: "İlk didaktik eser örneği hangisidir?", answer: "Kutadgu Bilig" },
+      { clue: "İlk yazılı edebî metin ve Türk adının geçtiği ilk metin hangisidir?", answer: "Göktürk Yazıtları" },
+      { clue: "İlk söylev örneği kabul edilen eser hangisidir?", answer: "Göktürk Yazıtları" },
+      { clue: "İlk Türkçe sözlük hangisidir?", answer: "Kamus-ı Türkî" },
+      { clue: "Türkçenin ilk dil bilgisi kitabı hangisidir?", answer: "Sarf-ı Türkî" },
+      { clue: "İlk tezkire örneği hangisidir?", answer: "Mecalisü’n-Nefais" },
+      { clue: "Anadolu sahasında yazılan ilk tezkire hangisidir?", answer: "Heşt Behişt" },
+      { clue: "İlk bibliyografya örneği hangisidir?", answer: "Keşfü'z-Zunun" },
+      { clue: "İlk atasözleri derlemesi hangisidir?", answer: "Durub-ı Emsal-i Osmaniye" },
+      { clue: "İlk hatıra kitabı hangisidir?", answer: "Babürnâme" },
+      { clue: "Edebiyatımızdaki en önemli gezi yazısı örneği hangisidir?", answer: "Seyahatname" },
+      { clue: "İlk hikâye örneği hangisidir?", answer: "Letaif-i Rivayat" },
+      { clue: "Batılı anlamda ilk hikâye denemesi hangisidir?", answer: "Küçük Şeyler" },
+      { clue: "İlk yerli roman hangisidir?", answer: "Taaşşuk-ı Talat ve Fitnat" },
+      { clue: "İlk edebî roman hangisidir?", answer: "İntibah" },
+      { clue: "İlk realist roman denemesi hangisidir?", answer: "Araba Sevdası" },
+      { clue: "İlk köy romanı denemesi hangisidir?", answer: "Karabibik" },
+      { clue: "İlk psikolojik roman hangisidir?", answer: "Eylül" },
+      { clue: "İlk tarihî roman örneği hangisidir?", answer: "Cezmi" },
+      { clue: "İlk tiyatro eseri hangisidir?", answer: "Şair Evlenmesi" },
+      { clue: "Sahnelenen ilk tiyatro eseri hangisidir?", answer: "Vatan yahut Silistre" },
+      { clue: "İlk makale örneği hangisidir?", answer: "Tercüman-ı Ahval Mukaddimesi" },
+      { clue: "İlk özel Türkçe gazete hangisidir?", answer: "Tercüman-ı Ahval" },
+      { clue: "İlk resmî Türkçe gazete hangisidir?", answer: "Takvim-i Vakayi" },
+      { clue: "Dilde sadeleşmeyi savunan yayın organı hangisidir?", answer: "Genç Kalemler" }
+    ];
+
+    var frequentAuthors = [
+      { author: "Kaşgarlı Mahmut", work: "Divanü Lügati't-Türk" },
+      { author: "Yusuf Has Hacip", work: "Kutadgu Bilig" },
+      { author: "Edip Ahmet Yükneki", work: "Atabetü'l-Hakayık" },
+      { author: "Ahmet Yesevi", work: "Divan-ı Hikmet" },
+      { author: "Dede Korkut", work: "Dede Korkut Hikâyeleri" },
+      { author: "Şemsettin Sami", work: "Kamus-ı Türkî" },
+      { author: "Süleyman Paşa", work: "Sarf-ı Türkî" },
+      { author: "Ali Şir Nevaî", work: "Mecalisü’n-Nefais" },
+      { author: "Sehî Bey", work: "Heşt Behişt" },
+      { author: "Katip Çelebi", work: "Keşfü'z-Zunun" },
+      { author: "Şinasi", work: "Durub-ı Emsal-i Osmaniye" },
+      { author: "Şinasi", work: "Tercüman-ı Ahval Mukaddimesi" },
+      { author: "Babür Şah", work: "Babürnâme" },
+      { author: "Evliya Çelebi", work: "Seyahatname" },
+      { author: "Recaizade Mahmud Ekrem", work: "Araba Sevdası" },
+      { author: "Namık Kemal", work: "İntibah" },
+      { author: "Namık Kemal", work: "Cezmi" },
+      { author: "Nabizade Nazım", work: "Karabibik" },
+      { author: "Nabizade Nazım", work: "Zehra" },
+      { author: "Samipaşazâde Sezai", work: "Sergüzeşt" },
+      { author: "Halit Ziya Uşaklıgil", work: "Mai ve Siyah" },
+      { author: "Halit Ziya Uşaklıgil", work: "Aşk-ı Memnu" },
+      { author: "Mehmet Rauf", work: "Eylül" },
+      { author: "Yakup Kadri Karaosmanoğlu", work: "Yaban" },
+      { author: "Yakup Kadri Karaosmanoğlu", work: "Kiralık Konak" },
+      { author: "Halide Edip Adıvar", work: "Ateşten Gömlek" },
+      { author: "Halide Edip Adıvar", work: "Vurun Kahpeye" },
+      { author: "Reşat Nuri Güntekin", work: "Çalıkuşu" },
+      { author: "Reşat Nuri Güntekin", work: "Yaprak Dökümü" },
+      { author: "Peyami Safa", work: "Fatih-Harbiye" },
+      { author: "Peyami Safa", work: "Dokuzuncu Hariciye Koğuşu" },
+      { author: "Ahmet Hamdi Tanpınar", work: "Huzur" },
+      { author: "Ahmet Hamdi Tanpınar", work: "Saatleri Ayarlama Enstitüsü" },
+      { author: "Oğuz Atay", work: "Tutunamayanlar" },
+      { author: "Yusuf Atılgan", work: "Anayurt Oteli" },
+      { author: "Yusuf Atılgan", work: "Aylak Adam" },
+      { author: "Yaşar Kemal", work: "İnce Memed" },
+      { author: "Orhan Kemal", work: "Bereketli Topraklar Üzerinde" },
+      { author: "Fakir Baykurt", work: "Yılanların Öcü" }
+    ];
+
+    var frequentCharacters = [
+      { work: "Araba Sevdası", chars: ["Bihruz Bey", "Periveş", "Keşfi Bey"] },
+      { work: "İntibah", chars: ["Ali Bey", "Mahpeyker", "Dilaşup"] },
+      { work: "Aşk-ı Memnu", chars: ["Adnan Bey", "Bihter", "Behlül", "Nihal"] },
+      { work: "Eylül", chars: ["Necip", "Suat", "Süreyya"] },
+      { work: "Mai ve Siyah", chars: ["Ahmet Cemil", "Lamia", "Hüseyin Nazmi"] },
+      { work: "Yaprak Dökümü", chars: ["Ali Rıza Bey", "Ferhunde", "Leyla", "Necla"] },
+      { work: "Çalıkuşu", chars: ["Feride", "Kamuran"] },
+      { work: "Yaban", chars: ["Ahmet Celal", "Emine", "Mehmet Ali"] },
+      { work: "Huzur", chars: ["Mümtaz", "Nuran", "Suat", "İhsan"] },
+      { work: "Anayurt Oteli", chars: ["Zebercet"] },
+      { work: "Tutunamayanlar", chars: ["Selim Işık", "Turgut Özben"] },
+      { work: "İnce Memed", chars: ["Memed", "Hatce", "Abdi Ağa"] },
+      { work: "Kuyucaklı Yusuf", chars: ["Yusuf", "Muazzez"] },
+      { work: "Fatih-Harbiye", chars: ["Neriman", "Şinasi", "Macit"] }
     ];
 
     var currentCategory = "";
@@ -764,7 +891,7 @@
         periodBox.style.display = "block";
         typeBox.style.display = "block";
 
-        var periods = ["Tüm Dönemler", "Halk Edebiyatı", "Divan / Geçiş", "Tanzimat", "Servetifünun", "Fecriati", "Milli Edebiyat", "Cumhuriyet"];
+        var periods = ["Tüm Dönemler", "İslamiyet İlk Dönem", "Halk Edebiyatı", "Divan / Geçiş", "Tanzimat", "Servetifünun", "Fecriati", "Milli Edebiyat", "Cumhuriyet"];
         for (var p = 0; p < periods.length; p++) {
           addOption(periodSelect, periods[p], periods[p]);
         }
@@ -781,6 +908,12 @@
 
       if (category === "characters") {
         title.innerText = "Roman Kahramanları";
+        periodBox.style.display = "none";
+        typeBox.style.display = "none";
+      }
+
+      if (category === "frequent") {
+        title.innerText = "Sık Sorulanlar";
         periodBox.style.display = "none";
         typeBox.style.display = "none";
       }
@@ -813,7 +946,7 @@
         count: currentCount
       };
 
-      currentQuestions = buildQuestions(currentCategory, currentType, currentPeriod);
+      currentQuestions = buildQuestions(currentCategory, currentType, currentPeriod, currentCount);
       currentQuestions = shuffle(currentQuestions);
 
       if (currentQuestions.length > currentCount) {
@@ -839,7 +972,7 @@
       currentPeriod = lastSettings.period;
       currentCount = lastSettings.count;
 
-      currentQuestions = buildQuestions(currentCategory, currentType, currentPeriod);
+      currentQuestions = buildQuestions(currentCategory, currentType, currentPeriod, currentCount);
       currentQuestions = shuffle(currentQuestions);
 
       if (currentQuestions.length > currentCount) {
@@ -854,18 +987,22 @@
       showQuestion();
     }
 
-    function buildQuestions(category, type, period) {
+    function buildQuestions(category, type, period, count) {
       if (category === "authorWork") {
         if (type === "authorToWork") return buildAuthorToWork(period);
         if (type === "workToAuthor") return buildWorkToAuthor(period);
       }
 
       if (category === "movements") {
-        return buildMovementQuestions();
+        return buildMovementQuestions(count);
       }
 
       if (category === "characters") {
-        return buildCharacterQuestions();
+        return buildCharacterQuestions(characters);
+      }
+
+      if (category === "frequent") {
+        return buildFrequentQuestions(count);
       }
 
       return [];
@@ -936,19 +1073,19 @@
       return result;
     }
 
-    function buildCharacterQuestions() {
+    function buildCharacterQuestions(source) {
       var works = [];
       var result = [];
 
-      for (var i = 0; i < characters.length; i++) {
-        works.push(characters[i].work);
+      for (var i = 0; i < source.length; i++) {
+        works.push(source[i].work);
       }
 
-      for (var c = 0; c < characters.length; c++) {
-        var correct = characters[c].work;
+      for (var c = 0; c < source.length; c++) {
+        var correct = source[c].work;
         var wrongs = getRandomWrong(works, correct, 4);
         result.push({
-          question: characters[c].chars.join(", ") + " hangi eserin kahramanlarıdır?",
+          question: source[c].chars.join(", ") + " hangi eserin kahramanlarıdır?",
           correct: correct,
           options: shuffle([correct].concat(wrongs))
         });
@@ -957,16 +1094,13 @@
       return result;
     }
 
-    function buildMovementQuestions() {
-      var result = [];
+    function buildMovementQuestions(count) {
+      var base = [];
+      var authorQuestions = [];
       var names = [];
-      var allClues = [];
 
       for (var i = 0; i < movements.length; i++) {
         names.push(movements[i].name);
-        for (var c = 0; c < movements[i].clues.length; c++) {
-          allClues.push(movements[i].clues[c]);
-        }
       }
 
       for (var m = 0; m < movements.length; m++) {
@@ -975,8 +1109,7 @@
         for (var q = 0; q < movement.clues.length; q++) {
           var clueSet = shuffle(movement.clues).slice(0, 3).join(", ");
           var wrongNames = getRandomWrong(names, movement.name, 4);
-
-          result.push({
+          base.push({
             question: clueSet + " özellikleri hangi edebi akıma aittir?",
             correct: movement.name,
             options: shuffle([movement.name].concat(wrongNames))
@@ -985,7 +1118,7 @@
 
         for (var infoIndex = 0; infoIndex < movement.info.length; infoIndex++) {
           var wrongNames2 = getRandomWrong(names, movement.name, 4);
-          result.push({
+          base.push({
             question: movement.info[infoIndex] + ". Bu bilgi hangi edebi akımla ilgilidir?",
             correct: movement.name,
             options: shuffle([movement.name].concat(wrongNames2))
@@ -994,23 +1127,115 @@
 
         for (var a = 0; a < movement.authors.length; a++) {
           var wrongNames3 = getRandomWrong(names, movement.name, 4);
-          result.push({
+          authorQuestions.push({
             question: movement.authors[a] + " hangi edebi akımla ilişkilendirilir?",
             correct: movement.name,
             options: shuffle([movement.name].concat(wrongNames3))
           });
         }
+      }
 
-        for (var f = 0; f < movement.clues.length; f++) {
-          var correctFeature = movement.clues[f];
-          var wrongFeatures = getRandomWrong(allClues, correctFeature, 4);
+      base = shuffle(base);
+      authorQuestions = shuffle(authorQuestions);
 
-          result.push({
-            question: movement.name + " akımı için hangisi doğrudur?",
-            correct: correctFeature,
-            options: shuffle([correctFeature].concat(wrongFeatures))
-          });
-        }
+      var authorLimit = Math.round(count * 0.12);
+      if (count <= 10) authorLimit = 1;
+      if (count === 20) authorLimit = 2;
+      if (count === 30) authorLimit = 3;
+      if (count === 40) authorLimit = 5;
+      if (count === 50) authorLimit = 6;
+      if (count >= 100) authorLimit = 12;
+
+      var selected = base.slice(0, Math.max(0, count - authorLimit)).concat(authorQuestions.slice(0, authorLimit));
+      return selected;
+    }
+
+    function buildFrequentQuestions(count) {
+      var result = [];
+
+      result = result.concat(buildFrequentAuthorQuestions());
+      result = result.concat(buildFrequentCharacterQuestions());
+      result = result.concat(buildFrequentMovementQuestions());
+      result = result.concat(buildFirstQuestions());
+
+      return shuffle(result);
+    }
+
+    function buildFrequentAuthorQuestions() {
+      var result = [];
+      var authors = [];
+      var works = [];
+
+      for (var i = 0; i < frequentAuthors.length; i++) {
+        authors.push(frequentAuthors[i].author);
+        works.push(frequentAuthors[i].work);
+      }
+
+      for (var a = 0; a < frequentAuthors.length; a++) {
+        var item = frequentAuthors[a];
+
+        var wrongWorks = getRandomWrong(works, item.work, 4);
+        result.push({
+          question: item.author + " adlı sanatçının eseri hangisidir?",
+          correct: item.work,
+          options: shuffle([item.work].concat(wrongWorks))
+        });
+
+        var wrongAuthors = getRandomWrong(authors, item.author, 4);
+        result.push({
+          question: '"' + item.work + '" adlı eser kime aittir?",
+          correct: item.author,
+          options: shuffle([item.author].concat(wrongAuthors))
+        });
+      }
+
+      return result;
+    }
+
+    function buildFrequentCharacterQuestions() {
+      return buildCharacterQuestions(frequentCharacters);
+    }
+
+    function buildFrequentMovementQuestions() {
+      var result = [];
+      var names = [];
+
+      for (var i = 0; i < movements.length; i++) {
+        names.push(movements[i].name);
+      }
+
+      for (var m = 0; m < movements.length; m++) {
+        var movement = movements[m];
+        var clueSet = shuffle(movement.clues).slice(0, 3).join(", ");
+        var wrongNames = getRandomWrong(names, movement.name, 4);
+
+        result.push({
+          question: clueSet + " özellikleri hangi edebi akıma aittir?",
+          correct: movement.name,
+          options: shuffle([movement.name].concat(wrongNames))
+        });
+      }
+
+      return result;
+    }
+
+    function buildFirstQuestions() {
+      var result = [];
+      var answers = [];
+
+      for (var i = 0; i < firsts.length; i++) {
+        answers.push(firsts[i].answer);
+      }
+
+      for (var f = 0; f < firsts.length; f++) {
+        var correct = firsts[f].answer;
+        var wrongs = getRandomWrong(answers, correct, 4);
+
+        result.push({
+          question: firsts[f].clue,
+          correct: correct,
+          options: shuffle([correct].concat(wrongs))
+        });
       }
 
       return result;
@@ -1118,8 +1343,8 @@
         date: new Date().toLocaleString("tr-TR")
       });
 
-      if (wrongs.length > 200) {
-        wrongs = wrongs.slice(0, 200);
+      if (wrongs.length > 250) {
+        wrongs = wrongs.slice(0, 250);
       }
 
       localStorage.setItem("edebiyatWrongs", JSON.stringify(wrongs));
