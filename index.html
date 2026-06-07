@@ -34,11 +34,12 @@
       background-size: 38px 38px;
       pointer-events: none;
       opacity: 0.38;
+      z-index: 0;
     }
 
     .app {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       width: 100%;
       max-width: 560px;
       margin: 0 auto;
@@ -116,6 +117,8 @@
       box-shadow: 0 20px 45px rgba(0,0,0,0.36);
       backdrop-filter: blur(14px);
       transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+      touch-action: manipulation;
+      z-index: 2;
     }
 
     .menu-card:hover {
@@ -138,6 +141,8 @@
       top: -38px;
       background: linear-gradient(135deg, rgba(255, 61, 0, 0.88), rgba(255, 184, 28, 0.58));
       opacity: 0.82;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .menu-card::before {
@@ -149,6 +154,14 @@
       right: 22px;
       bottom: -36px;
       background: rgba(255,255,255,0.08);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .icon, .menu-card h2, .menu-card p {
+      position: relative;
+      z-index: 3;
+      pointer-events: none;
     }
 
     .icon {
@@ -168,8 +181,6 @@
       font-size: 21px;
       letter-spacing: -0.35px;
       font-weight: 950;
-      position: relative;
-      z-index: 1;
     }
 
     .menu-card p {
@@ -178,8 +189,6 @@
       font-size: 14px;
       line-height: 1.42;
       padding-right: 42px;
-      position: relative;
-      z-index: 1;
     }
 
     .panel {
@@ -232,6 +241,7 @@
       font-weight: 950;
       cursor: pointer;
       transition: transform 0.14s ease, filter 0.14s ease;
+      touch-action: manipulation;
     }
 
     .main-btn {
@@ -247,15 +257,6 @@
       color: white;
       background: rgba(255,255,255,0.10);
       border: 1px solid rgba(255,255,255,0.16);
-    }
-
-    .main-btn:hover, .ghost-btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.05);
-    }
-
-    .main-btn:active, .ghost-btn:active {
-      transform: scale(0.985);
     }
 
     .progress {
@@ -304,12 +305,7 @@
       color: white;
       background: linear-gradient(135deg, #262936, #11131b);
       box-shadow: 0 10px 20px rgba(0,0,0,0.18);
-      transition: transform 0.13s ease, filter 0.13s ease;
-    }
-
-    .answer:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.12);
+      touch-action: manipulation;
     }
 
     .answer.correct {
@@ -400,35 +396,37 @@
       </div>
 
       <div class="menu">
-        <button class="menu-card" onclick="openSettings('authorWork')">
-          <div class="icon">✍️</div>
-          <h2>Yazar - Eser</h2>
-          <p>Dönem seç; yazardan eseri veya eserden yazarı bul.</p>
-        </button>
 
-        <button class="menu-card" onclick="openSettings('movements')">
-          <div class="icon">🔥</div>
-          <h2>Edebi Akımlar</h2>
-          <p>Özellik, bilgi ve az sayıda temsilci üzerinden akımı bul.</p>
-        </button>
-
-        <button class="menu-card" onclick="openSettings('characters')">
-          <div class="icon">🎭</div>
-          <h2>Roman Kahramanları</h2>
-          <p>Kahramanlar verilsin, hangi eserin olduğunu seç.</p>
-        </button>
-
-        <button class="menu-card" onclick="openSettings('frequent')">
+        <button type="button" class="menu-card" onclick="openSettings('frequent')">
           <div class="icon">⭐</div>
           <h2>Sık Sorulanlar</h2>
           <p>ÖSYM tarzı sık gelen eserler, ilkler, akımlar ve kahramanlar.</p>
         </button>
 
-        <button class="menu-card" onclick="showWrongs()">
+        <button type="button" class="menu-card" onclick="openSettings('authorWork')">
+          <div class="icon">✍️</div>
+          <h2>Yazar - Eser</h2>
+          <p>Dönem seç; yazardan eseri veya eserden yazarı bul.</p>
+        </button>
+
+        <button type="button" class="menu-card" onclick="openSettings('movements')">
+          <div class="icon">🔥</div>
+          <h2>Edebi Akımlar</h2>
+          <p>Özellik, bilgi ve az sayıda temsilci üzerinden akımı bul.</p>
+        </button>
+
+        <button type="button" class="menu-card" onclick="openSettings('characters')">
+          <div class="icon">🎭</div>
+          <h2>Roman Kahramanları</h2>
+          <p>Kahramanlar verilsin, hangi eserin olduğunu seç.</p>
+        </button>
+
+        <button type="button" class="menu-card" onclick="showWrongs()">
           <div class="icon">📌</div>
           <h2>Yanlışlarım</h2>
           <p>Yanlış yaptığın soruları tekrar gör.</p>
         </button>
+
       </div>
 
       <div class="mini-note">GitHub Pages üzerinde çalışır. PC kapalı olsa da link açık kalır.</div>
@@ -453,8 +451,8 @@
           <select id="countSelect"></select>
         </div>
 
-        <button class="main-btn" onclick="startTest()">Teste Başla</button>
-        <button class="ghost-btn" onclick="goHome()">Ana Menü</button>
+        <button type="button" class="main-btn" onclick="startTest()">Teste Başla</button>
+        <button type="button" class="ghost-btn" onclick="goHome()">Ana Menü</button>
       </div>
     </div>
 
@@ -466,7 +464,7 @@
         <div class="answers" id="answers"></div>
       </div>
 
-      <button class="ghost-btn" onclick="goHome()">Testi Bitir</button>
+      <button type="button" class="ghost-btn" onclick="goHome()">Testi Bitir</button>
     </div>
 
     <div id="resultScreen" class="screen">
@@ -474,375 +472,193 @@
       <div class="panel">
         <div class="result-number" id="resultNumber">0/10</div>
         <div class="result-text" id="resultText"></div>
-        <button class="main-btn" onclick="repeatSameTest()">Aynı Testten Tekrar Çöz</button>
-        <button class="ghost-btn" onclick="goHome()">Ana Menü</button>
+        <button type="button" class="main-btn" onclick="repeatSameTest()">Aynı Testten Tekrar Çöz</button>
+        <button type="button" class="ghost-btn" onclick="goHome()">Ana Menü</button>
       </div>
     </div>
 
     <div id="wrongScreen" class="screen">
       <h1 class="top-title">Yanlışlarım</h1>
       <div id="wrongList"></div>
-      <button class="main-btn" onclick="clearWrongs()">Yanlışları Temizle</button>
-      <button class="ghost-btn" onclick="goHome()">Ana Menü</button>
+      <button type="button" class="main-btn" onclick="clearWrongs()">Yanlışları Temizle</button>
+      <button type="button" class="ghost-btn" onclick="goHome()">Ana Menü</button>
     </div>
 
   </div>
 
   <script>
     var authorWorks = [
-      { period: "İslamiyet İlk Dönem", author: "Kaşgarlı Mahmut", works: ["Divanü Lügati't-Türk"] },
-      { period: "İslamiyet İlk Dönem", author: "Yusuf Has Hacip", works: ["Kutadgu Bilig"] },
-      { period: "İslamiyet İlk Dönem", author: "Edip Ahmet Yükneki", works: ["Atabetü'l-Hakayık"] },
-      { period: "İslamiyet İlk Dönem", author: "Ahmet Yesevi", works: ["Divan-ı Hikmet"] },
-      { period: "İslamiyet İlk Dönem", author: "Dede Korkut", works: ["Dede Korkut Hikâyeleri"] },
+      ["İslamiyet İlk Dönem", "Kaşgarlı Mahmut", ["Divanü Lügati't-Türk"]],
+      ["İslamiyet İlk Dönem", "Yusuf Has Hacip", ["Kutadgu Bilig"]],
+      ["İslamiyet İlk Dönem", "Edip Ahmet Yükneki", ["Atabetü'l-Hakayık"]],
+      ["İslamiyet İlk Dönem", "Ahmet Yesevi", ["Divan-ı Hikmet"]],
+      ["İslamiyet İlk Dönem", "Dede Korkut", ["Dede Korkut Hikâyeleri"]],
 
-      { period: "Halk Edebiyatı", author: "Yunus Emre", works: ["Risaletü'n-Nushiyye"] },
-      { period: "Halk Edebiyatı", author: "Hacı Bektaş-ı Veli", works: ["Makalat"] },
-      { period: "Halk Edebiyatı", author: "Kaygusuz Abdal", works: ["Kitab-ı Miglate", "Budalaname", "Mugalatname", "Vücudname", "Sarayname"] },
-      { period: "Halk Edebiyatı", author: "Pir Sultan Abdal", works: ["Minbername"] },
-      { period: "Halk Edebiyatı", author: "Eşrefoğlu Rumi", works: ["Müzekki'n-Nüfus"] },
-      { period: "Halk Edebiyatı", author: "Erzurumlu İbrahim Hakkı", works: ["Marifetname"] },
-      { period: "Halk Edebiyatı", author: "Bayburtlu Zihni", works: ["Sergüzeştname", "Kitab-ı Hikaye-i Garibe"] },
-      { period: "Halk Edebiyatı", author: "Aşık Ömer", works: ["Şairname"] },
-      { period: "Halk Edebiyatı", author: "Dertli", works: ["Şairname"] },
-      { period: "Halk Edebiyatı", author: "Kayıkçı Kul Mustafa", works: ["Genç Osman Destanı"] },
+      ["Halk Edebiyatı", "Yunus Emre", ["Risaletü'n-Nushiyye"]],
+      ["Halk Edebiyatı", "Hacı Bektaş-ı Veli", ["Makalat"]],
+      ["Halk Edebiyatı", "Kaygusuz Abdal", ["Kitab-ı Miglate", "Budalaname", "Mugalatname", "Vücudname", "Sarayname"]],
+      ["Halk Edebiyatı", "Pir Sultan Abdal", ["Minbername"]],
+      ["Halk Edebiyatı", "Eşrefoğlu Rumi", ["Müzekki'n-Nüfus"]],
+      ["Halk Edebiyatı", "Erzurumlu İbrahim Hakkı", ["Marifetname"]],
+      ["Halk Edebiyatı", "Bayburtlu Zihni", ["Sergüzeştname", "Kitab-ı Hikaye-i Garibe"]],
+      ["Halk Edebiyatı", "Aşık Ömer", ["Şairname"]],
+      ["Halk Edebiyatı", "Dertli", ["Şairname"]],
+      ["Halk Edebiyatı", "Kayıkçı Kul Mustafa", ["Genç Osman Destanı"]],
 
-      { period: "Divan / Geçiş", author: "Hoca Dehhani", works: ["Şehname"] },
-      { period: "Divan / Geçiş", author: "Mevlana", works: ["Divan-ı Kebir", "Mesnevi", "Mektubat", "Fihi Ma Fih", "Mecalis-i Seb'a"] },
-      { period: "Divan / Geçiş", author: "Şeyyat Hamza", works: ["Yusuf u Züleyha"] },
-      { period: "Divan / Geçiş", author: "Ahmet Fakih", works: ["Çarhname"] },
-      { period: "Divan / Geçiş", author: "Gülşehri", works: ["Mantıku’t-Tayr"] },
-      { period: "Divan / Geçiş", author: "Âşık Paşa", works: ["Garipname", "Fakrname", "Vasf-ı Hâl"] },
-      { period: "Divan / Geçiş", author: "Ahmedî", works: ["Cemşid ü Hurşit"] },
-      { period: "Divan / Geçiş", author: "Şeyhî", works: ["Harname", "Hüsrev ü Şirin"] },
-      { period: "Divan / Geçiş", author: "Ahmet Paşa", works: ["Kerem Kasidesi", "Güneş Kasidesi"] },
-      { period: "Divan / Geçiş", author: "Ali Şir Nevaî", works: ["Mecalisü’n-Nefais", "Muhakemetü’l-Lugateyn", "Mizanu’l-Evzan"] },
-      { period: "Divan / Geçiş", author: "Süleyman Çelebi", works: ["Vesiletü’n-Necat"] },
-      { period: "Divan / Geçiş", author: "Fuzuli", works: ["Su Kasidesi", "Şikâyetname", "Leyla vü Mecnun", "Beng ü Bade"] },
-      { period: "Divan / Geçiş", author: "Baki", works: ["Kanuni Mersiyesi", "Fezail-i Mekke"] },
-      { period: "Divan / Geçiş", author: "Nefi", works: ["Siham-ı Kaza"] },
-      { period: "Divan / Geçiş", author: "Nabi", works: ["Tühfetü’l-Harameyn", "Hayriyye", "Hayrabat"] },
-      { period: "Divan / Geçiş", author: "Şeyh Galip", works: ["Hüsn ü Aşk"] },
-      { period: "Divan / Geçiş", author: "Keçecizade İzzet Molla", works: ["Mihnet-i Keşan", "Gülşen-i Aşk"] },
-      { period: "Divan / Geçiş", author: "Sehî Bey", works: ["Heşt Behişt"] },
-      { period: "Divan / Geçiş", author: "Katip Çelebi", works: ["Keşfü'z-Zunun", "Cihannüma"] },
-      { period: "Divan / Geçiş", author: "Mercimek Ahmet", works: ["Kabusname"] },
-      { period: "Divan / Geçiş", author: "Erzurumlu Kadı Darir", works: ["Sîretü'n-Nebî"] },
-      { period: "Divan / Geçiş", author: "Seydi Ali Reis", works: ["Miratü’l-Memalik"] },
-      { period: "Divan / Geçiş", author: "Evliya Çelebi", works: ["Seyahatname"] },
-      { period: "Divan / Geçiş", author: "Koçi Bey", works: ["Risale"] },
-      { period: "Divan / Geçiş", author: "Yirmisekiz Mehmet Çelebi", works: ["Fransa Sefaretnamesi"] },
-      { period: "Divan / Geçiş", author: "Veysi", works: ["Habnâme", "Münşeat", "Siyer-i Veysi"] },
-      { period: "Divan / Geçiş", author: "Babür Şah", works: ["Babürnâme"] },
+      ["Divan / Geçiş", "Mevlana", ["Divan-ı Kebir", "Mesnevi", "Mektubat", "Fihi Ma Fih", "Mecalis-i Seb'a"]],
+      ["Divan / Geçiş", "Şeyyat Hamza", ["Yusuf u Züleyha"]],
+      ["Divan / Geçiş", "Ahmet Fakih", ["Çarhname"]],
+      ["Divan / Geçiş", "Gülşehri", ["Mantıku’t-Tayr"]],
+      ["Divan / Geçiş", "Âşık Paşa", ["Garipname", "Fakrname", "Vasf-ı Hâl"]],
+      ["Divan / Geçiş", "Şeyhî", ["Harname", "Hüsrev ü Şirin"]],
+      ["Divan / Geçiş", "Ali Şir Nevaî", ["Mecalisü’n-Nefais", "Muhakemetü’l-Lugateyn", "Mizanu’l-Evzan"]],
+      ["Divan / Geçiş", "Süleyman Çelebi", ["Vesiletü’n-Necat"]],
+      ["Divan / Geçiş", "Fuzuli", ["Su Kasidesi", "Şikâyetname", "Leyla vü Mecnun", "Beng ü Bade"]],
+      ["Divan / Geçiş", "Baki", ["Kanuni Mersiyesi", "Fezail-i Mekke"]],
+      ["Divan / Geçiş", "Nefi", ["Siham-ı Kaza"]],
+      ["Divan / Geçiş", "Nabi", ["Tühfetü’l-Harameyn", "Hayriyye", "Hayrabat"]],
+      ["Divan / Geçiş", "Şeyh Galip", ["Hüsn ü Aşk"]],
+      ["Divan / Geçiş", "Katip Çelebi", ["Keşfü'z-Zunun", "Cihannüma"]],
+      ["Divan / Geçiş", "Evliya Çelebi", ["Seyahatname"]],
+      ["Divan / Geçiş", "Babür Şah", ["Babürnâme"]],
 
-      { period: "Tanzimat", author: "Namık Kemal", works: ["Hürriyet Kasidesi", "Vatan Şarkısı", "Vatan Mersiyesi", "İntibah", "Cezmi", "Vatan yahut Silistre", "Celalettin Harzemşah", "Gülnihal", "Tahrib-i Harabat", "Takib-i Harabat", "Renan Müdafaanamesi"] },
-      { period: "Tanzimat", author: "Ziya Paşa", works: ["Harabat", "Terkib-i Bent", "Terci-i Bent", "Eş’ar-ı Ziya", "Defter-i Âmal", "Zafernâme"] },
-      { period: "Tanzimat", author: "Şinasi", works: ["Şair Evlenmesi", "Durub-ı Emsal-i Osmaniye", "Tercüme-i Manzume", "Tercüman-ı Ahval Mukaddimesi", "Tasvir-i Efkâr"] },
-      { period: "Tanzimat", author: "Ahmet Mithat Efendi", works: ["Felatun Bey’le Rakım Efendi", "Avrupa’da Bir Cevelan", "Letaif-i Rivayat", "Kıssadan Hisse", "Tercüman-ı Hakikat"] },
-      { period: "Tanzimat", author: "Ahmet Vefik Paşa", works: ["Şecere-i Türk", "Lehçe-i Osmanî", "Hikmet-i Tarih", "Fezleke-i Osmanî"] },
-      { period: "Tanzimat", author: "Şemsettin Sami", works: ["Taaşşuk-ı Talat ve Fitnat", "Kamus-ı Türkî"] },
-      { period: "Tanzimat", author: "Abdülhak Hamit Tarhan", works: ["Validem", "Makber", "Sahra", "Garam", "Nesteren", "Tarık", "Tezer", "Eşber", "İçli Kız", "Duhter-i Hindu", "Sabr-u Sebat"] },
-      { period: "Tanzimat", author: "Samipaşazâde Sezai", works: ["İclâl", "Sergüzeşt", "Küçük Şeyler"] },
-      { period: "Tanzimat", author: "Nabizade Nazım", works: ["Karabibik", "Zehra"] },
-      { period: "Tanzimat", author: "Muallim Naci", works: ["Demdeme", "Köylü Kızların Şarkısı", "Istılahat-ı Edebiyye", "Lügat-ı Naci", "Ömer'in Çocukluğu"] },
-      { period: "Tanzimat", author: "Recaizade Mahmud Ekrem", works: ["Takdir-i Elhan", "Talim-i Edebiyat", "Araba Sevdası", "Zemzeme", "Afife Anjelik", "Vuslat"] },
-      { period: "Tanzimat", author: "Ahmet Cevdet Paşa", works: ["Kısas-ı Enbiya", "Tarih-i Cevdet", "Mecelle"] },
-      { period: "Tanzimat", author: "Süleyman Paşa", works: ["Sarf-ı Türkî"] },
+      ["Tanzimat", "Namık Kemal", ["Hürriyet Kasidesi", "Vatan Şarkısı", "Vatan Mersiyesi", "İntibah", "Cezmi", "Vatan yahut Silistre", "Celalettin Harzemşah", "Gülnihal", "Tahrib-i Harabat", "Takib-i Harabat", "Renan Müdafaanamesi"]],
+      ["Tanzimat", "Ziya Paşa", ["Harabat", "Terkib-i Bent", "Terci-i Bent", "Eş’ar-ı Ziya", "Defter-i Âmal", "Zafernâme"]],
+      ["Tanzimat", "Şinasi", ["Şair Evlenmesi", "Durub-ı Emsal-i Osmaniye", "Tercüme-i Manzume", "Tercüman-ı Ahval Mukaddimesi", "Tasvir-i Efkâr"]],
+      ["Tanzimat", "Ahmet Mithat Efendi", ["Felatun Bey’le Rakım Efendi", "Avrupa’da Bir Cevelan", "Letaif-i Rivayat", "Kıssadan Hisse", "Tercüman-ı Hakikat"]],
+      ["Tanzimat", "Şemsettin Sami", ["Taaşşuk-ı Talat ve Fitnat", "Kamus-ı Türkî"]],
+      ["Tanzimat", "Abdülhak Hamit Tarhan", ["Validem", "Makber", "Sahra", "Garam", "Nesteren", "Tarık", "Tezer", "Eşber"]],
+      ["Tanzimat", "Samipaşazâde Sezai", ["İclâl", "Sergüzeşt", "Küçük Şeyler"]],
+      ["Tanzimat", "Nabizade Nazım", ["Karabibik", "Zehra"]],
+      ["Tanzimat", "Recaizade Mahmud Ekrem", ["Takdir-i Elhan", "Talim-i Edebiyat", "Araba Sevdası", "Zemzeme", "Afife Anjelik", "Vuslat"]],
+      ["Tanzimat", "Ahmet Cevdet Paşa", ["Kısas-ı Enbiya", "Tarih-i Cevdet", "Mecelle"]],
+      ["Tanzimat", "Süleyman Paşa", ["Sarf-ı Türkî"]],
 
-      { period: "Servetifünun", author: "Tevfik Fikret", works: ["Sis", "Han-ı Yağma", "Doksan Beşe Doğru", "Tarih-i Kadim", "Millet Şarkısı", "Rübabın Cevabı", "Rübab-ı Şikeste", "Hasta Çocuk", "Halûk’un Defteri", "Şermin"] },
-      { period: "Servetifünun", author: "Cenap Şahabettin", works: ["Elhan-ı Şita", "Tamat", "Hac Yolunda", "Avrupa Mektupları", "Suriye Mektupları", "Yalan", "Körebe", "Küçük Beyler"] },
-      { period: "Servetifünun", author: "Halit Ziya Uşaklıgil", works: ["Mai ve Siyah", "Kırk Yıl", "Saray ve Ötesi", "Aşk-ı Memnu", "Ferdi ve Şürekâsı", "Bir Ölünün Defteri"] },
-      { period: "Servetifünun", author: "Mehmet Rauf", works: ["Eylül", "Siyah İnciler", "Pençe", "Cidal", "Sansar"] },
-      { period: "Servetifünun", author: "Hüseyin Cahit Yalçın", works: ["Hayat-ı Muhayyel", "Hayat-ı Hakikiye Sahneleri", "Edebiyat ve Hukuk", "Kavgalarım"] },
-      { period: "Servetifünun", author: "Süleyman Nazif", works: ["Cenk Türküsü", "Kara Bir Gün"] },
-      { period: "Servetifünun", author: "Hüseyin Rahmi Gürpınar", works: ["Şık", "Şıpsevdi", "Mürebbiye", "Nimetşinas", "Gulyabani", "Kadınlar Vaizi", "Katil Buse", "Hazan Bülbülü", "Kuyruklu Yıldız Altında Bir İzdivaç"] },
-      { period: "Servetifünun", author: "Ahmet Rasim", works: ["Eşkâl-i Zaman", "Muharrir Bu Ya", "Şehir Mektupları", "Falaka", "Gülüp Ağladıklarım"] },
+      ["Servetifünun", "Tevfik Fikret", ["Sis", "Han-ı Yağma", "Doksan Beşe Doğru", "Tarih-i Kadim", "Millet Şarkısı", "Rübab-ı Şikeste", "Hasta Çocuk", "Halûk’un Defteri", "Şermin"]],
+      ["Servetifünun", "Cenap Şahabettin", ["Elhan-ı Şita", "Tamat", "Hac Yolunda", "Avrupa Mektupları", "Suriye Mektupları", "Yalan", "Körebe"]],
+      ["Servetifünun", "Halit Ziya Uşaklıgil", ["Mai ve Siyah", "Kırk Yıl", "Saray ve Ötesi", "Aşk-ı Memnu", "Ferdi ve Şürekâsı", "Bir Ölünün Defteri"]],
+      ["Servetifünun", "Mehmet Rauf", ["Eylül", "Siyah İnciler", "Pençe", "Cidal", "Sansar"]],
+      ["Servetifünun", "Hüseyin Cahit Yalçın", ["Hayat-ı Muhayyel", "Hayat-ı Hakikiye Sahneleri", "Edebiyat ve Hukuk", "Kavgalarım"]],
+      ["Servetifünun", "Hüseyin Rahmi Gürpınar", ["Şık", "Şıpsevdi", "Mürebbiye", "Nimetşinas", "Gulyabani", "Kuyruklu Yıldız Altında Bir İzdivaç"]],
+      ["Servetifünun", "Ahmet Rasim", ["Eşkâl-i Zaman", "Muharrir Bu Ya", "Şehir Mektupları", "Falaka"]],
 
-      { period: "Fecriati", author: "Ahmet Haşim", works: ["Piyale", "Göl Saatleri", "Şiir Hakkında Bazı Mülahazalar", "Gurabahane-i Laklakan", "Bize Göre", "Frankfurt Seyahatnamesi"] },
-      { period: "Fecriati", author: "Emin Bülent Serdaroğlu", works: ["Kin", "Dev Şarkısı"] },
-      { period: "Fecriati", author: "Tahsin Nahit", works: ["Ruh-i Bikayd", "Talak", "Kırık Mahfaza", "Ben Başka"] },
+      ["Fecriati", "Ahmet Haşim", ["Piyale", "Göl Saatleri", "Şiir Hakkında Bazı Mülahazalar", "Gurabahane-i Laklakan", "Bize Göre", "Frankfurt Seyahatnamesi"]],
+      ["Fecriati", "Emin Bülent Serdaroğlu", ["Kin", "Dev Şarkısı"]],
+      ["Fecriati", "Tahsin Nahit", ["Ruh-i Bikayd", "Talak", "Kırık Mahfaza", "Ben Başka"]],
 
-      { period: "Milli Edebiyat", author: "Ömer Seyfettin", works: ["Diyet", "Bomba", "Efruz Bey", "Harem", "Ashab-ı Kehfimiz", "Yüksek Ökçeler", "Asilzadeler", "Dalga", "Beyaz Lale", "İlk Düşen Ak", "Bahar ve Kelebekler", "Gizli Mabet"] },
-      { period: "Milli Edebiyat", author: "Ziya Gökalp", works: ["Kızıl Elma", "Altın Işık", "Yeni Hayat", "Türkçülüğün Esasları"] },
-      { period: "Milli Edebiyat", author: "Mehmet Emin Yurdakul", works: ["Ben Bir Türk’üm", "Türk Sazı", "Tan Sesleri", "Ey Türk Uyan", "Ordunun Destanı", "Aydın Kızları", "Zafer Yolunda", "Turana Doğru"] },
-      { period: "Milli Edebiyat", author: "Ali Canip Yöntem", works: ["Cenap Bey'le Münakaşalarım", "Geçtiğim Yol"] },
-      { period: "Milli Edebiyat", author: "Yakup Kadri Karaosmanoğlu", works: ["Kiralık Konak", "Sodom ve Gomore", "Yaban", "Erenlerin Bağından", "Okun Ucundan"] },
-      { period: "Milli Edebiyat", author: "Refik Halit Karay", works: ["Memleket Hikâyeleri", "Bugünün Saraylısı", "Gurbet Hikâyeleri", "Sürgün", "Nilgün", "Kirpinin Dedikleri"] },
-      { period: "Milli Edebiyat", author: "Halide Edip Adıvar", works: ["Ateşten Gömlek", "Vurun Kahpeye", "Yeni Turan"] },
-      { period: "Milli Edebiyat", author: "Reşat Nuri Güntekin", works: ["Çalıkuşu", "Akşam Güneşi", "Yaprak Dökümü", "Acımak", "Anadolu Notları", "Yeşil Gece", "Damga", "Miskinler Tekkesi"] },
-      { period: "Milli Edebiyat", author: "Mehmet Fuat Köprülü", works: ["Türk Edebiyatında İlk Mutasavvıflar", "Türk Edebiyat Tarihi", "Türk Saz Şairleri Antolojisi"] },
-      { period: "Milli Edebiyat", author: "Yahya Kemal Beyatlı", works: ["Eski Şiirin Rüzgârıyla", "Kendi Gök Kubbemiz", "Süleymaniye’de Bayram Sabahı"] },
-      { period: "Milli Edebiyat", author: "Mehmet Akif Ersoy", works: ["Safahat"] },
+      ["Milli Edebiyat", "Ömer Seyfettin", ["Diyet", "Bomba", "Efruz Bey", "Harem", "Ashab-ı Kehfimiz", "Yüksek Ökçeler", "Beyaz Lale", "Gizli Mabet"]],
+      ["Milli Edebiyat", "Ziya Gökalp", ["Kızıl Elma", "Altın Işık", "Yeni Hayat", "Türkçülüğün Esasları"]],
+      ["Milli Edebiyat", "Mehmet Emin Yurdakul", ["Ben Bir Türk’üm", "Türk Sazı", "Tan Sesleri", "Ey Türk Uyan", "Ordunun Destanı"]],
+      ["Milli Edebiyat", "Yakup Kadri Karaosmanoğlu", ["Kiralık Konak", "Sodom ve Gomore", "Yaban", "Erenlerin Bağından"]],
+      ["Milli Edebiyat", "Refik Halit Karay", ["Memleket Hikâyeleri", "Gurbet Hikâyeleri", "Sürgün", "Nilgün", "Kirpinin Dedikleri"]],
+      ["Milli Edebiyat", "Halide Edip Adıvar", ["Ateşten Gömlek", "Vurun Kahpeye", "Yeni Turan"]],
+      ["Milli Edebiyat", "Reşat Nuri Güntekin", ["Çalıkuşu", "Akşam Güneşi", "Yaprak Dökümü", "Acımak", "Anadolu Notları", "Yeşil Gece"]],
+      ["Milli Edebiyat", "Yahya Kemal Beyatlı", ["Eski Şiirin Rüzgârıyla", "Kendi Gök Kubbemiz", "Süleymaniye’de Bayram Sabahı"]],
+      ["Milli Edebiyat", "Mehmet Akif Ersoy", ["Safahat"]],
 
-      { period: "Cumhuriyet", author: "Ahmet Kutsi Tecer", works: ["Orda Bir Köy Var Uzakta", "Nerdesin", "Koçyiğit Köroğlu", "Köşebaşı"] },
-      { period: "Cumhuriyet", author: "Arif Nihat Asya", works: ["Fetih Marşı", "Bir Bayrak Rüzgâr Bekliyor", "Dualar ve Âminler"] },
-      { period: "Cumhuriyet", author: "Faruk Nafiz Çamlıbel", works: ["Çoban Çeşmesi", "Suda Halkalar", "Bir Ömür Böyle Geçti", "Onuncu Yıl Marşı"] },
-      { period: "Cumhuriyet", author: "Necip Fazıl Kısakürek", works: ["Çile", "Örümcek Ağı", "Tohum", "Bir Adam Yaratmak", "Künye", "Kafa Kâğıdı"] },
-      { period: "Cumhuriyet", author: "Ahmet Hamdi Tanpınar", works: ["Bursa’da Zaman", "Beş Şehir", "Mahur Beste", "Huzur", "Abdullah Efendi’nin Rüyaları", "Saatleri Ayarlama Enstitüsü"] },
-      { period: "Cumhuriyet", author: "Cahit Sıtkı Tarancı", works: ["Otuz Beş Yaş", "Düşten Güzel", "Ömrümde Sükût"] },
-      { period: "Cumhuriyet", author: "Ahmet Muhip Dıranas", works: ["Şiirler", "Kırık Saz", "Gölgeler", "O Böyle İstemezdi", "Fahriye Abla", "Kar", "Serenad", "Olvido"] },
-      { period: "Cumhuriyet", author: "Orhan Veli Kanık", works: ["İstanbul’u Dinliyorum", "Garip", "Vazgeçemediğim", "Destan Gibi", "Yenisi", "Karşı"] },
-      { period: "Cumhuriyet", author: "Oktay Rıfat Horozcu", works: ["Garip", "Yaşayıp Ölmek", "Aşk ve Avarelik Üstüne Şiirler", "Bir Kadının Penceresinden"] },
-      { period: "Cumhuriyet", author: "Melih Cevdet Anday", works: ["Garip", "Rahatı Kaçan Ağaç", "Telgrafhane", "Teknenin Ölümü", "Mikadonun Çöpleri", "İçerdekiler"] },
-      { period: "Cumhuriyet", author: "Nazım Hikmet", works: ["Memleketimden İnsan Manzaraları", "Kuvayı Milliye Destanı", "Benerci Kendini Niçin Öldürdü", "Sevdalı Bulut"] },
-      { period: "Cumhuriyet", author: "Rıfat Ilgaz", works: ["Hababam Sınıfı", "Yarenlik", "Sınıf", "Yaşadıkça", "Üsküdar’da Sabah Oldu"] },
-      { period: "Cumhuriyet", author: "Ahmet Arif", works: ["Hasretinden Prangalar Eskittim"] },
-      { period: "Cumhuriyet", author: "Cahit Zarifoğlu", works: ["İşaret Çocukları", "Yedi Güzel Adam", "Menziller", "Korku ve Yakarış"] },
-      { period: "Cumhuriyet", author: "Erdem Bayazıt", works: ["Sebeb Ey", "Risaleler"] },
-      { period: "Cumhuriyet", author: "Özdemir Asaf", works: ["Dünya Kaçtı Gözüme", "Lavinia", "Yalnızlık Paylaşılmaz"] },
-      { period: "Cumhuriyet", author: "Attila İlhan", works: ["Cebbaroğlu Mehemmed", "Duvar", "Sisler Bulvarı", "Yağmur Kaçağı", "Ben Sana Mecburum", "Bela Çiçeği", "Abbas Yolcu", "Kurtlar Sofrası"] },
-      { period: "Cumhuriyet", author: "Cemal Süreya", works: ["Üvercinka", "Göçebe", "Beni Öp Sonra Doğur Beni", "Sevda Sözleri", "Güz Bitiği", "Sıcak Nal"] },
-      { period: "Cumhuriyet", author: "İlhan Berk", works: ["Şenlikname", "Güneşi Yakanların Selamı", "İstanbul", "Günaydın Yeryüzü", "Türkiye Şarkısı", "Köroğlu"] },
-      { period: "Cumhuriyet", author: "Edip Cansever", works: ["İkindi Üstü", "Dirlik Düzenlik", "Yerçekimli Karanfil"] },
-      { period: "Cumhuriyet", author: "Turgut Uyar", works: ["Arz-ı Hâl", "Türkiye’m", "Dünyanın En Güzel Arabistanı", "Tütünler Islak", "Göğe Bakma Durağı"] },
-      { period: "Cumhuriyet", author: "Sezai Karakoç", works: ["Mona Rosa", "Hızırla Kırk Saat", "Taha’nın Kitabı", "Gül Muştusu", "Körfez", "Şahdamar"] },
-      { period: "Cumhuriyet", author: "Ece Ayhan", works: ["Kınar Hanım’ın Denizleri", "Bakışsız Bir Kedi Kara", "Yort Savul"] },
-      { period: "Cumhuriyet", author: "Ülkü Tamer", works: ["Soğuk Otların Altında", "Gök Onları Yanıltmaz", "Virgülün Başından Geçenler"] },
-      { period: "Cumhuriyet", author: "Ataol Behramoğlu", works: ["Bir Ermeni General", "Bir Gün Mutlaka", "Yolculuk Özlem Cesaret ve Kavga Şiirleri"] },
-      { period: "Cumhuriyet", author: "İsmet Özel", works: ["Geceleyin Bir Koşu", "Evet İsyan", "Cinayetler Kitabı", "Celladıma Gülümserken"] },
-      { period: "Cumhuriyet", author: "Âşık Veysel", works: ["Deyişler", "Sazımdan Sesler", "Dostlar Beni Hatırlasın"] },
-      { period: "Cumhuriyet", author: "Neşet Ertaş", works: ["Zahidem", "Gönül Dağı", "Neredesin Sen"] },
-      { period: "Cumhuriyet", author: "Abdurrahim Karakoç", works: ["Hasan’a Mektuplar", "Kan Yazısı", "Vur Emri", "Mihriban"] },
-      { period: "Cumhuriyet", author: "Hüseyin Nihal Atsız", works: ["Bozkurtların Ölümü", "Bozkurtlar Diriliyor", "Ruh Adam", "Deli Kurt", "Dalkavuklar Gecesi"] },
-      { period: "Cumhuriyet", author: "Peyami Safa", works: ["Cingöz Recai", "Fatih Harbiye", "Dokuzuncu Hariciye Koğuşu"] },
-      { period: "Cumhuriyet", author: "Tarık Buğra", works: ["Osmancık", "Siyah Kehribar", "Küçük Ağa", "Firavun İmanı"] },
-      { period: "Cumhuriyet", author: "Halikarnas Balıkçısı", works: ["Ege Kıyılarından", "Merhaba Akdeniz", "Ege’nin Dibi", "Aganta Burina Burinata"] },
-      { period: "Cumhuriyet", author: "Memduh Şevket Esendal", works: ["Ayaşlı ile Kiracıları", "Miras", "Vassaf Bey"] },
-      { period: "Cumhuriyet", author: "Sabahattin Ali", works: ["Kuyucaklı Yusuf", "Kürk Mantolu Madonna", "İçimizdeki Şeytan", "Değirmen", "Kağnı"] },
-      { period: "Cumhuriyet", author: "Orhan Kemal", works: ["Ekmek Kavgası", "Hanımın Çiftliği", "Çamaşırcının Kızı", "Mahalle Kavgası", "72. Koğuş", "Bereketli Topraklar Üzerinde"] },
-      { period: "Cumhuriyet", author: "Yaşar Kemal", works: ["İnce Memed", "Üç Anadolu Efsanesi", "Binboğalar Efsanesi", "Teneke", "Sarı Sıcak", "Fırat Suyu Kan Akıyor Baksana"] },
-      { period: "Cumhuriyet", author: "Kemal Tahir", works: ["Esir Şehrin İnsanları", "Esir Şehrin Mahpusu", "Bozkırdaki Çekirdek", "Sağırdere"] },
-      { period: "Cumhuriyet", author: "Aziz Nesin", works: ["Zübük", "İt Kuyruğu", "Fil Hamdi", "Ah Biz Eşekler", "Rıfat Bey Neden Kaşınıyor"] },
-      { period: "Cumhuriyet", author: "Fakir Baykurt", works: ["Yılanların Öcü", "Irazca’nın Dirliği", "Onuncu Köy"] },
-      { period: "Cumhuriyet", author: "Kemal Bilbaşar", works: ["Pembe Kurt", "Cemo", "Memo", "Irgatların Öfkesi"] },
-      { period: "Cumhuriyet", author: "Necati Cumalı", works: ["Susuz Yaz", "Tütün Zamanı", "Yağmurlar ve Topraklar"] },
-      { period: "Cumhuriyet", author: "Oğuz Atay", works: ["Korkuyu Beklerken", "Tutunamayanlar", "Tehlikeli Oyunlar", "Bir Bilim Adamının Romanı"] },
-      { period: "Cumhuriyet", author: "Yusuf Atılgan", works: ["Aylak Adam", "Anayurt Oteli", "Canistan"] },
-      { period: "Cumhuriyet", author: "Sait Faik Abasıyanık", works: ["Semaver", "Sarnıç", "Şahmerdan", "Lüzumsuz Adam", "Mahalle Kahvesi", "Havada Bulut", "Kumpanya", "Medarı Maişet Motoru"] },
-      { period: "Cumhuriyet", author: "Orhan Pamuk", works: ["Cevdet Bey ve Oğulları", "Yeni Hayat", "Benim Adım Kırmızı", "Babamın Bavulu", "Masumiyet Müzesi", "Kafamda Bir Tuhaflık", "Kırmızı Saçlı Kadın"] },
-      { period: "Cumhuriyet", author: "Adalet Ağaoğlu", works: ["Ölmeye Yatmak", "Fikrimin İnce Gülü", "Bir Düğün Gecesi"] },
-      { period: "Cumhuriyet", author: "İhsan Oktay Anar", works: ["Puslu Kıtalar Atlası", "Efrâsiyâb’ın Hikâyeleri", "Amat", "Suskunlar"] },
-      { period: "Cumhuriyet", author: "Ahmet Ümit", works: ["Bir Ses Böler Geceyi", "Sis ve Gece", "Beyoğlu Rapsodisi", "Bab-ı Esrar", "Sultanı Öldürmek"] },
-      { period: "Cumhuriyet", author: "Haldun Taner", works: ["Keşanlı Ali Destanı", "Günün Adamı", "Huzur Çıkmazı", "Devekuşuna Mektuplar", "Şişhane’ye Yağmur Yağıyordu", "Tuş", "On İkiye Bir Var"] },
-      { period: "Cumhuriyet", author: "Nurullah Ataç", works: ["Günce", "Günlerin Getirdiği", "Karalama Defteri", "Sözden Söze", "Söz Arasında"] },
-      { period: "Cumhuriyet", author: "Falih Rıfkı Atay", works: ["Çankaya", "Atatürk’ün Bana Anlattıkları", "Denizaşırı", "Yeni Rusya"] },
-      { period: "Cumhuriyet", author: "Şevket Süreyya Aydemir", works: ["Suyu Arayan Adam", "Tek Adam", "Toprak Uyanırsa"] },
-      { period: "Cumhuriyet", author: "Cemil Meriç", works: ["Bu Ülke", "Umrandan Uygarlığa", "Kırk Ambar"] },
-      { period: "Cumhuriyet", author: "Mina Urgan", works: ["Bir Dinazorun Anıları", "Bir Dinazorun Gezileri"] }
+      ["Cumhuriyet", "Ahmet Hamdi Tanpınar", ["Bursa’da Zaman", "Beş Şehir", "Mahur Beste", "Huzur", "Abdullah Efendi’nin Rüyaları", "Saatleri Ayarlama Enstitüsü"]],
+      ["Cumhuriyet", "Necip Fazıl Kısakürek", ["Çile", "Örümcek Ağı", "Tohum", "Bir Adam Yaratmak", "Künye", "Kafa Kâğıdı"]],
+      ["Cumhuriyet", "Cahit Sıtkı Tarancı", ["Otuz Beş Yaş", "Düşten Güzel", "Ömrümde Sükût"]],
+      ["Cumhuriyet", "Orhan Veli Kanık", ["İstanbul’u Dinliyorum", "Garip", "Vazgeçemediğim", "Destan Gibi", "Yenisi"]],
+      ["Cumhuriyet", "Nazım Hikmet", ["Memleketimden İnsan Manzaraları", "Kuvayı Milliye Destanı", "Benerci Kendini Niçin Öldürdü"]],
+      ["Cumhuriyet", "Attila İlhan", ["Cebbaroğlu Mehemmed", "Duvar", "Sisler Bulvarı", "Yağmur Kaçağı", "Ben Sana Mecburum"]],
+      ["Cumhuriyet", "Cemal Süreya", ["Üvercinka", "Göçebe", "Beni Öp Sonra Doğur Beni", "Sevda Sözleri"]],
+      ["Cumhuriyet", "Turgut Uyar", ["Arz-ı Hâl", "Türkiye’m", "Dünyanın En Güzel Arabistanı", "Tütünler Islak", "Göğe Bakma Durağı"]],
+      ["Cumhuriyet", "Sezai Karakoç", ["Mona Rosa", "Hızırla Kırk Saat", "Taha’nın Kitabı", "Körfez", "Şahdamar"]],
+      ["Cumhuriyet", "Peyami Safa", ["Cingöz Recai", "Fatih Harbiye", "Dokuzuncu Hariciye Koğuşu"]],
+      ["Cumhuriyet", "Tarık Buğra", ["Osmancık", "Siyah Kehribar", "Küçük Ağa", "Firavun İmanı"]],
+      ["Cumhuriyet", "Sabahattin Ali", ["Kuyucaklı Yusuf", "Kürk Mantolu Madonna", "İçimizdeki Şeytan", "Değirmen", "Kağnı"]],
+      ["Cumhuriyet", "Orhan Kemal", ["Ekmek Kavgası", "Hanımın Çiftliği", "72. Koğuş", "Bereketli Topraklar Üzerinde"]],
+      ["Cumhuriyet", "Yaşar Kemal", ["İnce Memed", "Üç Anadolu Efsanesi", "Teneke", "Sarı Sıcak"]],
+      ["Cumhuriyet", "Kemal Tahir", ["Esir Şehrin İnsanları", "Esir Şehrin Mahpusu", "Bozkırdaki Çekirdek", "Sağırdere"]],
+      ["Cumhuriyet", "Fakir Baykurt", ["Yılanların Öcü", "Irazca’nın Dirliği", "Onuncu Köy"]],
+      ["Cumhuriyet", "Oğuz Atay", ["Korkuyu Beklerken", "Tutunamayanlar", "Tehlikeli Oyunlar", "Bir Bilim Adamının Romanı"]],
+      ["Cumhuriyet", "Yusuf Atılgan", ["Aylak Adam", "Anayurt Oteli", "Canistan"]],
+      ["Cumhuriyet", "Sait Faik Abasıyanık", ["Semaver", "Sarnıç", "Şahmerdan", "Lüzumsuz Adam", "Mahalle Kahvesi"]],
+      ["Cumhuriyet", "Orhan Pamuk", ["Cevdet Bey ve Oğulları", "Yeni Hayat", "Benim Adım Kırmızı", "Masumiyet Müzesi", "Kırmızı Saçlı Kadın"]],
+      ["Cumhuriyet", "Adalet Ağaoğlu", ["Ölmeye Yatmak", "Fikrimin İnce Gülü", "Bir Düğün Gecesi"]],
+      ["Cumhuriyet", "İhsan Oktay Anar", ["Puslu Kıtalar Atlası", "Efrâsiyâb’ın Hikâyeleri", "Amat", "Suskunlar"]],
+      ["Cumhuriyet", "Haldun Taner", ["Keşanlı Ali Destanı", "Günün Adamı", "Huzur Çıkmazı", "Şişhane’ye Yağmur Yağıyordu"]]
     ];
 
     var characters = [
-      { work: "Araba Sevdası", chars: ["Bihruz Bey", "Periveş", "Keşfi Bey"] },
-      { work: "Cezmi", chars: ["Cezmi", "Adil Giray", "Perihan", "Şehriyar"] },
-      { work: "İntibah", chars: ["Ali Bey", "Mahpeyker", "Dilaşup"] },
-      { work: "Karabibik", chars: ["Karabibik", "Yosturoğlu", "Koca İmam", "Huri", "Hüseyin", "Eftalya"] },
-      { work: "Sergüzeşt", chars: ["Asaf Paşa", "Celal", "Dilber", "Taravet", "Cevher"] },
-      { work: "Zehra", chars: ["Zehra", "Suphi", "Sırrı Cemal"] },
-      { work: "Aşk-ı Memnu", chars: ["Adnan Bey", "Bihter", "Behlül", "Nihal", "Firdevs Hanım"] },
-      { work: "Eylül", chars: ["Necip", "Suat", "Süreyya"] },
-      { work: "Kırık Hayatlar", chars: ["Ömer", "Behiç", "Vadide", "Neyyir", "Leyla", "Selma"] },
-      { work: "Mai ve Siyah", chars: ["Lamia", "Ahmet Cemil", "Hüseyin Nazmi"] },
-      { work: "Mürebbiye", chars: ["Dehri Efendi", "Matmazel Anjel", "Şem'i", "Sadri"] },
-      { work: "Şık", chars: ["Şatırzade", "Şöhret Bey", "Madam Potiş"] },
-      { work: "Şıpsevdi", chars: ["Meftun Bey", "Edibe Hanım", "Kasım Efendi"] },
-      { work: "Yaprak Dökümü", chars: ["Ali Rıza Bey", "Hayriye Hanım", "Ferhunde", "Leyla", "Necla", "Fikret"] },
-      { work: "Ateşten Gömlek", chars: ["Ayşe", "Peyami", "Binbaşı İhsan"] },
-      { work: "Çalıkuşu", chars: ["Feride", "Kamuran", "Doktor Hayrullah Bey"] },
-      { work: "Handan", chars: ["Neriman", "Hüsnü Paşa", "Refik Cemal"] },
-      { work: "Nur Baba", chars: ["Nur Baba", "Ziba Hanım", "Nigar Hanım", "Süheyla"] },
-      { work: "Sodom ve Gomore", chars: ["Leyla", "Necdet", "Sami Bey"] },
-      { work: "Vurun Kahpeye", chars: ["Aliye", "Hacı Fettah", "Tahsin Bey"] },
-      { work: "Yaban", chars: ["Ahmet Celal", "Emine", "Mehmet Ali", "İsmail"] },
-      { work: "Sinekli Bakkal", chars: ["Rabia", "Osman / Peregrini", "Kız Tevfik", "Emine", "Vehbi Dede"] },
-      { work: "Yeşil Gece", chars: ["Şahin", "Kazım"] },
-      { work: "Tatarcık", chars: ["Lale"] },
-      { work: "Aganta Burina Burinata", chars: ["Mahmut", "Halil Usta"] },
-      { work: "Anayurt Oteli", chars: ["Zebercet"] },
-      { work: "Ayaşlı ve Kiracıları", chars: ["Ayaşlı İbrahim", "Hasan Bey", "Buharalı Abdülkerim", "Faika", "Fuat", "İffet Hanım", "Şefik Bey"] },
-      { work: "Bereketli Topraklar Üzerinde", chars: ["İflahsızın Yusuf", "Köse Hasan", "Pehlivan Ali"] },
-      { work: "Dokuzuncu Hariciye Koğuşu", chars: ["Hasta Bir Çocuk", "Nüzhet", "Doktor Ragıp"] },
-      { work: "Fatih-Harbiye", chars: ["Neriman", "Faiz Bey", "Şinasi", "Macit"] },
-      { work: "Huzur", chars: ["İhsan", "Nuran", "Suat", "Mümtaz"] },
-      { work: "İnce Memed", chars: ["Memed", "Hatce", "Abdi Ağa"] },
-      { work: "Kuyucaklı Yusuf", chars: ["Yusuf", "Muazzez", "Selahattin Bey"] },
-      { work: "Küçük Ağa", chars: ["Mehmet Reşit Efendi / İstanbullu Hoca", "Çolak Salih"] },
-      { work: "Matmazel Noralya'nın Koltuğu", chars: ["Ferit", "Nilüfer", "Fotika"] },
-      { work: "Sözde Kızlar", chars: ["Behiç", "Mebrure", "Nafi Bey"] },
-      { work: "Tutunamayanlar", chars: ["Selim Işık", "Turgut Özben"] },
-      { work: "Yılanların Öcü", chars: ["Kara Bayram", "Haceli", "Irazca Ana"] }
+      ["Araba Sevdası", ["Bihruz Bey", "Periveş", "Keşfi Bey"]],
+      ["Cezmi", ["Cezmi", "Adil Giray", "Perihan", "Şehriyar"]],
+      ["İntibah", ["Ali Bey", "Mahpeyker", "Dilaşup"]],
+      ["Karabibik", ["Karabibik", "Yosturoğlu", "Koca İmam", "Huri", "Hüseyin", "Eftalya"]],
+      ["Sergüzeşt", ["Asaf Paşa", "Celal", "Dilber", "Taravet", "Cevher"]],
+      ["Zehra", ["Zehra", "Suphi", "Sırrı Cemal"]],
+      ["Aşk-ı Memnu", ["Adnan Bey", "Bihter", "Behlül", "Nihal", "Firdevs Hanım"]],
+      ["Eylül", ["Necip", "Suat", "Süreyya"]],
+      ["Mai ve Siyah", ["Lamia", "Ahmet Cemil", "Hüseyin Nazmi"]],
+      ["Mürebbiye", ["Dehri Efendi", "Matmazel Anjel", "Şem'i", "Sadri"]],
+      ["Şık", ["Şatırzade", "Şöhret Bey", "Madam Potiş"]],
+      ["Şıpsevdi", ["Meftun Bey", "Edibe Hanım", "Kasım Efendi"]],
+      ["Yaprak Dökümü", ["Ali Rıza Bey", "Hayriye Hanım", "Ferhunde", "Leyla", "Necla", "Fikret"]],
+      ["Ateşten Gömlek", ["Ayşe", "Peyami", "Binbaşı İhsan"]],
+      ["Çalıkuşu", ["Feride", "Kamuran", "Doktor Hayrullah Bey"]],
+      ["Vurun Kahpeye", ["Aliye", "Hacı Fettah", "Tahsin Bey"]],
+      ["Yaban", ["Ahmet Celal", "Emine", "Mehmet Ali", "İsmail"]],
+      ["Sinekli Bakkal", ["Rabia", "Osman / Peregrini", "Kız Tevfik", "Emine", "Vehbi Dede"]],
+      ["Anayurt Oteli", ["Zebercet"]],
+      ["Bereketli Topraklar Üzerinde", ["İflahsızın Yusuf", "Köse Hasan", "Pehlivan Ali"]],
+      ["Dokuzuncu Hariciye Koğuşu", ["Hasta Bir Çocuk", "Nüzhet", "Doktor Ragıp"]],
+      ["Fatih-Harbiye", ["Neriman", "Faiz Bey", "Şinasi", "Macit"]],
+      ["Huzur", ["İhsan", "Nuran", "Suat", "Mümtaz"]],
+      ["İnce Memed", ["Memed", "Hatce", "Abdi Ağa"]],
+      ["Kuyucaklı Yusuf", ["Yusuf", "Muazzez", "Selahattin Bey"]],
+      ["Küçük Ağa", ["Mehmet Reşit Efendi / İstanbullu Hoca", "Çolak Salih"]],
+      ["Tutunamayanlar", ["Selim Işık", "Turgut Özben"]],
+      ["Yılanların Öcü", ["Kara Bayram", "Haceli", "Irazca Ana"]]
     ];
 
     var movements = [
-      {
-        name: "Klasisizm",
-        clues: ["Akıl ve sağduyuya önem verir", "Kuralcılık ağır basar", "Soylu ve seçkin kişilere yer verilir", "Değişmez insan tipleri kullanılır", "Eski Yunan ve Latin edebiyatı örnek alınır"],
-        info: ["17. yüzyılda Fransa'da güçlenen edebi anlayıştır", "Trajedi ve komedide üç birlik kuralı önemlidir"],
-        authors: ["Moliere", "Corneille", "Racine", "La Fontaine", "Boileau"]
-      },
-      {
-        name: "Romantizm",
-        clues: ["Duygu ve hayal öne çıkar", "Sanatçı kişiliğini gizlemez", "Tarihî konulara yönelme görülür", "İyi-kötü ve güzel-çirkin gibi zıtlıklardan yararlanılır", "Hürriyet düşüncesi önemlidir"],
-        info: ["Kuralcı anlayışa tepki olarak doğmuştur", "Tanzimat birinci dönem sanatçıları üzerinde etkili olmuştur"],
-        authors: ["Victor Hugo", "Goethe", "Schiller", "Namık Kemal", "Ahmet Mithat Efendi"]
-      },
-      {
-        name: "Realizm",
-        clues: ["Gözlem önemlidir", "Nesnel anlatım benimsenir", "Neden-sonuç ilişkisi kurulur", "Çevre tasvirine önem verilir", "Olaylar olağan hayatın içinden seçilir"],
-        info: ["19. yüzyılda romantizme tepki olarak doğmuştur", "Roman ve hikâyede gerçekçi anlatımı güçlendirmiştir"],
-        authors: ["Balzac", "Stendhal", "Flaubert", "Tolstoy", "Halit Ziya Uşaklıgil", "Recaizade Mahmud Ekrem"]
-      },
-      {
-        name: "Natüralizm",
-        clues: ["Soyaçekim düşüncesi önemlidir", "Determinizm anlayışı etkilidir", "Toplum bir laboratuvar gibi görülür", "Sokak dili ve kaba söyleyişlere yer verilir", "İnsan çevre ve kalıtımın ürünü sayılır"],
-        info: ["Realizmin daha ileri ve bilimsel biçimi kabul edilir", "Deney ve gözlem anlayışı romana uygulanır"],
-        authors: ["Emile Zola", "Alphonse Daudet", "Nabizade Nazım", "Hüseyin Rahmi Gürpınar"]
-      },
-      {
-        name: "Parnasizm",
-        clues: ["Biçim kusursuzluğu önemlidir", "Sanat sanat içindir anlayışı güçlüdür", "Kuyumcu titizliğiyle yazma anlayışı vardır", "Dış dünya nesnel biçimde anlatılır", "Şiirde ölçü ve uyak önemsenir"],
-        info: ["Şiirde romantizme tepki olarak doğmuştur", "Servetifünun şiiri üzerinde etkili olmuştur"],
-        authors: ["Theophile Gautier", "Leconte de Lisle", "Cenap Şahabettin", "Tevfik Fikret"]
-      },
-      {
-        name: "Sembolizm",
-        clues: ["Musikiye önem verilir", "Kapalı ve çağrışımlı anlatım görülür", "Anlam açıklığı yerine sezdirme tercih edilir", "Alacakaranlık ve belirsiz atmosferler kullanılır", "Mecaz ve imge yoğunluğu fazladır"],
-        info: ["Parnasizme tepki olarak doğmuştur", "Fecriati şiirinde özellikle etkili olmuştur"],
-        authors: ["Baudelaire", "Verlaine", "Mallarme", "Rimbaud", "Ahmet Haşim", "Cenap Şahabettin"]
-      },
-      {
-        name: "Empresyonizm",
-        clues: ["Dış dünyanın kişide bıraktığı izlenim anlatılır", "Öznel algı öne çıkar", "Renk ve ışık oyunları önemlidir", "Anlık duyuşlar aktarılır", "Kesin çizgiler yerine belirsiz atmosfer kurulur"],
-        info: ["Resim sanatından edebiyata geçmiş bir anlayıştır", "Sanatçının dış dünyayı algılayış biçimi önemlidir"],
-        authors: ["Rilke", "Paul Verlaine", "Ahmet Haşim"]
-      },
-      {
-        name: "Ekspresyonizm",
-        clues: ["İç dünya ve ruhsal durum öne çıkar", "Sanayi toplumuna ve makineleşmeye tepki görülür", "Dış gerçeklik sanatçının ruh hâline göre değiştirilir", "Bunalım ve korku gibi duygular işlenir", "Toplumun baskısına karşı bireyin çığlığı duyulur"],
-        info: ["20. yüzyıl başlarında Almanya'da etkili olmuştur", "Dış gerçeklikten çok iç gerçeklik önemlidir"],
-        authors: ["Kafka", "O'Neill", "T. S. Eliot"]
-      },
-      {
-        name: "Kübizm",
-        clues: ["Geometrik düzen hissi verir", "Varlıklar parçalanmış biçimde ele alınır", "Hayatın çok boyutluluğu vurgulanır", "Geleneksel bakış açısı kırılır", "Nesneler farklı yönleriyle aynı anda gösterilmeye çalışılır"],
-        info: ["Resim sanatında doğup edebiyata da yansımıştır", "Gerçekliği tek açıdan değil birçok açıdan ele alır"],
-        authors: ["Apollinaire", "Max Jacob"]
-      },
-      {
-        name: "Fütürizm",
-        clues: ["Hız ve dinamizm yüceltilir", "Makineleşme ve teknoloji öne çıkar", "Geleneksel değerlere karşı çıkılır", "Fabrika, motor ve çark sesleri şiire girer", "Geçmişe değil geleceğe yönelme vardır"],
-        info: ["20. yüzyıl başlarında İtalya'da ortaya çıkmıştır", "Makine ve hareket estetiğini savunur"],
-        authors: ["Marinetti", "Mayakovski", "Nazım Hikmet"]
-      },
-      {
-        name: "Dadaizm",
-        clues: ["Kuralsızlık öne çıkar", "Anlamsızlık bilinçli biçimde kullanılır", "Yerleşik sanat anlayışı reddedilir", "Savaş sonrası güvensizlik ve şüphe havası taşır", "Kelimelerin rastgele seçilmesi bile sanat sayılabilir"],
-        info: ["Birinci Dünya Savaşı ortamında doğmuştur", "Geleneksel sanata ve mantığa başkaldırır"],
-        authors: ["Tristan Tzara"]
-      },
-      {
-        name: "Sürrealizm",
-        clues: ["Bilinçaltı önemlidir", "Rüya ve hipnozdan yararlanılır", "Freud'un görüşlerinden etkilenilmiştir", "Otomatik yazı tekniği kullanılır", "Mantık denetimi geri plana itilir"],
-        info: ["Psikanalizden etkilenen bir anlayıştır", "Bilinç denetiminin dışında kalan alanlara yönelir"],
-        authors: ["Andre Breton", "Paul Eluard", "Louis Aragon"]
-      },
-      {
-        name: "Egzistansiyalizm",
-        clues: ["Bireyin seçme özgürlüğü önemlidir", "Sorumluluk duygusu öne çıkar", "Bunaltı ve yabancılaşma işlenir", "İnsan kendi değerini kendi seçimleriyle kurar", "Bireyin dünyadaki yalnızlığı vurgulanır"],
-        info: ["İkinci Dünya Savaşı sonrası etkisi artmıştır", "Bireyin varoluş sorunu üzerinde durur"],
-        authors: ["Jean-Paul Sartre", "Albert Camus", "Dostoyevski"]
-      }
+      ["Klasisizm", ["Akıl ve sağduyuya önem verir", "Kuralcılık ağır basar", "Soylu ve seçkin kişilere yer verilir", "Değişmez insan tipleri kullanılır", "Eski Yunan ve Latin edebiyatı örnek alınır"], ["17. yüzyılda Fransa'da güçlenen edebi anlayıştır", "Trajedi ve komedide üç birlik kuralı önemlidir"], ["Moliere", "Corneille", "Racine", "La Fontaine"]],
+      ["Romantizm", ["Duygu ve hayal öne çıkar", "Sanatçı kişiliğini gizlemez", "Tarihî konulara yönelme görülür", "Zıtlıklardan yararlanılır", "Hürriyet düşüncesi önemlidir"], ["Kuralcı anlayışa tepki olarak doğmuştur", "Tanzimat birinci dönem sanatçıları üzerinde etkili olmuştur"], ["Victor Hugo", "Goethe", "Namık Kemal"]],
+      ["Realizm", ["Gözlem önemlidir", "Nesnel anlatım benimsenir", "Neden-sonuç ilişkisi kurulur", "Çevre tasvirine önem verilir", "Olaylar olağan hayatın içinden seçilir"], ["Romantizme tepki olarak doğmuştur", "Roman ve hikâyede gerçekçi anlatımı güçlendirmiştir"], ["Balzac", "Stendhal", "Flaubert", "Tolstoy"]],
+      ["Natüralizm", ["Soyaçekim düşüncesi önemlidir", "Determinizm anlayışı etkilidir", "Toplum bir laboratuvar gibi görülür", "Sokak dili kullanılır", "İnsan çevre ve kalıtımın ürünü sayılır"], ["Realizmin daha bilimsel biçimi kabul edilir", "Deney ve gözlem anlayışı romana uygulanır"], ["Emile Zola", "Nabizade Nazım", "Hüseyin Rahmi Gürpınar"]],
+      ["Parnasizm", ["Biçim kusursuzluğu önemlidir", "Sanat sanat içindir anlayışı güçlüdür", "Kuyumcu titizliği vardır", "Dış dünya nesnel anlatılır", "Şiirde ölçü ve uyak önemsenir"], ["Şiirde romantizme tepki olarak doğmuştur", "Servetifünun şiiri üzerinde etkili olmuştur"], ["Theophile Gautier", "Leconte de Lisle", "Cenap Şahabettin", "Tevfik Fikret"]],
+      ["Sembolizm", ["Musikiye önem verilir", "Kapalı ve çağrışımlı anlatım görülür", "Anlam açıklığı yerine sezdirme vardır", "Alacakaranlık ve belirsiz atmosfer kullanılır", "Mecaz ve imge yoğunluğu fazladır"], ["Parnasizme tepki olarak doğmuştur", "Fecriati şiirinde etkili olmuştur"], ["Baudelaire", "Verlaine", "Mallarme", "Ahmet Haşim"]],
+      ["Empresyonizm", ["Dış dünyanın kişide bıraktığı izlenim anlatılır", "Öznel algı öne çıkar", "Renk ve ışık oyunları önemlidir", "Anlık duyuşlar aktarılır"], ["Resim sanatından edebiyata geçmiştir", "Sanatçının algılayış biçimi önemlidir"], ["Rilke", "Paul Verlaine", "Ahmet Haşim"]],
+      ["Ekspresyonizm", ["İç dünya ve ruhsal durum öne çıkar", "Sanayi toplumuna tepki görülür", "Dış gerçeklik ruh hâline göre değiştirilir", "Bunalım ve korku işlenir"], ["20. yüzyıl başlarında Almanya'da etkili olmuştur", "Dış gerçeklikten çok iç gerçeklik önemlidir"], ["Kafka", "O'Neill"]],
+      ["Kübizm", ["Geometrik düzen hissi verir", "Varlıklar parçalanmış biçimde ele alınır", "Hayatın çok boyutluluğu vurgulanır", "Geleneksel bakış açısı kırılır"], ["Resim sanatında doğup edebiyata da yansımıştır", "Gerçekliği birçok açıdan ele alır"], ["Apollinaire", "Max Jacob"]],
+      ["Fütürizm", ["Hız ve dinamizm yüceltilir", "Makineleşme ve teknoloji öne çıkar", "Geleneksel değerlere karşı çıkılır", "Fabrika ve motor sesleri şiire girer"], ["20. yüzyıl başlarında İtalya'da ortaya çıkmıştır", "Makine ve hareket estetiğini savunur"], ["Marinetti", "Mayakovski", "Nazım Hikmet"]],
+      ["Dadaizm", ["Kuralsızlık öne çıkar", "Anlamsızlık bilinçli kullanılır", "Yerleşik sanat anlayışı reddedilir", "Savaş sonrası şüphe havası taşır"], ["Birinci Dünya Savaşı ortamında doğmuştur", "Geleneksel sanata ve mantığa başkaldırır"], ["Tristan Tzara"]],
+      ["Sürrealizm", ["Bilinçaltı önemlidir", "Rüya ve hipnozdan yararlanılır", "Freud'un görüşlerinden etkilenilmiştir", "Otomatik yazı tekniği kullanılır", "Mantık denetimi geri plana itilir"], ["Psikanalizden etkilenmiştir", "Bilinç denetiminin dışına yönelir"], ["Andre Breton", "Paul Eluard", "Louis Aragon"]],
+      ["Egzistansiyalizm", ["Bireyin seçme özgürlüğü önemlidir", "Sorumluluk duygusu öne çıkar", "Bunaltı ve yabancılaşma işlenir", "İnsan kendi değerini seçimleriyle kurar"], ["İkinci Dünya Savaşı sonrası etkisi artmıştır", "Bireyin varoluş sorunu üzerinde durur"], ["Jean-Paul Sartre", "Albert Camus", "Dostoyevski"]]
     ];
 
     var firsts = [
-      { clue: "Türk dilinin ilk sözlüğü hangisidir?", answer: "Divanü Lügati't-Türk" },
-      { clue: "Türk dilinin ilk dil bilgisi kitabı kabul edilen eser hangisidir?", answer: "Divanü Lügati't-Türk" },
-      { clue: "İlk siyasetname örneği hangisidir?", answer: "Kutadgu Bilig" },
-      { clue: "İslamî dönem Türk edebiyatının ilk yazılı eseri hangisidir?", answer: "Kutadgu Bilig" },
-      { clue: "Edebiyatımızda ilk mesnevi örneği hangisidir?", answer: "Kutadgu Bilig" },
-      { clue: "İlk didaktik eser örneği hangisidir?", answer: "Kutadgu Bilig" },
-      { clue: "İlk yazılı edebî metin ve Türk adının geçtiği ilk metin hangisidir?", answer: "Göktürk Yazıtları" },
-      { clue: "İlk söylev örneği kabul edilen eser hangisidir?", answer: "Göktürk Yazıtları" },
-      { clue: "İlk Türkçe sözlük hangisidir?", answer: "Kamus-ı Türkî" },
-      { clue: "Türkçenin ilk dil bilgisi kitabı hangisidir?", answer: "Sarf-ı Türkî" },
-      { clue: "İlk tezkire örneği hangisidir?", answer: "Mecalisü’n-Nefais" },
-      { clue: "Anadolu sahasında yazılan ilk tezkire hangisidir?", answer: "Heşt Behişt" },
-      { clue: "İlk bibliyografya örneği hangisidir?", answer: "Keşfü'z-Zunun" },
-      { clue: "İlk atasözleri derlemesi hangisidir?", answer: "Durub-ı Emsal-i Osmaniye" },
-      { clue: "İlk hatıra kitabı hangisidir?", answer: "Babürnâme" },
-      { clue: "Edebiyatımızdaki en önemli gezi yazısı örneği hangisidir?", answer: "Seyahatname" },
-      { clue: "İlk hikâye örneği hangisidir?", answer: "Letaif-i Rivayat" },
-      { clue: "Batılı anlamda ilk hikâye denemesi hangisidir?", answer: "Küçük Şeyler" },
-      { clue: "İlk yerli roman hangisidir?", answer: "Taaşşuk-ı Talat ve Fitnat" },
-      { clue: "İlk edebî roman hangisidir?", answer: "İntibah" },
-      { clue: "İlk realist roman denemesi hangisidir?", answer: "Araba Sevdası" },
-      { clue: "İlk köy romanı denemesi hangisidir?", answer: "Karabibik" },
-      { clue: "İlk psikolojik roman hangisidir?", answer: "Eylül" },
-      { clue: "İlk tarihî roman örneği hangisidir?", answer: "Cezmi" },
-      { clue: "İlk tiyatro eseri hangisidir?", answer: "Şair Evlenmesi" },
-      { clue: "Sahnelenen ilk tiyatro eseri hangisidir?", answer: "Vatan yahut Silistre" },
-      { clue: "İlk makale örneği hangisidir?", answer: "Tercüman-ı Ahval Mukaddimesi" },
-      { clue: "İlk özel Türkçe gazete hangisidir?", answer: "Tercüman-ı Ahval" },
-      { clue: "İlk resmî Türkçe gazete hangisidir?", answer: "Takvim-i Vakayi" },
-      { clue: "Dilde sadeleşmeyi savunan yayın organı hangisidir?", answer: "Genç Kalemler" }
-    ];
-
-    var frequentAuthors = [
-      { author: "Kaşgarlı Mahmut", work: "Divanü Lügati't-Türk" },
-      { author: "Yusuf Has Hacip", work: "Kutadgu Bilig" },
-      { author: "Edip Ahmet Yükneki", work: "Atabetü'l-Hakayık" },
-      { author: "Ahmet Yesevi", work: "Divan-ı Hikmet" },
-      { author: "Dede Korkut", work: "Dede Korkut Hikâyeleri" },
-      { author: "Şemsettin Sami", work: "Kamus-ı Türkî" },
-      { author: "Süleyman Paşa", work: "Sarf-ı Türkî" },
-      { author: "Ali Şir Nevaî", work: "Mecalisü’n-Nefais" },
-      { author: "Sehî Bey", work: "Heşt Behişt" },
-      { author: "Katip Çelebi", work: "Keşfü'z-Zunun" },
-      { author: "Şinasi", work: "Durub-ı Emsal-i Osmaniye" },
-      { author: "Şinasi", work: "Tercüman-ı Ahval Mukaddimesi" },
-      { author: "Babür Şah", work: "Babürnâme" },
-      { author: "Evliya Çelebi", work: "Seyahatname" },
-      { author: "Recaizade Mahmud Ekrem", work: "Araba Sevdası" },
-      { author: "Namık Kemal", work: "İntibah" },
-      { author: "Namık Kemal", work: "Cezmi" },
-      { author: "Nabizade Nazım", work: "Karabibik" },
-      { author: "Nabizade Nazım", work: "Zehra" },
-      { author: "Samipaşazâde Sezai", work: "Sergüzeşt" },
-      { author: "Halit Ziya Uşaklıgil", work: "Mai ve Siyah" },
-      { author: "Halit Ziya Uşaklıgil", work: "Aşk-ı Memnu" },
-      { author: "Mehmet Rauf", work: "Eylül" },
-      { author: "Yakup Kadri Karaosmanoğlu", work: "Yaban" },
-      { author: "Yakup Kadri Karaosmanoğlu", work: "Kiralık Konak" },
-      { author: "Halide Edip Adıvar", work: "Ateşten Gömlek" },
-      { author: "Halide Edip Adıvar", work: "Vurun Kahpeye" },
-      { author: "Reşat Nuri Güntekin", work: "Çalıkuşu" },
-      { author: "Reşat Nuri Güntekin", work: "Yaprak Dökümü" },
-      { author: "Peyami Safa", work: "Fatih-Harbiye" },
-      { author: "Peyami Safa", work: "Dokuzuncu Hariciye Koğuşu" },
-      { author: "Ahmet Hamdi Tanpınar", work: "Huzur" },
-      { author: "Ahmet Hamdi Tanpınar", work: "Saatleri Ayarlama Enstitüsü" },
-      { author: "Oğuz Atay", work: "Tutunamayanlar" },
-      { author: "Yusuf Atılgan", work: "Anayurt Oteli" },
-      { author: "Yusuf Atılgan", work: "Aylak Adam" },
-      { author: "Yaşar Kemal", work: "İnce Memed" },
-      { author: "Orhan Kemal", work: "Bereketli Topraklar Üzerinde" },
-      { author: "Fakir Baykurt", work: "Yılanların Öcü" }
-    ];
-
-    var frequentCharacters = [
-      { work: "Araba Sevdası", chars: ["Bihruz Bey", "Periveş", "Keşfi Bey"] },
-      { work: "İntibah", chars: ["Ali Bey", "Mahpeyker", "Dilaşup"] },
-      { work: "Aşk-ı Memnu", chars: ["Adnan Bey", "Bihter", "Behlül", "Nihal"] },
-      { work: "Eylül", chars: ["Necip", "Suat", "Süreyya"] },
-      { work: "Mai ve Siyah", chars: ["Ahmet Cemil", "Lamia", "Hüseyin Nazmi"] },
-      { work: "Yaprak Dökümü", chars: ["Ali Rıza Bey", "Ferhunde", "Leyla", "Necla"] },
-      { work: "Çalıkuşu", chars: ["Feride", "Kamuran"] },
-      { work: "Yaban", chars: ["Ahmet Celal", "Emine", "Mehmet Ali"] },
-      { work: "Huzur", chars: ["Mümtaz", "Nuran", "Suat", "İhsan"] },
-      { work: "Anayurt Oteli", chars: ["Zebercet"] },
-      { work: "Tutunamayanlar", chars: ["Selim Işık", "Turgut Özben"] },
-      { work: "İnce Memed", chars: ["Memed", "Hatce", "Abdi Ağa"] },
-      { work: "Kuyucaklı Yusuf", chars: ["Yusuf", "Muazzez"] },
-      { work: "Fatih-Harbiye", chars: ["Neriman", "Şinasi", "Macit"] }
+      ["Türk dilinin ilk sözlüğü hangisidir?", "Divanü Lügati't-Türk"],
+      ["Türk dilinin ilk dil bilgisi kitabı kabul edilen eser hangisidir?", "Divanü Lügati't-Türk"],
+      ["İlk siyasetname örneği hangisidir?", "Kutadgu Bilig"],
+      ["İslamî dönem Türk edebiyatının ilk yazılı eseri hangisidir?", "Kutadgu Bilig"],
+      ["Edebiyatımızda ilk mesnevi örneği hangisidir?", "Kutadgu Bilig"],
+      ["İlk didaktik eser örneği hangisidir?", "Kutadgu Bilig"],
+      ["İlk yazılı edebî metin ve Türk adının geçtiği ilk metin hangisidir?", "Göktürk Yazıtları"],
+      ["İlk söylev örneği kabul edilen eser hangisidir?", "Göktürk Yazıtları"],
+      ["İlk Türkçe sözlük hangisidir?", "Kamus-ı Türkî"],
+      ["Türkçenin ilk dil bilgisi kitabı hangisidir?", "Sarf-ı Türkî"],
+      ["İlk tezkire örneği hangisidir?", "Mecalisü’n-Nefais"],
+      ["Anadolu sahasında yazılan ilk tezkire hangisidir?", "Heşt Behişt"],
+      ["İlk bibliyografya örneği hangisidir?", "Keşfü'z-Zunun"],
+      ["İlk atasözleri derlemesi hangisidir?", "Durub-ı Emsal-i Osmaniye"],
+      ["İlk hatıra kitabı hangisidir?", "Babürnâme"],
+      ["Edebiyatımızdaki en önemli gezi yazısı örneği hangisidir?", "Seyahatname"],
+      ["İlk hikâye örneği hangisidir?", "Letaif-i Rivayat"],
+      ["Batılı anlamda ilk hikâye denemesi hangisidir?", "Küçük Şeyler"],
+      ["İlk yerli roman hangisidir?", "Taaşşuk-ı Talat ve Fitnat"],
+      ["İlk edebî roman hangisidir?", "İntibah"],
+      ["İlk realist roman denemesi hangisidir?", "Araba Sevdası"],
+      ["İlk köy romanı denemesi hangisidir?", "Karabibik"],
+      ["İlk psikolojik roman hangisidir?", "Eylül"],
+      ["İlk tarihî roman örneği hangisidir?", "Cezmi"],
+      ["İlk tiyatro eseri hangisidir?", "Şair Evlenmesi"],
+      ["Sahnelenen ilk tiyatro eseri hangisidir?", "Vatan yahut Silistre"],
+      ["İlk makale örneği hangisidir?", "Tercüman-ı Ahval Mukaddimesi"],
+      ["İlk özel Türkçe gazete hangisidir?", "Tercüman-ı Ahval"],
+      ["İlk resmî Türkçe gazete hangisidir?", "Takvim-i Vakayi"],
+      ["Dilde sadeleşmeyi savunan yayın organı hangisidir?", "Genç Kalemler"]
     ];
 
     var currentCategory = "";
@@ -993,31 +809,19 @@
         if (type === "workToAuthor") return buildWorkToAuthor(period);
       }
 
-      if (category === "movements") {
-        return buildMovementQuestions(count);
-      }
-
-      if (category === "characters") {
-        return buildCharacterQuestions(characters);
-      }
-
-      if (category === "frequent") {
-        return buildFrequentQuestions(count);
-      }
+      if (category === "movements") return buildMovementQuestions(count);
+      if (category === "characters") return buildCharacterQuestions(characters);
+      if (category === "frequent") return buildFrequentQuestions(count);
 
       return [];
     }
 
     function getAuthorData(period) {
-      if (period === "Tüm Dönemler") {
-        return authorWorks.slice();
-      }
+      if (period === "Tüm Dönemler") return authorWorks.slice();
 
       var list = [];
       for (var i = 0; i < authorWorks.length; i++) {
-        if (authorWorks[i].period === period) {
-          list.push(authorWorks[i]);
-        }
+        if (authorWorks[i][0] === period) list.push(authorWorks[i]);
       }
       return list;
     }
@@ -1028,19 +832,18 @@
       var result = [];
 
       for (var i = 0; i < data.length; i++) {
-        for (var j = 0; j < data[i].works.length; j++) {
-          allWorks.push(data[i].works[j]);
+        for (var j = 0; j < data[i][2].length; j++) {
+          allWorks.push(data[i][2][j]);
         }
       }
 
       for (var a = 0; a < data.length; a++) {
-        for (var w = 0; w < data[a].works.length; w++) {
-          var correct = data[a].works[w];
-          var wrongs = getRandomWrong(allWorks, correct, 4);
+        for (var w = 0; w < data[a][2].length; w++) {
+          var correct = data[a][2][w];
           result.push({
-            question: data[a].author + " adlı sanatçının eseri hangisidir?",
+            question: data[a][1] + " adlı sanatçının eseri hangisidir?",
             correct: correct,
-            options: shuffle([correct].concat(wrongs))
+            options: shuffle([correct].concat(getRandomWrong(allWorks, correct, 4)))
           });
         }
       }
@@ -1053,19 +856,16 @@
       var authors = [];
       var result = [];
 
-      for (var i = 0; i < data.length; i++) {
-        authors.push(data[i].author);
-      }
+      for (var i = 0; i < data.length; i++) authors.push(data[i][1]);
 
       for (var a = 0; a < data.length; a++) {
-        for (var w = 0; w < data[a].works.length; w++) {
-          var work = data[a].works[w];
-          var correct = data[a].author;
-          var wrongs = getRandomWrong(authors, correct, 4);
+        for (var w = 0; w < data[a][2].length; w++) {
+          var work = data[a][2][w];
+          var correct = data[a][1];
           result.push({
             question: '"' + work + '" adlı eser kime aittir?',
             correct: correct,
-            options: shuffle([correct].concat(wrongs))
+            options: shuffle([correct].concat(getRandomWrong(authors, correct, 4)))
           });
         }
       }
@@ -1077,17 +877,14 @@
       var works = [];
       var result = [];
 
-      for (var i = 0; i < source.length; i++) {
-        works.push(source[i].work);
-      }
+      for (var i = 0; i < source.length; i++) works.push(source[i][0]);
 
       for (var c = 0; c < source.length; c++) {
-        var correct = source[c].work;
-        var wrongs = getRandomWrong(works, correct, 4);
+        var correct = source[c][0];
         result.push({
-          question: source[c].chars.join(", ") + " hangi eserin kahramanlarıdır?",
+          question: source[c][1].join(", ") + " hangi eserin kahramanlarıdır?",
           correct: correct,
-          options: shuffle([correct].concat(wrongs))
+          options: shuffle([correct].concat(getRandomWrong(works, correct, 4)))
         });
       }
 
@@ -1099,38 +896,37 @@
       var authorQuestions = [];
       var names = [];
 
-      for (var i = 0; i < movements.length; i++) {
-        names.push(movements[i].name);
-      }
+      for (var i = 0; i < movements.length; i++) names.push(movements[i][0]);
 
       for (var m = 0; m < movements.length; m++) {
         var movement = movements[m];
+        var name = movement[0];
+        var clues = movement[1];
+        var info = movement[2];
+        var authors = movement[3];
 
-        for (var q = 0; q < movement.clues.length; q++) {
-          var clueSet = shuffle(movement.clues).slice(0, 3).join(", ");
-          var wrongNames = getRandomWrong(names, movement.name, 4);
+        for (var q = 0; q < clues.length; q++) {
+          var clueSet = shuffle(clues).slice(0, 3).join(", ");
           base.push({
             question: clueSet + " özellikleri hangi edebi akıma aittir?",
-            correct: movement.name,
-            options: shuffle([movement.name].concat(wrongNames))
+            correct: name,
+            options: shuffle([name].concat(getRandomWrong(names, name, 4)))
           });
         }
 
-        for (var infoIndex = 0; infoIndex < movement.info.length; infoIndex++) {
-          var wrongNames2 = getRandomWrong(names, movement.name, 4);
+        for (var inf = 0; inf < info.length; inf++) {
           base.push({
-            question: movement.info[infoIndex] + ". Bu bilgi hangi edebi akımla ilgilidir?",
-            correct: movement.name,
-            options: shuffle([movement.name].concat(wrongNames2))
+            question: info[inf] + ". Bu bilgi hangi edebi akımla ilgilidir?",
+            correct: name,
+            options: shuffle([name].concat(getRandomWrong(names, name, 4)))
           });
         }
 
-        for (var a = 0; a < movement.authors.length; a++) {
-          var wrongNames3 = getRandomWrong(names, movement.name, 4);
+        for (var a = 0; a < authors.length; a++) {
           authorQuestions.push({
-            question: movement.authors[a] + " hangi edebi akımla ilişkilendirilir?",
-            correct: movement.name,
-            options: shuffle([movement.name].concat(wrongNames3))
+            question: authors[a] + " hangi edebi akımla ilişkilendirilir?",
+            correct: name,
+            options: shuffle([name].concat(getRandomWrong(names, name, 4)))
           });
         }
       }
@@ -1146,15 +942,14 @@
       if (count === 50) authorLimit = 6;
       if (count >= 100) authorLimit = 12;
 
-      var selected = base.slice(0, Math.max(0, count - authorLimit)).concat(authorQuestions.slice(0, authorLimit));
-      return selected;
+      return base.slice(0, Math.max(0, count - authorLimit)).concat(authorQuestions.slice(0, authorLimit));
     }
 
     function buildFrequentQuestions(count) {
       var result = [];
 
       result = result.concat(buildFrequentAuthorQuestions());
-      result = result.concat(buildFrequentCharacterQuestions());
+      result = result.concat(buildCharacterQuestions(characters.slice(0, 18)));
       result = result.concat(buildFrequentMovementQuestions());
       result = result.concat(buildFirstQuestions());
 
@@ -1162,57 +957,83 @@
     }
 
     function buildFrequentAuthorQuestions() {
-      var result = [];
+      var important = [
+        ["Kaşgarlı Mahmut", "Divanü Lügati't-Türk"],
+        ["Yusuf Has Hacip", "Kutadgu Bilig"],
+        ["Edip Ahmet Yükneki", "Atabetü'l-Hakayık"],
+        ["Ahmet Yesevi", "Divan-ı Hikmet"],
+        ["Dede Korkut", "Dede Korkut Hikâyeleri"],
+        ["Şemsettin Sami", "Kamus-ı Türkî"],
+        ["Süleyman Paşa", "Sarf-ı Türkî"],
+        ["Ali Şir Nevaî", "Mecalisü’n-Nefais"],
+        ["Sehî Bey", "Heşt Behişt"],
+        ["Katip Çelebi", "Keşfü'z-Zunun"],
+        ["Şinasi", "Durub-ı Emsal-i Osmaniye"],
+        ["Şinasi", "Tercüman-ı Ahval Mukaddimesi"],
+        ["Babür Şah", "Babürnâme"],
+        ["Evliya Çelebi", "Seyahatname"],
+        ["Recaizade Mahmud Ekrem", "Araba Sevdası"],
+        ["Namık Kemal", "İntibah"],
+        ["Namık Kemal", "Cezmi"],
+        ["Nabizade Nazım", "Karabibik"],
+        ["Nabizade Nazım", "Zehra"],
+        ["Samipaşazâde Sezai", "Sergüzeşt"],
+        ["Halit Ziya Uşaklıgil", "Mai ve Siyah"],
+        ["Halit Ziya Uşaklıgil", "Aşk-ı Memnu"],
+        ["Mehmet Rauf", "Eylül"],
+        ["Yakup Kadri Karaosmanoğlu", "Yaban"],
+        ["Halide Edip Adıvar", "Ateşten Gömlek"],
+        ["Reşat Nuri Güntekin", "Çalıkuşu"],
+        ["Peyami Safa", "Fatih-Harbiye"],
+        ["Ahmet Hamdi Tanpınar", "Huzur"],
+        ["Oğuz Atay", "Tutunamayanlar"],
+        ["Yusuf Atılgan", "Anayurt Oteli"],
+        ["Yaşar Kemal", "İnce Memed"],
+        ["Orhan Kemal", "Bereketli Topraklar Üzerinde"],
+        ["Fakir Baykurt", "Yılanların Öcü"]
+      ];
+
       var authors = [];
       var works = [];
+      var result = [];
 
-      for (var i = 0; i < frequentAuthors.length; i++) {
-        authors.push(frequentAuthors[i].author);
-        works.push(frequentAuthors[i].work);
+      for (var i = 0; i < important.length; i++) {
+        authors.push(important[i][0]);
+        works.push(important[i][1]);
       }
 
-      for (var a = 0; a < frequentAuthors.length; a++) {
-        var item = frequentAuthors[a];
-
-        var wrongWorks = getRandomWrong(works, item.work, 4);
+      for (var a = 0; a < important.length; a++) {
         result.push({
-          question: item.author + " adlı sanatçının eseri hangisidir?",
-          correct: item.work,
-          options: shuffle([item.work].concat(wrongWorks))
+          question: important[a][0] + " adlı sanatçının eseri hangisidir?",
+          correct: important[a][1],
+          options: shuffle([important[a][1]].concat(getRandomWrong(works, important[a][1], 4)))
         });
 
-        var wrongAuthors = getRandomWrong(authors, item.author, 4);
         result.push({
-          question: '"' + item.work + '" adlı eser kime aittir?",
-          correct: item.author,
-          options: shuffle([item.author].concat(wrongAuthors))
+          question: '"' + important[a][1] + '" adlı eser kime aittir?',
+          correct: important[a][0],
+          options: shuffle([important[a][0]].concat(getRandomWrong(authors, important[a][0], 4)))
         });
       }
 
       return result;
     }
 
-    function buildFrequentCharacterQuestions() {
-      return buildCharacterQuestions(frequentCharacters);
-    }
-
     function buildFrequentMovementQuestions() {
       var result = [];
       var names = [];
 
-      for (var i = 0; i < movements.length; i++) {
-        names.push(movements[i].name);
-      }
+      for (var i = 0; i < movements.length; i++) names.push(movements[i][0]);
 
       for (var m = 0; m < movements.length; m++) {
-        var movement = movements[m];
-        var clueSet = shuffle(movement.clues).slice(0, 3).join(", ");
-        var wrongNames = getRandomWrong(names, movement.name, 4);
+        var name = movements[m][0];
+        var clues = movements[m][1];
+        var clueSet = shuffle(clues).slice(0, 3).join(", ");
 
         result.push({
           question: clueSet + " özellikleri hangi edebi akıma aittir?",
-          correct: movement.name,
-          options: shuffle([movement.name].concat(wrongNames))
+          correct: name,
+          options: shuffle([name].concat(getRandomWrong(names, name, 4)))
         });
       }
 
@@ -1223,18 +1044,13 @@
       var result = [];
       var answers = [];
 
-      for (var i = 0; i < firsts.length; i++) {
-        answers.push(firsts[i].answer);
-      }
+      for (var i = 0; i < firsts.length; i++) answers.push(firsts[i][1]);
 
       for (var f = 0; f < firsts.length; f++) {
-        var correct = firsts[f].answer;
-        var wrongs = getRandomWrong(answers, correct, 4);
-
         result.push({
-          question: firsts[f].clue,
-          correct: correct,
-          options: shuffle([correct].concat(wrongs))
+          question: firsts[f][0],
+          correct: firsts[f][1],
+          options: shuffle([firsts[f][1]].concat(getRandomWrong(answers, firsts[f][1], 4)))
         });
       }
 
@@ -1257,6 +1073,7 @@
 
       for (var i = 0; i < q.options.length; i++) {
         var btn = document.createElement("button");
+        btn.type = "button";
         btn.className = "answer";
         btn.innerText = q.options[i];
         btn.onclick = makeAnswerHandler(btn, q.options[i], q);
@@ -1273,9 +1090,7 @@
     function answerQuestion(button, selected, q) {
       var buttons = document.getElementsByClassName("answer");
 
-      for (var i = 0; i < buttons.length; i++) {
-        buttons[i].disabled = true;
-      }
+      for (var i = 0; i < buttons.length; i++) buttons[i].disabled = true;
 
       if (selected === q.correct) {
         correctCount++;
@@ -1285,9 +1100,7 @@
         button.classList.add("wrong");
 
         for (var b = 0; b < buttons.length; b++) {
-          if (buttons[b].innerText === q.correct) {
-            buttons[b].classList.add("correct");
-          }
+          if (buttons[b].innerText === q.correct) buttons[b].classList.add("correct");
         }
 
         saveWrong(q.question, selected, q.correct);
@@ -1343,9 +1156,7 @@
         date: new Date().toLocaleString("tr-TR")
       });
 
-      if (wrongs.length > 250) {
-        wrongs = wrongs.slice(0, 250);
-      }
+      if (wrongs.length > 250) wrongs = wrongs.slice(0, 250);
 
       localStorage.setItem("edebiyatWrongs", JSON.stringify(wrongs));
     }
@@ -1360,9 +1171,7 @@
       var wrongs = [];
 
       for (var i = 0; i < array.length; i++) {
-        if (array[i] !== correct && unique.indexOf(array[i]) === -1) {
-          unique.push(array[i]);
-        }
+        if (array[i] !== correct && unique.indexOf(array[i]) === -1) unique.push(array[i]);
       }
 
       unique = shuffle(unique);
