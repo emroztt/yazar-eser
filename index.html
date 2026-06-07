@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YKS Edebiyat Test</title>
+  <title>Edebiyat Test</title>
 
   <style>
     * {
@@ -14,53 +14,81 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Arial, sans-serif;
-      color: white;
+      font-family: Inter, Arial, sans-serif;
+      color: #fff;
       background:
-        radial-gradient(circle at top left, rgba(255, 100, 0, 0.45), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(255, 0, 70, 0.35), transparent 30%),
-        linear-gradient(135deg, #140707, #271016, #080b12);
+        radial-gradient(circle at top left, rgba(255, 87, 34, 0.35), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255, 193, 7, 0.22), transparent 28%),
+        linear-gradient(135deg, #130b0b 0%, #251015 35%, #0f111a 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 38px 38px;
+      pointer-events: none;
+      opacity: 0.45;
     }
 
     .app {
-      max-width: 560px;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 540px;
       margin: 0 auto;
-      padding: 18px 15px 35px;
+      padding: 18px 16px 32px;
     }
 
     .screen {
       display: none;
+      animation: fadeIn 0.25s ease;
     }
 
     .screen.active {
       display: block;
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .brand {
-      text-align: center;
       margin: 18px 0 24px;
+      text-align: center;
     }
 
     .badge {
       display: inline-block;
-      padding: 7px 13px;
+      padding: 7px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
       color: #ffc46b;
       font-size: 12px;
-      font-weight: bold;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
       margin-bottom: 12px;
     }
 
     h1 {
       margin: 0;
       font-size: 34px;
+      line-height: 1.05;
+      letter-spacing: -1px;
     }
 
     .brand p {
-      color: rgba(255,255,255,0.75);
+      margin: 10px auto 0;
+      color: rgba(255,255,255,0.72);
       font-size: 15px;
       line-height: 1.45;
+      max-width: 380px;
     }
 
     .menu {
@@ -70,125 +98,169 @@
     }
 
     .menu-card {
+      position: relative;
       width: 100%;
-      border: 1px solid rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.14);
       border-radius: 24px;
-      padding: 20px;
+      padding: 20px 18px;
       text-align: left;
       color: white;
-      background: rgba(255,255,255,0.10);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
       cursor: pointer;
-      touch-action: manipulation;
+      overflow: hidden;
+      background: rgba(255,255,255,0.085);
+      box-shadow: 0 18px 42px rgba(0,0,0,0.34);
+      backdrop-filter: blur(14px);
+      transition: transform 0.17s ease, border-color 0.17s ease, background 0.17s ease;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 193, 7, 0.45);
+      background: rgba(255,255,255,0.12);
     }
 
     .menu-card:active {
       transform: scale(0.98);
     }
 
-    .icon {
-      width: 45px;
-      height: 45px;
+    .menu-card::after {
+      content: "";
+      position: absolute;
+      right: -35px;
+      top: -35px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 87, 34, 0.75), rgba(255, 193, 7, 0.45));
+      opacity: 0.8;
+    }
+
+    .menu-card .icon {
+      width: 44px;
+      height: 44px;
       border-radius: 15px;
       display: grid;
       place-items: center;
-      font-size: 23px;
-      background: linear-gradient(135deg, #ff3d00, #ffc107);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      font-size: 22px;
+      background: linear-gradient(135deg, #ff3d00, #ffb300);
+      box-shadow: 0 10px 22px rgba(255, 87, 34, 0.25);
     }
 
     .menu-card h2 {
       margin: 0 0 6px;
       font-size: 21px;
+      letter-spacing: -0.3px;
     }
 
     .menu-card p {
       margin: 0;
       color: rgba(255,255,255,0.72);
       font-size: 14px;
+      line-height: 1.4;
+      padding-right: 35px;
     }
 
     .panel {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 24px;
+      background: rgba(255,255,255,0.095);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 26px;
       padding: 18px;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+      box-shadow: 0 18px 42px rgba(0,0,0,0.34);
+      backdrop-filter: blur(14px);
     }
 
     .top-title {
+      margin: 18px 0 14px;
       text-align: center;
-      margin: 18px 0 15px;
-      font-size: 28px;
+      font-size: 29px;
+      letter-spacing: -0.6px;
+    }
+
+    .field {
+      margin-bottom: 14px;
     }
 
     label {
       display: block;
-      margin: 12px 0 8px;
-      font-size: 14px;
-      font-weight: bold;
-      color: rgba(255,255,255,0.8);
+      font-size: 13px;
+      color: rgba(255,255,255,0.78);
+      margin: 0 0 8px 2px;
+      font-weight: 700;
     }
 
     select {
       width: 100%;
-      border: none;
-      border-radius: 16px;
-      padding: 15px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 17px;
+      padding: 15px 14px;
+      outline: none;
       font-size: 16px;
-      font-weight: bold;
       background: #fff7ed;
-      color: #21100a;
+      color: #24100b;
+      font-weight: 700;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.18);
     }
 
     .main-btn, .ghost-btn {
       width: 100%;
-      border-radius: 16px;
-      padding: 15px;
+      border: none;
+      border-radius: 18px;
+      padding: 15px 16px;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 900;
       cursor: pointer;
-      touch-action: manipulation;
+      transition: transform 0.15s ease, filter 0.15s ease;
     }
 
     .main-btn {
-      margin-top: 16px;
-      border: none;
-      color: #190804;
-      background: linear-gradient(135deg, #ffc107, #ff3d00);
+      margin-top: 8px;
+      color: #1d0a04;
+      background: linear-gradient(135deg, #ffb300, #ff3d00);
+      box-shadow: 0 14px 30px rgba(255, 91, 0, 0.35);
     }
 
     .ghost-btn {
       margin-top: 10px;
       color: white;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.11);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .main-btn:hover, .ghost-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    .main-btn:active, .ghost-btn:active {
+      transform: scale(0.98);
     }
 
     .progress {
       display: inline-block;
       margin: 8px 0 14px;
-      padding: 8px 13px;
+      padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.12);
-      color: #ffc46b;
-      font-weight: bold;
       font-size: 13px;
+      color: #ffcc80;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
     }
 
     .question-card {
-      background: white;
-      color: #160907;
-      border-radius: 24px;
+      background: rgba(255,255,255,0.97);
+      color: #160b09;
+      border-radius: 27px;
       padding: 20px;
-      box-shadow: 0 22px 50px rgba(0,0,0,0.45);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.42);
     }
 
     .question {
       font-size: 21px;
-      font-weight: bold;
       line-height: 1.35;
-      margin-bottom: 16px;
+      font-weight: 900;
+      letter-spacing: -0.35px;
+      margin-bottom: 17px;
     }
 
     .answers {
@@ -200,35 +272,97 @@
     .answer {
       width: 100%;
       border: none;
-      border-radius: 16px;
+      border-radius: 17px;
       padding: 15px;
       text-align: left;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 850;
       cursor: pointer;
       color: white;
-      background: linear-gradient(135deg, #262936, #11131b);
+      background: linear-gradient(135deg, #232631, #11131a);
+      box-shadow: 0 9px 18px rgba(0,0,0,0.18);
+      transition: transform 0.14s ease, filter 0.14s ease;
+    }
+
+    .answer:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.12);
     }
 
     .answer.correct {
-      background: #19b86a !important;
+      background: linear-gradient(135deg, #00b09b, #1fdd6d) !important;
+      color: white !important;
     }
 
     .answer.wrong {
-      background: #e53935 !important;
+      background: linear-gradient(135deg, #ff0844, #ff3d00) !important;
+      color: white !important;
+    }
+
+    .answer:disabled {
+      cursor: not-allowed;
+    }
+
+    .result-number {
+      text-align: center;
+      font-size: 44px;
+      font-weight: 950;
+      margin: 10px 0 4px;
+      color: #ffb300;
+    }
+
+    .result-text {
+      text-align: center;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 16px;
+      line-height: 1.45;
     }
 
     .wrong-item {
-      background: rgba(255,255,255,0.12);
-      border-radius: 16px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 18px;
       padding: 14px;
       margin-bottom: 10px;
       line-height: 1.45;
+      color: rgba(255,255,255,0.88);
       font-size: 14px;
     }
 
     .wrong-item b {
-      color: #ffc46b;
+      color: #ffcc80;
+    }
+
+    .empty {
+      text-align: center;
+      color: rgba(255,255,255,0.70);
+      padding: 30px 10px;
+    }
+
+    .mini-note {
+      text-align: center;
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 420px) {
+      .app {
+        padding: 14px 13px 28px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .question {
+        font-size: 19px;
+      }
+
+      .menu-card {
+        border-radius: 22px;
+        padding: 18px 16px;
+      }
     }
   </style>
 </head>
@@ -240,215 +374,359 @@
       <div class="brand">
         <div class="badge">YKS Edebiyat</div>
         <h1>Edebiyat Test</h1>
-        <p>ÖSYM tarzı sık sorulanlar, yazar-eser, edebi akımlar ve roman kahramanları.</p>
+        <p>Yazar-eser, roman kahramanları ve edebi akımları hızlı tekrar et.</p>
       </div>
 
       <div class="menu">
-        <button class="menu-card" id="btnFrequent">
-          <div class="icon">⭐</div>
-          <h2>Sık Sorulanlar</h2>
-          <p>İlkler, temel eserler, akımlar ve kahramanlar.</p>
-        </button>
-
-        <button class="menu-card" id="btnAuthor">
+        <button class="menu-card" onclick="openSettings('authorWork')">
           <div class="icon">✍️</div>
           <h2>Yazar - Eser</h2>
-          <p>Dönem seç, yazar-eser ya da eser-yazar çöz.</p>
+          <p>Dönem seç, istersen yazardan eseri istersen eserden yazarı bul.</p>
         </button>
 
-        <button class="menu-card" id="btnMovements">
+        <button class="menu-card" onclick="openSettings('movements')">
           <div class="icon">🔥</div>
           <h2>Edebi Akımlar</h2>
-          <p>Özelliklerden edebi akımı bul.</p>
+          <p>Özellik, dönem bilgisi ve temsilciler üzerinden akımı bul.</p>
         </button>
 
-        <button class="menu-card" id="btnCharacters">
+        <button class="menu-card" onclick="openSettings('characters')">
           <div class="icon">🎭</div>
           <h2>Roman Kahramanları</h2>
-          <p>Kahramanlardan eseri bul.</p>
+          <p>Kahramanlar verilsin, hangi esere ait olduğunu seç.</p>
         </button>
 
-        <button class="menu-card" id="btnWrongs">
+        <button class="menu-card" onclick="showWrongs()">
           <div class="icon">📌</div>
           <h2>Yanlışlarım</h2>
-          <p>Yanlışlarını tekrar gör.</p>
+          <p>Yanlış yaptığın soruları tekrar gör.</p>
         </button>
       </div>
+
+      <div class="mini-note">GitHub Pages üzerinde çalışır. PC kapalı olsa da link açık kalır.</div>
     </div>
 
     <div id="settingsScreen" class="screen">
       <h1 class="top-title" id="settingsTitle">Test Ayarları</h1>
 
       <div class="panel">
-        <div id="periodBox">
-          <label>Dönem seç</label>
+        <div class="field" id="periodBox">
+          <label for="periodSelect">Dönem seç</label>
           <select id="periodSelect"></select>
         </div>
 
-        <div id="typeBox">
-          <label>Soru tipi seç</label>
+        <div class="field" id="typeBox">
+          <label for="typeSelect">Soru tipi seç</label>
           <select id="typeSelect"></select>
         </div>
 
-        <label>Kaç soru olsun?</label>
-        <select id="countSelect"></select>
+        <div class="field">
+          <label for="countSelect">Kaç soru olsun?</label>
+          <select id="countSelect"></select>
+        </div>
 
-        <button class="main-btn" id="startBtn">Teste Başla</button>
-        <button class="ghost-btn" id="homeBtn1">Ana Menü</button>
+        <button class="main-btn" onclick="startTest()">Teste Başla</button>
+        <button class="ghost-btn" onclick="goHome()">Ana Menü</button>
       </div>
     </div>
 
     <div id="testScreen" class="screen">
-      <div class="progress" id="progressText"></div>
+      <div class="progress" id="progressText">1 / 10</div>
 
       <div class="question-card">
         <div class="question" id="questionText"></div>
         <div class="answers" id="answers"></div>
       </div>
 
-      <button class="ghost-btn" id="homeBtn2">Testi Bitir</button>
+      <button class="ghost-btn" onclick="goHome()">Testi Bitir</button>
     </div>
 
     <div id="resultScreen" class="screen">
       <h1 class="top-title">Sonuç</h1>
-
       <div class="panel">
-        <h1 id="resultNumber" style="text-align:center;color:#ffc107;"></h1>
-        <p id="resultText" style="text-align:center;"></p>
-
-        <button class="main-btn" id="repeatBtn">Aynı Testi Tekrar Çöz</button>
-        <button class="ghost-btn" id="homeBtn3">Ana Menü</button>
+        <div class="result-number" id="resultNumber">0/10</div>
+        <div class="result-text" id="resultText"></div>
+        <button class="main-btn" onclick="repeatSameTest()">Aynı Testten Tekrar Çöz</button>
+        <button class="ghost-btn" onclick="goHome()">Ana Menü</button>
       </div>
     </div>
 
     <div id="wrongScreen" class="screen">
       <h1 class="top-title">Yanlışlarım</h1>
       <div id="wrongList"></div>
-      <button class="main-btn" id="clearWrongBtn">Yanlışları Temizle</button>
-      <button class="ghost-btn" id="homeBtn4">Ana Menü</button>
+      <button class="main-btn" onclick="clearWrongs()">Yanlışları Temizle</button>
+      <button class="ghost-btn" onclick="goHome()">Ana Menü</button>
     </div>
 
   </div>
 
   <script>
     var authorWorks = [
-      ["İslamiyet İlk Dönem", "Kaşgarlı Mahmut", ["Divanü Lügati't-Türk"]],
-      ["İslamiyet İlk Dönem", "Yusuf Has Hacip", ["Kutadgu Bilig"]],
-      ["İslamiyet İlk Dönem", "Edip Ahmet Yükneki", ["Atabetü'l-Hakayık"]],
-      ["İslamiyet İlk Dönem", "Ahmet Yesevi", ["Divan-ı Hikmet"]],
-      ["İslamiyet İlk Dönem", "Dede Korkut", ["Dede Korkut Hikâyeleri"]],
+      { period: "Halk Edebiyatı", author: "Yunus Emre", works: ["Risaletü'n-Nushiyye"] },
+      { period: "Halk Edebiyatı", author: "Hacı Bektaş-ı Veli", works: ["Makalat"] },
+      { period: "Halk Edebiyatı", author: "Kaygusuz Abdal", works: ["Kitab-ı Miglate", "Budalaname", "Mugalatname", "Vücudname", "Sarayname"] },
+      { period: "Halk Edebiyatı", author: "Pir Sultan Abdal", works: ["Minbername"] },
+      { period: "Halk Edebiyatı", author: "Eşrefoğlu Rumi", works: ["Müzekki'n-Nüfus"] },
+      { period: "Halk Edebiyatı", author: "Erzurumlu İbrahim Hakkı", works: ["Marifetname"] },
+      { period: "Halk Edebiyatı", author: "Bayburtlu Zihni", works: ["Sergüzeştname", "Kitab-ı Hikaye-i Garibe"] },
+      { period: "Halk Edebiyatı", author: "Aşık Ömer", works: ["Şairname"] },
+      { period: "Halk Edebiyatı", author: "Dertli", works: ["Şairname"] },
+      { period: "Halk Edebiyatı", author: "Kayıkçı Kul Mustafa", works: ["Genç Osman Destanı"] },
 
-      ["Fecriati", "Ahmet Haşim", ["Piyale", "Göl Saatleri", "Şiir Hakkında Bazı Mülahazalar", "Gurabahane-i Laklakan", "Bize Göre", "Frankfurt Seyahatnamesi"]],
-      ["Fecriati", "Emin Bülent Serdaroğlu", ["Kin", "Dev Şarkısı", "Hatay'a Selam"]],
-      ["Fecriati", "Tahsin Nahit", ["Ruh-i Bikayd", "Talak", "Kırık Mahfaza", "Ben Başka", "Hicranlar", "Firar", "Osman-ı Sani"]],
-      ["Fecriati", "Hamdullah Suphi Tanrıöver", ["Günebakan", "Dağ Yolu"]],
-      ["Fecriati", "Faik Ali Ozansoy", ["Fani Teselliler", "Temasil", "Elhan-ı Vatan", "Payitahtın Kapısında"]],
-      ["Fecriati", "Cemil Süleyman", ["Timsal-i Aşk", "İnhizam", "Siyah Gözler", "Kadın Ruhu"]],
-      ["Fecriati", "İzzet Melih Devrim", ["Hüzün ve Tebessüm", "Her Güzelliğe Âşık", "Tezat", "Sermet"]],
-      ["Fecriati", "Şahabettin Süleyman", ["Fırtına", "Aralarında", "Kanun", "Avdet", "Aziz Katil", "Kül", "Burgu Çıkmaz Sokak", "Yeni İzdivaçlarda", "Kırık Mahfaza", "Kösem Sultan"]],
-      ["Fecriati", "Müfit Ratip", ["Zincir", "Tiryaki Hasan", "Kanije Müdafaası"]],
-      ["Fecriati", "Fazıl Ahmet Aykaç", ["Divançe-i Fazıl fi Vasf-ı Efazıl", "Harman Sonu", "Kırpıntı", "Şeytan Diyor ki"]],
+      { period: "Divan / Geçiş", author: "Hoca Dehhani", works: ["Şehname"] },
+      { period: "Divan / Geçiş", author: "Mevlana", works: ["Divan-ı Kebir", "Mesnevi", "Mektubat", "Fihi Ma Fih", "Mecalis-i Seb'a"] },
+      { period: "Divan / Geçiş", author: "Şeyyat Hamza", works: ["Yusuf u Züleyha"] },
+      { period: "Divan / Geçiş", author: "Ahmet Fakih", works: ["Çarhname"] },
+      { period: "Divan / Geçiş", author: "Gülşehri", works: ["Mantıku’t-Tayr"] },
+      { period: "Divan / Geçiş", author: "Âşık Paşa", works: ["Garipname", "Fakrname", "Vasf-ı Hâl"] },
+      { period: "Divan / Geçiş", author: "Ahmedî", works: ["Cemşid ü Hurşit"] },
+      { period: "Divan / Geçiş", author: "Şeyhî", works: ["Harname", "Hüsrev ü Şirin"] },
+      { period: "Divan / Geçiş", author: "Ahmet Paşa", works: ["Kerem Kasidesi", "Güneş Kasidesi"] },
+      { period: "Divan / Geçiş", author: "Ali Şir Nevaî", works: ["Mecalisü’n-Nefais", "Muhakemetü’l-Lugateyn", "Mizanu’l-Evzan"] },
+      { period: "Divan / Geçiş", author: "Süleyman Çelebi", works: ["Vesiletü’n-Necat"] },
+      { period: "Divan / Geçiş", author: "Fuzuli", works: ["Su Kasidesi", "Şikâyetname", "Leyla vü Mecnun", "Beng ü Bade"] },
+      { period: "Divan / Geçiş", author: "Baki", works: ["Kanuni Mersiyesi", "Fezail-i Mekke"] },
+      { period: "Divan / Geçiş", author: "Nefi", works: ["Siham-ı Kaza"] },
+      { period: "Divan / Geçiş", author: "Nabi", works: ["Tühfetü’l-Harameyn", "Hayriyye", "Hayrabat"] },
+      { period: "Divan / Geçiş", author: "Şeyh Galip", works: ["Hüsn ü Aşk"] },
+      { period: "Divan / Geçiş", author: "Keçecizade İzzet Molla", works: ["Mihnet-i Keşan", "Gülşen-i Aşk"] },
+      { period: "Divan / Geçiş", author: "Sehî Bey", works: ["Heşt Behişt"] },
+      { period: "Divan / Geçiş", author: "Katip Çelebi", works: ["Keşfü'z-Zunun", "Cihannüma"] },
+      { period: "Divan / Geçiş", author: "Mercimek Ahmet", works: ["Kabusname"] },
+      { period: "Divan / Geçiş", author: "Erzurumlu Kadı Darir", works: ["Sîretü'n-Nebî"] },
+      { period: "Divan / Geçiş", author: "Seydi Ali Reis", works: ["Miratü’l-Memalik"] },
+      { period: "Divan / Geçiş", author: "Evliya Çelebi", works: ["Seyahatname"] },
+      { period: "Divan / Geçiş", author: "Koçi Bey", works: ["Risale"] },
+      { period: "Divan / Geçiş", author: "Yirmisekiz Mehmet Çelebi", works: ["Fransa Sefaretnamesi"] },
+      { period: "Divan / Geçiş", author: "Veysi", works: ["Habnâme", "Münşeat", "Siyer-i Veysi"] },
 
-      ["Tanzimat", "Namık Kemal", ["İntibah", "Cezmi", "Vatan yahut Silistre", "Hürriyet Kasidesi"]],
-      ["Tanzimat", "Şinasi", ["Şair Evlenmesi", "Tercüman-ı Ahval Mukaddimesi", "Durub-ı Emsal-i Osmaniye"]],
-      ["Tanzimat", "Recaizade Mahmud Ekrem", ["Araba Sevdası", "Zemzeme", "Talim-i Edebiyat"]],
-      ["Tanzimat", "Nabizade Nazım", ["Karabibik", "Zehra"]],
-      ["Tanzimat", "Samipaşazâde Sezai", ["Sergüzeşt", "Küçük Şeyler"]],
-      ["Tanzimat", "Şemsettin Sami", ["Taaşşuk-ı Talat ve Fitnat", "Kamus-ı Türkî"]],
-      ["Tanzimat", "Süleyman Paşa", ["Sarf-ı Türkî"]],
+      { period: "Tanzimat", author: "Namık Kemal", works: ["Hürriyet Kasidesi", "Vatan Şarkısı", "Vatan Mersiyesi", "İntibah", "Cezmi", "Vatan yahut Silistre", "Celalettin Harzemşah", "Gülnihal", "Tahrib-i Harabat", "Takib-i Harabat", "Renan Müdafaanamesi"] },
+      { period: "Tanzimat", author: "Ziya Paşa", works: ["Harabat", "Terkib-i Bent", "Terci-i Bent", "Eş’ar-ı Ziya", "Defter-i Âmal", "Zafernâme"] },
+      { period: "Tanzimat", author: "Şinasi", works: ["Şair Evlenmesi", "Durub-ı Emsal-i Osmaniye", "Tercüme-i Manzume", "Tercüman-ı Ahval Mukaddimesi", "Tasvir-i Efkâr"] },
+      { period: "Tanzimat", author: "Ahmet Mithat Efendi", works: ["Felatun Bey’le Rakım Efendi", "Avrupa’da Bir Cevelan", "Letaif-i Rivayat", "Kıssadan Hisse", "Tercüman-ı Hakikat"] },
+      { period: "Tanzimat", author: "Ahmet Vefik Paşa", works: ["Şecere-i Türk", "Lehçe-i Osmanî", "Hikmet-i Tarih", "Fezleke-i Osmanî"] },
+      { period: "Tanzimat", author: "Şemsettin Sami", works: ["Taaşşuk-ı Talat ve Fitnat", "Kamus-ı Türkî"] },
+      { period: "Tanzimat", author: "Abdülhak Hamit Tarhan", works: ["Validem", "Makber", "Sahra", "Garam", "Nesteren", "Tarık", "Tezer", "Eşber", "İçli Kız", "Duhter-i Hindu", "Sabr-u Sebat"] },
+      { period: "Tanzimat", author: "Samipaşazâde Sezai", works: ["İclâl", "Sergüzeşt", "Küçük Şeyler"] },
+      { period: "Tanzimat", author: "Nabizade Nazım", works: ["Karabibik", "Zehra"] },
+      { period: "Tanzimat", author: "Muallim Naci", works: ["Demdeme", "Köylü Kızların Şarkısı", "Istılahat-ı Edebiyye", "Lügat-ı Naci", "Ömer'in Çocukluğu"] },
+      { period: "Tanzimat", author: "Recaizade Mahmud Ekrem", works: ["Takdir-i Elhan", "Talim-i Edebiyat", "Araba Sevdası", "Zemzeme", "Afife Anjelik", "Vuslat"] },
+      { period: "Tanzimat", author: "Ahmet Cevdet Paşa", works: ["Kısas-ı Enbiya", "Tarih-i Cevdet", "Mecelle"] },
+      { period: "Tanzimat", author: "Süleyman Paşa", works: ["Sarf-ı Türkî"] },
 
-      ["Servetifünun", "Halit Ziya Uşaklıgil", ["Mai ve Siyah", "Aşk-ı Memnu", "Kırk Yıl"]],
-      ["Servetifünun", "Mehmet Rauf", ["Eylül", "Siyah İnciler"]],
-      ["Servetifünun", "Tevfik Fikret", ["Sis", "Şermin", "Rübab-ı Şikeste"]],
-      ["Servetifünun", "Cenap Şahabettin", ["Elhan-ı Şita", "Tamat"]],
+      { period: "Servetifünun", author: "Tevfik Fikret", works: ["Sis", "Han-ı Yağma", "Doksan Beşe Doğru", "Tarih-i Kadim", "Millet Şarkısı", "Rübabın Cevabı", "Rübab-ı Şikeste", "Hasta Çocuk", "Halûk’un Defteri", "Şermin"] },
+      { period: "Servetifünun", author: "Cenap Şahabettin", works: ["Elhan-ı Şita", "Tamat", "Hac Yolunda", "Avrupa Mektupları", "Suriye Mektupları", "Yalan", "Körebe", "Küçük Beyler"] },
+      { period: "Servetifünun", author: "Halit Ziya Uşaklıgil", works: ["Mai ve Siyah", "Kırk Yıl", "Saray ve Ötesi", "Aşk-ı Memnu", "Ferdi ve Şürekâsı", "Bir Ölünün Defteri"] },
+      { period: "Servetifünun", author: "Mehmet Rauf", works: ["Eylül", "Siyah İnciler", "Pençe", "Cidal", "Sansar"] },
+      { period: "Servetifünun", author: "Hüseyin Cahit Yalçın", works: ["Hayat-ı Muhayyel", "Hayat-ı Hakikiye Sahneleri", "Edebiyat ve Hukuk", "Kavgalarım"] },
+      { period: "Servetifünun", author: "Süleyman Nazif", works: ["Cenk Türküsü", "Kara Bir Gün"] },
+      { period: "Servetifünun", author: "Hüseyin Rahmi Gürpınar", works: ["Şık", "Şıpsevdi", "Mürebbiye", "Nimetşinas", "Gulyabani", "Kadınlar Vaizi", "Katil Buse", "Hazan Bülbülü", "Kuyruklu Yıldız Altında Bir İzdivaç"] },
+      { period: "Servetifünun", author: "Ahmet Rasim", works: ["Eşkâl-i Zaman", "Muharrir Bu Ya", "Şehir Mektupları", "Falaka", "Gülüp Ağladıklarım"] },
 
-      ["Milli Edebiyat", "Ömer Seyfettin", ["Diyet", "Bomba", "Yüksek Ökçeler", "Efruz Bey"]],
-      ["Milli Edebiyat", "Ziya Gökalp", ["Kızıl Elma", "Türkçülüğün Esasları"]],
-      ["Milli Edebiyat", "Yakup Kadri Karaosmanoğlu", ["Yaban", "Kiralık Konak", "Sodom ve Gomore"]],
-      ["Milli Edebiyat", "Halide Edip Adıvar", ["Ateşten Gömlek", "Vurun Kahpeye"]],
-      ["Milli Edebiyat", "Reşat Nuri Güntekin", ["Çalıkuşu", "Yaprak Dökümü", "Yeşil Gece"]],
+      { period: "Fecriati", author: "Ahmet Haşim", works: ["Piyale", "Göl Saatleri", "Şiir Hakkında Bazı Mülahazalar", "Gurabahane-i Laklakan", "Bize Göre", "Frankfurt Seyahatnamesi"] },
+      { period: "Fecriati", author: "Emin Bülent Serdaroğlu", works: ["Kin", "Dev Şarkısı"] },
+      { period: "Fecriati", author: "Tahsin Nahit", works: ["Ruh-i Bikayd", "Talak", "Kırık Mahfaza", "Ben Başka"] },
 
-      ["Cumhuriyet", "Ahmet Hamdi Tanpınar", ["Huzur", "Saatleri Ayarlama Enstitüsü", "Beş Şehir"]],
-      ["Cumhuriyet", "Peyami Safa", ["Fatih-Harbiye", "Dokuzuncu Hariciye Koğuşu"]],
-      ["Cumhuriyet", "Oğuz Atay", ["Tutunamayanlar", "Tehlikeli Oyunlar"]],
-      ["Cumhuriyet", "Yusuf Atılgan", ["Anayurt Oteli", "Aylak Adam"]],
-      ["Cumhuriyet", "Yaşar Kemal", ["İnce Memed", "Teneke"]],
-      ["Cumhuriyet", "Orhan Kemal", ["Bereketli Topraklar Üzerinde", "72. Koğuş"]],
-      ["Cumhuriyet", "Fakir Baykurt", ["Yılanların Öcü", "Irazca’nın Dirliği"]]
+      { period: "Milli Edebiyat", author: "Ömer Seyfettin", works: ["Diyet", "Bomba", "Efruz Bey", "Harem", "Ashab-ı Kehfimiz", "Yüksek Ökçeler", "Asilzadeler", "Dalga", "Beyaz Lale", "İlk Düşen Ak", "Bahar ve Kelebekler", "Gizli Mabet"] },
+      { period: "Milli Edebiyat", author: "Ziya Gökalp", works: ["Kızıl Elma", "Altın Işık", "Yeni Hayat", "Türkçülüğün Esasları"] },
+      { period: "Milli Edebiyat", author: "Mehmet Emin Yurdakul", works: ["Ben Bir Türk’üm", "Türk Sazı", "Tan Sesleri", "Ey Türk Uyan", "Ordunun Destanı", "Aydın Kızları", "Zafer Yolunda", "Turana Doğru"] },
+      { period: "Milli Edebiyat", author: "Ali Canip Yöntem", works: ["Cenap Bey'le Münakaşalarım", "Geçtiğim Yol"] },
+      { period: "Milli Edebiyat", author: "Yakup Kadri Karaosmanoğlu", works: ["Kiralık Konak", "Sodom ve Gomore", "Yaban", "Erenlerin Bağından", "Okun Ucundan"] },
+      { period: "Milli Edebiyat", author: "Refik Halit Karay", works: ["Memleket Hikâyeleri", "Bugünün Saraylısı", "Gurbet Hikâyeleri", "Sürgün", "Nilgün", "Kirpinin Dedikleri"] },
+      { period: "Milli Edebiyat", author: "Halide Edip Adıvar", works: ["Ateşten Gömlek", "Vurun Kahpeye", "Yeni Turan"] },
+      { period: "Milli Edebiyat", author: "Reşat Nuri Güntekin", works: ["Çalıkuşu", "Akşam Güneşi", "Yaprak Dökümü", "Acımak", "Anadolu Notları", "Yeşil Gece", "Damga", "Miskinler Tekkesi"] },
+      { period: "Milli Edebiyat", author: "Mehmet Fuat Köprülü", works: ["Türk Edebiyatında İlk Mutasavvıflar", "Türk Edebiyat Tarihi", "Türk Saz Şairleri Antolojisi"] },
+      { period: "Milli Edebiyat", author: "Yahya Kemal Beyatlı", works: ["Eski Şiirin Rüzgârıyla", "Kendi Gök Kubbemiz", "Süleymaniye’de Bayram Sabahı"] },
+      { period: "Milli Edebiyat", author: "Mehmet Akif Ersoy", works: ["Safahat"] },
+
+      { period: "Cumhuriyet", author: "Ahmet Kutsi Tecer", works: ["Orda Bir Köy Var Uzakta", "Nerdesin", "Koçyiğit Köroğlu", "Köşebaşı"] },
+      { period: "Cumhuriyet", author: "Arif Nihat Asya", works: ["Fetih Marşı", "Bir Bayrak Rüzgâr Bekliyor", "Dualar ve Âminler"] },
+      { period: "Cumhuriyet", author: "Faruk Nafiz Çamlıbel", works: ["Çoban Çeşmesi", "Suda Halkalar", "Bir Ömür Böyle Geçti", "Onuncu Yıl Marşı"] },
+      { period: "Cumhuriyet", author: "Necip Fazıl Kısakürek", works: ["Çile", "Örümcek Ağı", "Tohum", "Bir Adam Yaratmak", "Künye", "Kafa Kâğıdı"] },
+      { period: "Cumhuriyet", author: "Ahmet Hamdi Tanpınar", works: ["Bursa’da Zaman", "Beş Şehir", "Mahur Beste", "Huzur", "Abdullah Efendi’nin Rüyaları", "Saatleri Ayarlama Enstitüsü"] },
+      { period: "Cumhuriyet", author: "Cahit Sıtkı Tarancı", works: ["Otuz Beş Yaş", "Düşten Güzel", "Ömrümde Sükût"] },
+      { period: "Cumhuriyet", author: "Ahmet Muhip Dıranas", works: ["Şiirler", "Kırık Saz", "Gölgeler", "O Böyle İstemezdi", "Fahriye Abla", "Kar", "Serenad", "Olvido"] },
+      { period: "Cumhuriyet", author: "Orhan Veli Kanık", works: ["İstanbul’u Dinliyorum", "Garip", "Vazgeçemediğim", "Destan Gibi", "Yenisi", "Karşı"] },
+      { period: "Cumhuriyet", author: "Oktay Rıfat Horozcu", works: ["Garip", "Yaşayıp Ölmek", "Aşk ve Avarelik Üstüne Şiirler", "Bir Kadının Penceresinden"] },
+      { period: "Cumhuriyet", author: "Melih Cevdet Anday", works: ["Garip", "Rahatı Kaçan Ağaç", "Telgrafhane", "Teknenin Ölümü", "Mikadonun Çöpleri", "İçerdekiler"] },
+      { period: "Cumhuriyet", author: "Nazım Hikmet", works: ["Memleketimden İnsan Manzaraları", "Kuvayı Milliye Destanı", "Benerci Kendini Niçin Öldürdü", "Sevdalı Bulut"] },
+      { period: "Cumhuriyet", author: "Rıfat Ilgaz", works: ["Hababam Sınıfı", "Yarenlik", "Sınıf", "Yaşadıkça", "Üsküdar’da Sabah Oldu"] },
+      { period: "Cumhuriyet", author: "Ahmet Arif", works: ["Hasretinden Prangalar Eskittim"] },
+      { period: "Cumhuriyet", author: "Cahit Zarifoğlu", works: ["İşaret Çocukları", "Yedi Güzel Adam", "Menziller", "Korku ve Yakarış"] },
+      { period: "Cumhuriyet", author: "Erdem Bayazıt", works: ["Sebeb Ey", "Risaleler"] },
+      { period: "Cumhuriyet", author: "Özdemir Asaf", works: ["Dünya Kaçtı Gözüme", "Lavinia", "Yalnızlık Paylaşılmaz"] },
+      { period: "Cumhuriyet", author: "Attila İlhan", works: ["Cebbaroğlu Mehemmed", "Duvar", "Sisler Bulvarı", "Yağmur Kaçağı", "Ben Sana Mecburum", "Bela Çiçeği", "Abbas Yolcu", "Kurtlar Sofrası"] },
+      { period: "Cumhuriyet", author: "Cemal Süreya", works: ["Üvercinka", "Göçebe", "Beni Öp Sonra Doğur Beni", "Sevda Sözleri", "Güz Bitiği", "Sıcak Nal"] },
+      { period: "Cumhuriyet", author: "İlhan Berk", works: ["Şenlikname", "Güneşi Yakanların Selamı", "İstanbul", "Günaydın Yeryüzü", "Türkiye Şarkısı", "Köroğlu"] },
+      { period: "Cumhuriyet", author: "Edip Cansever", works: ["İkindi Üstü", "Dirlik Düzenlik", "Yerçekimli Karanfil"] },
+      { period: "Cumhuriyet", author: "Turgut Uyar", works: ["Arz-ı Hâl", "Türkiye’m", "Dünyanın En Güzel Arabistanı", "Tütünler Islak", "Göğe Bakma Durağı"] },
+      { period: "Cumhuriyet", author: "Sezai Karakoç", works: ["Mona Rosa", "Hızırla Kırk Saat", "Taha’nın Kitabı", "Gül Muştusu", "Körfez", "Şahdamar"] },
+      { period: "Cumhuriyet", author: "Ece Ayhan", works: ["Kınar Hanım’ın Denizleri", "Bakışsız Bir Kedi Kara", "Yort Savul"] },
+      { period: "Cumhuriyet", author: "Ülkü Tamer", works: ["Soğuk Otların Altında", "Gök Onları Yanıltmaz", "Virgülün Başından Geçenler"] },
+      { period: "Cumhuriyet", author: "Ataol Behramoğlu", works: ["Bir Ermeni General", "Bir Gün Mutlaka", "Yolculuk Özlem Cesaret ve Kavga Şiirleri"] },
+      { period: "Cumhuriyet", author: "İsmet Özel", works: ["Geceleyin Bir Koşu", "Evet İsyan", "Cinayetler Kitabı", "Celladıma Gülümserken"] },
+      { period: "Cumhuriyet", author: "Âşık Veysel", works: ["Deyişler", "Sazımdan Sesler", "Dostlar Beni Hatırlasın"] },
+      { period: "Cumhuriyet", author: "Neşet Ertaş", works: ["Zahidem", "Gönül Dağı", "Neredesin Sen"] },
+      { period: "Cumhuriyet", author: "Abdurrahim Karakoç", works: ["Hasan’a Mektuplar", "Kan Yazısı", "Vur Emri", "Mihriban"] },
+      { period: "Cumhuriyet", author: "Hüseyin Nihal Atsız", works: ["Bozkurtların Ölümü", "Bozkurtlar Diriliyor", "Ruh Adam", "Deli Kurt", "Dalkavuklar Gecesi"] },
+      { period: "Cumhuriyet", author: "Peyami Safa", works: ["Cingöz Recai", "Fatih Harbiye", "Dokuzuncu Hariciye Koğuşu"] },
+      { period: "Cumhuriyet", author: "Tarık Buğra", works: ["Osmancık", "Siyah Kehribar", "Küçük Ağa", "Firavun İmanı"] },
+      { period: "Cumhuriyet", author: "Halikarnas Balıkçısı", works: ["Ege Kıyılarından", "Merhaba Akdeniz", "Ege’nin Dibi", "Aganta Burina Burinata"] },
+      { period: "Cumhuriyet", author: "Memduh Şevket Esendal", works: ["Ayaşlı ile Kiracıları", "Miras", "Vassaf Bey"] },
+      { period: "Cumhuriyet", author: "Sabahattin Ali", works: ["Kuyucaklı Yusuf", "Kürk Mantolu Madonna", "İçimizdeki Şeytan", "Değirmen", "Kağnı"] },
+      { period: "Cumhuriyet", author: "Orhan Kemal", works: ["Ekmek Kavgası", "Hanımın Çiftliği", "Çamaşırcının Kızı", "Mahalle Kavgası", "72. Koğuş", "Bereketli Topraklar Üzerinde"] },
+      { period: "Cumhuriyet", author: "Yaşar Kemal", works: ["İnce Memed", "Üç Anadolu Efsanesi", "Binboğalar Efsanesi", "Teneke", "Sarı Sıcak", "Fırat Suyu Kan Akıyor Baksana"] },
+      { period: "Cumhuriyet", author: "Kemal Tahir", works: ["Esir Şehrin İnsanları", "Esir Şehrin Mahpusu", "Bozkırdaki Çekirdek", "Sağırdere"] },
+      { period: "Cumhuriyet", author: "Aziz Nesin", works: ["Zübük", "İt Kuyruğu", "Fil Hamdi", "Ah Biz Eşekler", "Rıfat Bey Neden Kaşınıyor"] },
+      { period: "Cumhuriyet", author: "Fakir Baykurt", works: ["Yılanların Öcü", "Irazca’nın Dirliği", "Onuncu Köy"] },
+      { period: "Cumhuriyet", author: "Kemal Bilbaşar", works: ["Pembe Kurt", "Cemo", "Memo", "Irgatların Öfkesi"] },
+      { period: "Cumhuriyet", author: "Necati Cumalı", works: ["Susuz Yaz", "Tütün Zamanı", "Yağmurlar ve Topraklar"] },
+      { period: "Cumhuriyet", author: "Oğuz Atay", works: ["Korkuyu Beklerken", "Tutunamayanlar", "Tehlikeli Oyunlar", "Bir Bilim Adamının Romanı"] },
+      { period: "Cumhuriyet", author: "Yusuf Atılgan", works: ["Aylak Adam", "Anayurt Oteli", "Canistan"] },
+      { period: "Cumhuriyet", author: "Sait Faik Abasıyanık", works: ["Semaver", "Sarnıç", "Şahmerdan", "Lüzumsuz Adam", "Mahalle Kahvesi", "Havada Bulut", "Kumpanya", "Medarı Maişet Motoru"] },
+      { period: "Cumhuriyet", author: "Orhan Pamuk", works: ["Cevdet Bey ve Oğulları", "Yeni Hayat", "Benim Adım Kırmızı", "Babamın Bavulu", "Masumiyet Müzesi", "Kafamda Bir Tuhaflık", "Kırmızı Saçlı Kadın"] },
+      { period: "Cumhuriyet", author: "Adalet Ağaoğlu", works: ["Ölmeye Yatmak", "Fikrimin İnce Gülü", "Bir Düğün Gecesi"] },
+      { period: "Cumhuriyet", author: "İhsan Oktay Anar", works: ["Puslu Kıtalar Atlası", "Efrâsiyâb’ın Hikâyeleri", "Amat", "Suskunlar"] },
+      { period: "Cumhuriyet", author: "Ahmet Ümit", works: ["Bir Ses Böler Geceyi", "Sis ve Gece", "Beyoğlu Rapsodisi", "Bab-ı Esrar", "Sultanı Öldürmek"] },
+      { period: "Cumhuriyet", author: "Haldun Taner", works: ["Keşanlı Ali Destanı", "Günün Adamı", "Huzur Çıkmazı", "Devekuşuna Mektuplar", "Şişhane’ye Yağmur Yağıyordu", "Tuş", "On İkiye Bir Var"] },
+      { period: "Cumhuriyet", author: "Nurullah Ataç", works: ["Günce", "Günlerin Getirdiği", "Karalama Defteri", "Sözden Söze", "Söz Arasında"] },
+      { period: "Cumhuriyet", author: "Falih Rıfkı Atay", works: ["Çankaya", "Atatürk’ün Bana Anlattıkları", "Denizaşırı", "Yeni Rusya"] },
+      { period: "Cumhuriyet", author: "Şevket Süreyya Aydemir", works: ["Suyu Arayan Adam", "Tek Adam", "Toprak Uyanırsa"] },
+      { period: "Cumhuriyet", author: "Cemil Meriç", works: ["Bu Ülke", "Umrandan Uygarlığa", "Kırk Ambar"] },
+      { period: "Cumhuriyet", author: "Mina Urgan", works: ["Bir Dinazorun Anıları", "Bir Dinazorun Gezileri"] }
     ];
 
     var characters = [
-      ["Araba Sevdası", ["Bihruz Bey", "Periveş", "Keşfi Bey"]],
-      ["İntibah", ["Ali Bey", "Mahpeyker", "Dilaşup"]],
-      ["Aşk-ı Memnu", ["Adnan Bey", "Bihter", "Behlül", "Nihal"]],
-      ["Eylül", ["Necip", "Suat", "Süreyya"]],
-      ["Mai ve Siyah", ["Ahmet Cemil", "Lamia", "Hüseyin Nazmi"]],
-      ["Yaprak Dökümü", ["Ali Rıza Bey", "Ferhunde", "Leyla", "Necla"]],
-      ["Çalıkuşu", ["Feride", "Kamuran"]],
-      ["Yaban", ["Ahmet Celal", "Emine", "Mehmet Ali"]],
-      ["Huzur", ["Mümtaz", "Nuran", "Suat", "İhsan"]],
-      ["Anayurt Oteli", ["Zebercet"]],
-      ["Tutunamayanlar", ["Selim Işık", "Turgut Özben"]],
-      ["İnce Memed", ["Memed", "Hatce", "Abdi Ağa"]],
-      ["Kuyucaklı Yusuf", ["Yusuf", "Muazzez"]],
-      ["Fatih-Harbiye", ["Neriman", "Şinasi", "Macit"]]
+      { work: "Araba Sevdası", chars: ["Bihruz Bey", "Periveş", "Keşfi Bey"] },
+      { work: "Cezmi", chars: ["Cezmi", "Adil Giray", "Perihan", "Şehriyar"] },
+      { work: "İntibah", chars: ["Ali Bey", "Mahpeyker", "Dilaşup"] },
+      { work: "Karabibik", chars: ["Karabibik", "Yosturoğlu", "Koca İmam", "Huri", "Hüseyin", "Eftalya"] },
+      { work: "Sergüzeşt", chars: ["Asaf Paşa", "Celal", "Dilber", "Taravet", "Cevher"] },
+      { work: "Zehra", chars: ["Zehra", "Suphi", "Sırrı Cemal"] },
+      { work: "Aşk-ı Memnu", chars: ["Adnan Bey", "Bihter", "Behlül", "Nihal", "Firdevs Hanım"] },
+      { work: "Eylül", chars: ["Necip", "Suat", "Süreyya"] },
+      { work: "Kırık Hayatlar", chars: ["Ömer", "Behiç", "Vadide", "Neyyir", "Leyla", "Selma"] },
+      { work: "Mai ve Siyah", chars: ["Lamia", "Ahmet Cemil", "Hüseyin Nazmi"] },
+      { work: "Mürebbiye", chars: ["Dehri Efendi", "Matmazel Anjel", "Şem'i", "Sadri"] },
+      { work: "Şık", chars: ["Şatırzade", "Şöhret Bey", "Madam Potiş"] },
+      { work: "Şıpsevdi", chars: ["Meftun Bey", "Edibe Hanım", "Kasım Efendi"] },
+      { work: "Yaprak Dökümü", chars: ["Ali Rıza Bey", "Hayriye Hanım", "Ferhunde", "Leyla", "Necla", "Fikret"] },
+      { work: "Ateşten Gömlek", chars: ["Ayşe", "Peyami", "Binbaşı İhsan"] },
+      { work: "Çalıkuşu", chars: ["Feride", "Kamuran", "Doktor Hayrullah Bey"] },
+      { work: "Handan", chars: ["Neriman", "Hüsnü Paşa", "Refik Cemal"] },
+      { work: "Nur Baba", chars: ["Nur Baba", "Ziba Hanım", "Nigar Hanım", "Süheyla"] },
+      { work: "Sodom ve Gomore", chars: ["Leyla", "Necdet", "Sami Bey"] },
+      { work: "Vurun Kahpeye", chars: ["Aliye", "Hacı Fettah", "Tahsin Bey"] },
+      { work: "Yaban", chars: ["Ahmet Celal", "Emine", "Mehmet Ali", "İsmail"] },
+      { work: "Sinekli Bakkal", chars: ["Rabia", "Osman / Peregrini", "Kız Tevfik", "Emine", "Vehbi Dede"] },
+      { work: "Yeşil Gece", chars: ["Şahin", "Kazım"] },
+      { work: "Tatarcık", chars: ["Lale"] },
+      { work: "Aganta Burina Burinata", chars: ["Mahmut", "Halil Usta"] },
+      { work: "Anayurt Oteli", chars: ["Zebercet"] },
+      { work: "Ayaşlı ve Kiracıları", chars: ["Ayaşlı İbrahim", "Hasan Bey", "Buharalı Abdülkerim", "Faika", "Fuat", "İffet Hanım", "Şefik Bey"] },
+      { work: "Bereketli Topraklar Üzerinde", chars: ["İflahsızın Yusuf", "Köse Hasan", "Pehlivan Ali"] },
+      { work: "Dokuzuncu Hariciye Koğuşu", chars: ["Hasta Bir Çocuk", "Nüzhet", "Doktor Ragıp"] },
+      { work: "Fatih-Harbiye", chars: ["Neriman", "Faiz Bey", "Şinasi", "Macit"] },
+      { work: "Huzur", chars: ["İhsan", "Nuran", "Suat", "Mümtaz"] },
+      { work: "İnce Memed", chars: ["Memed", "Hatce", "Abdi Ağa"] },
+      { work: "Kuyucaklı Yusuf", chars: ["Yusuf", "Muazzez", "Selahattin Bey"] },
+      { work: "Küçük Ağa", chars: ["Mehmet Reşit Efendi / İstanbullu Hoca", "Çolak Salih"] },
+      { work: "Matmazel Noralya'nın Koltuğu", chars: ["Ferit", "Nilüfer", "Fotika"] },
+      { work: "Sözde Kızlar", chars: ["Behiç", "Mebrure", "Nafi Bey"] },
+      { work: "Tutunamayanlar", chars: ["Selim Işık", "Turgut Özben"] },
+      { work: "Yılanların Öcü", chars: ["Kara Bayram", "Haceli", "Irazca Ana"] }
     ];
 
     var movements = [
-      ["Klasisizm", ["Akıl ve sağduyu", "Kuralcılık", "Eski Yunan ve Latin etkisi"], ["Moliere"]],
-      ["Romantizm", ["Duygu ve hayal", "Hürriyet", "Tarihî konular", "Sanatçı kişiliğini gizlemez"], ["Victor Hugo", "Namık Kemal"]],
-      ["Realizm", ["Gözlem", "Nesnellik", "Çevre tasviri", "Neden-sonuç"], ["Balzac", "Flaubert"]],
-      ["Natüralizm", ["Soyaçekim", "Determinizm", "Toplum laboratuvarı", "Sokak dili"], ["Emile Zola"]],
-      ["Parnasizm", ["Biçim kusursuzluğu", "Sanat sanat içindir", "Kuyumcu titizliği"], ["Tevfik Fikret", "Cenap Şahabettin"]],
-      ["Sembolizm", ["Musiki", "Kapalılık", "Sezdirme", "Alacakaranlık"], ["Ahmet Haşim", "Verlaine"]],
-      ["Fütürizm", ["Hız", "Makineleşme", "Gelecekçilik", "Dinamizm"], ["Marinetti", "Nazım Hikmet"]],
-      ["Dadaizm", ["Kuralsızlık", "Anlamsızlık", "Geleneksel sanatı reddetme"], ["Tristan Tzara"]],
-      ["Sürrealizm", ["Bilinçaltı", "Rüya", "Freud", "Otomatik yazı"], ["Andre Breton"]],
-      ["Egzistansiyalizm", ["Varoluş", "Bunaltı", "Yabancılaşma", "Sorumluluk"], ["Sartre", "Camus"]]
-    ];
-
-    var firsts = [
-      ["Türk dilinin ilk sözlüğü hangisidir?", "Divanü Lügati't-Türk"],
-      ["İlk siyasetname örneği hangisidir?", "Kutadgu Bilig"],
-      ["İlk yazılı edebî metin hangisidir?", "Göktürk Yazıtları"],
-      ["İlk Türkçe sözlük hangisidir?", "Kamus-ı Türkî"],
-      ["Türkçenin ilk dil bilgisi kitabı hangisidir?", "Sarf-ı Türkî"],
-      ["İlk tezkire örneği hangisidir?", "Mecalisü’n-Nefais"],
-      ["Anadolu sahasında yazılan ilk tezkire hangisidir?", "Heşt Behişt"],
-      ["İlk bibliyografya örneği hangisidir?", "Keşfü'z-Zunun"],
-      ["İlk atasözleri derlemesi hangisidir?", "Durub-ı Emsal-i Osmaniye"],
-      ["İlk hatıra kitabı hangisidir?", "Babürnâme"],
-      ["En önemli gezi yazısı örneği hangisidir?", "Seyahatname"],
-      ["İlk yerli roman hangisidir?", "Taaşşuk-ı Talat ve Fitnat"],
-      ["İlk edebî roman hangisidir?", "İntibah"],
-      ["İlk realist roman denemesi hangisidir?", "Araba Sevdası"],
-      ["İlk köy romanı denemesi hangisidir?", "Karabibik"],
-      ["İlk psikolojik roman hangisidir?", "Eylül"],
-      ["İlk tiyatro eseri hangisidir?", "Şair Evlenmesi"]
+      {
+        name: "Klasisizm",
+        clues: ["Akıl ve sağduyuya önem verir", "Kuralcılık ağır basar", "Soylu ve seçkin kişilere yer verilir", "Değişmez insan tipleri kullanılır", "Eski Yunan ve Latin edebiyatı örnek alınır"],
+        info: ["17. yüzyılda Fransa'da güçlenen edebi anlayıştır", "Trajedi ve komedide üç birlik kuralı önemlidir"],
+        authors: ["Moliere", "Corneille", "Racine", "La Fontaine", "Boileau"]
+      },
+      {
+        name: "Romantizm",
+        clues: ["Duygu ve hayal öne çıkar", "Sanatçı kişiliğini gizlemez", "Tarihî konulara yönelme görülür", "İyi-kötü, güzel-çirkin gibi zıtlıklardan yararlanılır", "Hürriyet düşüncesi önemlidir"],
+        info: ["Kuralcı anlayışa tepki olarak doğmuştur", "Tanzimat birinci dönem sanatçıları üzerinde etkili olmuştur"],
+        authors: ["Victor Hugo", "Goethe", "Schiller", "Namık Kemal", "Ahmet Mithat Efendi"]
+      },
+      {
+        name: "Realizm",
+        clues: ["Gözlem önemlidir", "Nesnel anlatım benimsenir", "Neden-sonuç ilişkisi kurulur", "Çevre tasvirine önem verilir", "Olaylar olağan hayatın içinden seçilir"],
+        info: ["19. yüzyılda romantizme tepki olarak doğmuştur", "Roman ve hikâyede gerçekçi anlatımı güçlendirmiştir"],
+        authors: ["Balzac", "Stendhal", "Flaubert", "Tolstoy", "Halit Ziya Uşaklıgil", "Recaizade Mahmud Ekrem"]
+      },
+      {
+        name: "Natüralizm",
+        clues: ["Soyaçekim düşüncesi önemlidir", "Determinizm anlayışı etkilidir", "Toplum bir laboratuvar gibi görülür", "Sokak dili ve kaba söyleyişlere yer verilir", "İnsan çevre ve kalıtımın ürünü sayılır"],
+        info: ["Realizmin daha ileri ve bilimsel biçimi kabul edilir", "Deney ve gözlem anlayışı romana uygulanır"],
+        authors: ["Emile Zola", "Alphonse Daudet", "Nabizade Nazım", "Hüseyin Rahmi Gürpınar"]
+      },
+      {
+        name: "Parnasizm",
+        clues: ["Biçim kusursuzluğu önemlidir", "Sanat sanat içindir anlayışı güçlüdür", "Kuyumcu titizliğiyle yazma anlayışı vardır", "Dış dünya nesnel biçimde anlatılır", "Şiirde ölçü ve uyak önemsenir"],
+        info: ["Şiirde romantizme tepki olarak doğmuştur", "Servetifünun şiiri üzerinde etkili olmuştur"],
+        authors: ["Theophile Gautier", "Leconte de Lisle", "Cenap Şahabettin", "Tevfik Fikret"]
+      },
+      {
+        name: "Sembolizm",
+        clues: ["Musikiye önem verilir", "Kapalı ve çağrışımlı anlatım görülür", "Anlam açıklığı yerine sezdirme tercih edilir", "Alacakaranlık ve belirsiz atmosferler kullanılır", "Mecaz ve imge yoğunluğu fazladır"],
+        info: ["Parnasizme tepki olarak doğmuştur", "Fecriati şiirinde özellikle etkili olmuştur"],
+        authors: ["Baudelaire", "Verlaine", "Mallarme", "Rimbaud", "Ahmet Haşim", "Cenap Şahabettin"]
+      },
+      {
+        name: "Empresyonizm",
+        clues: ["Dış dünyanın kişide bıraktığı izlenim anlatılır", "Öznel algı öne çıkar", "Renk ve ışık oyunları önemlidir", "Anlık duyuşlar aktarılır", "Kesin çizgiler yerine belirsiz atmosfer kurulur"],
+        info: ["Resim sanatından edebiyata geçmiş bir anlayıştır", "Sanatçının dış dünyayı algılayış biçimi önemlidir"],
+        authors: ["Rilke", "Paul Verlaine", "Ahmet Haşim"]
+      },
+      {
+        name: "Ekspresyonizm",
+        clues: ["İç dünya ve ruhsal durum öne çıkar", "Sanayi toplumuna ve makineleşmeye tepki görülür", "Dış gerçeklik sanatçının ruh hâline göre değiştirilir", "Bunalım ve korku gibi duygular işlenir", "Toplumun baskısına karşı bireyin çığlığı duyulur"],
+        info: ["20. yüzyıl başlarında Almanya'da etkili olmuştur", "Dış gerçeklikten çok iç gerçeklik önemlidir"],
+        authors: ["Kafka", "O'Neill", "T. S. Eliot"]
+      },
+      {
+        name: "Kübizm",
+        clues: ["Geometrik düzen hissi verir", "Varlıklar parçalanmış biçimde ele alınır", "Hayatın çok boyutluluğu vurgulanır", "Geleneksel bakış açısı kırılır", "Nesneler farklı yönleriyle aynı anda gösterilmeye çalışılır"],
+        info: ["Resim sanatında doğup edebiyata da yansımıştır", "Gerçekliği tek açıdan değil birçok açıdan ele alır"],
+        authors: ["Apollinaire", "Max Jacob"]
+      },
+      {
+        name: "Fütürizm",
+        clues: ["Hız ve dinamizm yüceltilir", "Makineleşme ve teknoloji öne çıkar", "Geleneksel değerlere karşı çıkılır", "Fabrika, motor ve çark sesleri şiire girer", "Geçmişe değil geleceğe yönelme vardır"],
+        info: ["20. yüzyıl başlarında İtalya'da ortaya çıkmıştır", "Makine ve hareket estetiğini savunur"],
+        authors: ["Marinetti", "Mayakovski", "Nazım Hikmet"]
+      },
+      {
+        name: "Dadaizm",
+        clues: ["Kuralsızlık öne çıkar", "Anlamsızlık bilinçli biçimde kullanılır", "Yerleşik sanat anlayışı reddedilir", "Savaş sonrası güvensizlik ve şüphe havası taşır", "Kelimelerin rastgele seçilmesi bile sanat sayılabilir"],
+        info: ["Birinci Dünya Savaşı ortamında doğmuştur", "Geleneksel sanata ve mantığa başkaldırır"],
+        authors: ["Tristan Tzara", "Andre Breton"]
+      },
+      {
+        name: "Sürrealizm",
+        clues: ["Bilinçaltı önemlidir", "Rüya ve hipnozdan yararlanılır", "Freud'un görüşlerinden etkilenilmiştir", "Otomatik yazı tekniği kullanılır", "Mantık denetimi geri plana itilir"],
+        info: ["Psikanalizden etkilenen bir anlayıştır", "Bilinç denetiminin dışında kalan alanlara yönelir"],
+        authors: ["Andre Breton", "Paul Eluard", "Louis Aragon", "Garipçiler bazı yönleriyle etkilenmiştir"]
+      },
+      {
+        name: "Egzistansiyalizm",
+        clues: ["Bireyin seçme özgürlüğü önemlidir", "Sorumluluk duygusu öne çıkar", "Bunaltı ve yabancılaşma işlenir", "İnsan kendi değerini kendi seçimleriyle kurar", "Bireyin dünyadaki yalnızlığı vurgulanır"],
+        info: ["İkinci Dünya Savaşı sonrası etkisi artmıştır", "Bireyin varoluş sorunu üzerinde durur"],
+        authors: ["Jean-Paul Sartre", "Albert Camus", "Dostoyevski"]
+      }
     ];
 
     var currentCategory = "";
     var currentType = "";
     var currentPeriod = "Tüm Dönemler";
     var currentCount = 10;
-    var questions = [];
-    var index = 0;
-    var correct = 0;
-    var wrong = 0;
+    var currentQuestions = [];
+    var currentIndex = 0;
+    var correctCount = 0;
+    var wrongCount = 0;
     var lastSettings = null;
-
-    document.getElementById("btnFrequent").addEventListener("click", function(){ openSettings("frequent"); });
-    document.getElementById("btnAuthor").addEventListener("click", function(){ openSettings("authorWork"); });
-    document.getElementById("btnMovements").addEventListener("click", function(){ openSettings("movements"); });
-    document.getElementById("btnCharacters").addEventListener("click", function(){ openSettings("characters"); });
-    document.getElementById("btnWrongs").addEventListener("click", showWrongs);
-    document.getElementById("startBtn").addEventListener("click", startTest);
-    document.getElementById("homeBtn1").addEventListener("click", goHome);
-    document.getElementById("homeBtn2").addEventListener("click", goHome);
-    document.getElementById("homeBtn3").addEventListener("click", goHome);
-    document.getElementById("homeBtn4").addEventListener("click", goHome);
-    document.getElementById("repeatBtn").addEventListener("click", repeatSameTest);
-    document.getElementById("clearWrongBtn").addEventListener("click", clearWrongs);
 
     function showScreen(id) {
       var screens = document.getElementsByClassName("screen");
@@ -477,8 +755,8 @@
       typeSelect.innerHTML = "";
       countSelect.innerHTML = "";
 
-      for (var i = 10; i <= 100; i += 10) {
-        addOption(countSelect, String(i), i + " soru");
+      for (var c = 10; c <= 100; c += 10) {
+        addOption(countSelect, String(c), c + " soru");
       }
 
       if (category === "authorWork") {
@@ -486,30 +764,35 @@
         periodBox.style.display = "block";
         typeBox.style.display = "block";
 
-        var periods = ["Tüm Dönemler", "İslamiyet İlk Dönem", "Tanzimat", "Servetifünun", "Fecriati", "Milli Edebiyat", "Cumhuriyet"];
+        var periods = ["Tüm Dönemler", "Halk Edebiyatı", "Divan / Geçiş", "Tanzimat", "Servetifünun", "Fecriati", "Milli Edebiyat", "Cumhuriyet"];
         for (var p = 0; p < periods.length; p++) {
           addOption(periodSelect, periods[p], periods[p]);
         }
 
         addOption(typeSelect, "authorToWork", "Yazar - Eser");
         addOption(typeSelect, "workToAuthor", "Eser - Yazar");
-      } else {
+      }
+
+      if (category === "movements") {
+        title.innerText = "Edebi Akımlar";
         periodBox.style.display = "none";
         typeBox.style.display = "none";
+      }
 
-        if (category === "frequent") title.innerText = "Sık Sorulanlar";
-        if (category === "movements") title.innerText = "Edebi Akımlar";
-        if (category === "characters") title.innerText = "Roman Kahramanları";
+      if (category === "characters") {
+        title.innerText = "Roman Kahramanları";
+        periodBox.style.display = "none";
+        typeBox.style.display = "none";
       }
 
       showScreen("settingsScreen");
     }
 
     function addOption(select, value, text) {
-      var opt = document.createElement("option");
-      opt.value = value;
-      opt.text = text;
-      select.appendChild(opt);
+      var option = document.createElement("option");
+      option.value = value;
+      option.text = text;
+      select.appendChild(option);
     }
 
     function startTest() {
@@ -523,18 +806,23 @@
         currentType = currentCategory;
       }
 
-      lastSettings = [currentCategory, currentType, currentPeriod, currentCount];
+      lastSettings = {
+        category: currentCategory,
+        type: currentType,
+        period: currentPeriod,
+        count: currentCount
+      };
 
-      questions = buildQuestions();
-      questions = shuffle(questions);
+      currentQuestions = buildQuestions(currentCategory, currentType, currentPeriod);
+      currentQuestions = shuffle(currentQuestions);
 
-      if (questions.length > currentCount) {
-        questions = questions.slice(0, currentCount);
+      if (currentQuestions.length > currentCount) {
+        currentQuestions = currentQuestions.slice(0, currentCount);
       }
 
-      index = 0;
-      correct = 0;
-      wrong = 0;
+      currentIndex = 0;
+      correctCount = 0;
+      wrongCount = 0;
 
       showScreen("testScreen");
       showQuestion();
@@ -546,80 +834,76 @@
         return;
       }
 
-      currentCategory = lastSettings[0];
-      currentType = lastSettings[1];
-      currentPeriod = lastSettings[2];
-      currentCount = lastSettings[3];
+      currentCategory = lastSettings.category;
+      currentType = lastSettings.type;
+      currentPeriod = lastSettings.period;
+      currentCount = lastSettings.count;
 
-      questions = buildQuestions();
-      questions = shuffle(questions);
+      currentQuestions = buildQuestions(currentCategory, currentType, currentPeriod);
+      currentQuestions = shuffle(currentQuestions);
 
-      if (questions.length > currentCount) {
-        questions = questions.slice(0, currentCount);
+      if (currentQuestions.length > currentCount) {
+        currentQuestions = currentQuestions.slice(0, currentCount);
       }
 
-      index = 0;
-      correct = 0;
-      wrong = 0;
+      currentIndex = 0;
+      correctCount = 0;
+      wrongCount = 0;
 
       showScreen("testScreen");
       showQuestion();
     }
 
-    function buildQuestions() {
-      if (currentCategory === "authorWork") {
-        if (currentType === "authorToWork") return buildAuthorToWork();
-        return buildWorkToAuthor();
+    function buildQuestions(category, type, period) {
+      if (category === "authorWork") {
+        if (type === "authorToWork") return buildAuthorToWork(period);
+        if (type === "workToAuthor") return buildWorkToAuthor(period);
       }
 
-      if (currentCategory === "characters") return buildCharacterQuestions(characters);
-      if (currentCategory === "movements") return buildMovementQuestions();
-      if (currentCategory === "frequent") return buildFrequentQuestions();
+      if (category === "movements") {
+        return buildMovementQuestions();
+      }
+
+      if (category === "characters") {
+        return buildCharacterQuestions();
+      }
 
       return [];
     }
 
-    function getAuthorData() {
-      if (currentPeriod === "Tüm Dönemler") {
+    function getAuthorData(period) {
+      if (period === "Tüm Dönemler") {
         return authorWorks.slice();
       }
 
       var list = [];
       for (var i = 0; i < authorWorks.length; i++) {
-        if (authorWorks[i][0] === currentPeriod) list.push(authorWorks[i]);
+        if (authorWorks[i].period === period) {
+          list.push(authorWorks[i]);
+        }
       }
       return list;
     }
 
-    function buildAuthorToWork() {
-      var data = getAuthorData();
+    function buildAuthorToWork(period) {
+      var data = getAuthorData(period);
       var allWorks = [];
       var result = [];
 
       for (var i = 0; i < data.length; i++) {
-        for (var j = 0; j < data[i][2].length; j++) {
-          allWorks.push(data[i][2][j]);
+        for (var j = 0; j < data[i].works.length; j++) {
+          allWorks.push(data[i].works[j]);
         }
       }
 
       for (var a = 0; a < data.length; a++) {
-        var author = data[a][1];
-        var worksOfAuthor = data[a][2];
-
-        for (var w = 0; w < worksOfAuthor.length; w++) {
-          var trueWork = worksOfAuthor[w];
-          var wrongPool = [];
-
-          for (var x = 0; x < allWorks.length; x++) {
-            if (worksOfAuthor.indexOf(allWorks[x]) === -1) {
-              wrongPool.push(allWorks[x]);
-            }
-          }
-
+        for (var w = 0; w < data[a].works.length; w++) {
+          var correct = data[a].works[w];
+          var wrongs = getRandomWrong(allWorks, correct, 4);
           result.push({
-            question: author + " adlı sanatçının eseri hangisidir?",
-            answer: trueWork,
-            options: shuffle([trueWork].concat(getRandomWrong(wrongPool, trueWork, 4)))
+            question: data[a].author + " adlı sanatçının eseri hangisidir?",
+            correct: correct,
+            options: shuffle([correct].concat(wrongs))
           });
         }
       }
@@ -627,35 +911,24 @@
       return result;
     }
 
-    function buildWorkToAuthor() {
-      var data = getAuthorData();
+    function buildWorkToAuthor(period) {
+      var data = getAuthorData(period);
       var authors = [];
-      var ownerMap = {};
       var result = [];
 
       for (var i = 0; i < data.length; i++) {
-        authors.push(data[i][1]);
-
-        for (var j = 0; j < data[i][2].length; j++) {
-          var work = data[i][2][j];
-
-          if (!ownerMap[work]) ownerMap[work] = [];
-          if (ownerMap[work].indexOf(data[i][1]) === -1) ownerMap[work].push(data[i][1]);
-        }
+        authors.push(data[i].author);
       }
 
       for (var a = 0; a < data.length; a++) {
-        var author = data[a][1];
-
-        for (var w = 0; w < data[a][2].length; w++) {
-          var workName = data[a][2][w];
-
-          if (ownerMap[workName] && ownerMap[workName].length > 1) continue;
-
+        for (var w = 0; w < data[a].works.length; w++) {
+          var work = data[a].works[w];
+          var correct = data[a].author;
+          var wrongs = getRandomWrong(authors, correct, 4);
           result.push({
-            question: '"' + workName + '" adlı eser kime aittir?",
-            answer: author,
-            options: shuffle([author].concat(getRandomWrong(authors, author, 4)))
+            question: '"' + work + '" adlı eser kime aittir?',
+            correct: correct,
+            options: shuffle([correct].concat(wrongs))
           });
         }
       }
@@ -663,17 +936,21 @@
       return result;
     }
 
-    function buildCharacterQuestions(source) {
+    function buildCharacterQuestions() {
       var works = [];
       var result = [];
 
-      for (var i = 0; i < source.length; i++) works.push(source[i][0]);
+      for (var i = 0; i < characters.length; i++) {
+        works.push(characters[i].work);
+      }
 
-      for (var c = 0; c < source.length; c++) {
+      for (var c = 0; c < characters.length; c++) {
+        var correct = characters[c].work;
+        var wrongs = getRandomWrong(works, correct, 4);
         result.push({
-          question: source[c][1].join(", ") + " hangi eserin kahramanlarıdır?",
-          answer: source[c][0],
-          options: shuffle([source[c][0]].concat(getRandomWrong(works, source[c][0], 4)))
+          question: characters[c].chars.join(", ") + " hangi eserin kahramanlarıdır?",
+          correct: correct,
+          options: shuffle([correct].concat(wrongs))
         });
       }
 
@@ -681,80 +958,73 @@
     }
 
     function buildMovementQuestions() {
+      var result = [];
       var names = [];
-      var base = [];
-      var authorQs = [];
+      var allClues = [];
 
-      for (var i = 0; i < movements.length; i++) names.push(movements[i][0]);
-
-      for (var m = 0; m < movements.length; m++) {
-        var name = movements[m][0];
-        var clues = movements[m][1];
-        var authors = movements[m][2];
-
-        for (var c = 0; c < clues.length; c++) {
-          var clue = shuffle(clues).slice(0, 3).join(", ");
-          base.push({
-            question: clue + " özellikleri hangi edebi akıma aittir?",
-            answer: name,
-            options: shuffle([name].concat(getRandomWrong(names, name, 4)))
-          });
-        }
-
-        for (var a = 0; a < authors.length; a++) {
-          authorQs.push({
-            question: authors[a] + " hangi edebi akımla ilişkilendirilir?",
-            answer: name,
-            options: shuffle([name].concat(getRandomWrong(names, name, 4)))
-          });
+      for (var i = 0; i < movements.length; i++) {
+        names.push(movements[i].name);
+        for (var c = 0; c < movements[i].clues.length; c++) {
+          allClues.push(movements[i].clues[c]);
         }
       }
 
-      var authorLimit = 1;
-      if (currentCount >= 20) authorLimit = 2;
-      if (currentCount >= 30) authorLimit = 3;
-      if (currentCount >= 50) authorLimit = 6;
-      if (currentCount >= 100) authorLimit = 12;
+      for (var m = 0; m < movements.length; m++) {
+        var movement = movements[m];
 
-      return shuffle(base).slice(0, currentCount - authorLimit).concat(shuffle(authorQs).slice(0, authorLimit));
-    }
+        for (var q = 0; q < movement.clues.length; q++) {
+          var clueSet = shuffle(movement.clues).slice(0, 3).join(", ");
+          var wrongNames = getRandomWrong(names, movement.name, 4);
 
-    function buildFrequentQuestions() {
-      var result = [];
-      result = result.concat(buildAuthorToWork());
-      result = result.concat(buildWorkToAuthor());
-      result = result.concat(buildCharacterQuestions(characters));
-      result = result.concat(buildMovementQuestions());
-      result = result.concat(buildFirstQuestions());
-      return shuffle(result);
-    }
+          result.push({
+            question: clueSet + " özellikleri hangi edebi akıma aittir?",
+            correct: movement.name,
+            options: shuffle([movement.name].concat(wrongNames))
+          });
+        }
 
-    function buildFirstQuestions() {
-      var result = [];
-      var answers = [];
+        for (var infoIndex = 0; infoIndex < movement.info.length; infoIndex++) {
+          var wrongNames2 = getRandomWrong(names, movement.name, 4);
+          result.push({
+            question: movement.info[infoIndex] + ". Bu bilgi hangi edebi akımla ilgilidir?",
+            correct: movement.name,
+            options: shuffle([movement.name].concat(wrongNames2))
+          });
+        }
 
-      for (var i = 0; i < firsts.length; i++) answers.push(firsts[i][1]);
+        for (var a = 0; a < movement.authors.length; a++) {
+          var wrongNames3 = getRandomWrong(names, movement.name, 4);
+          result.push({
+            question: movement.authors[a] + " hangi edebi akımla ilişkilendirilir?",
+            correct: movement.name,
+            options: shuffle([movement.name].concat(wrongNames3))
+          });
+        }
 
-      for (var f = 0; f < firsts.length; f++) {
-        result.push({
-          question: firsts[f][0],
-          answer: firsts[f][1],
-          options: shuffle([firsts[f][1]].concat(getRandomWrong(answers, firsts[f][1], 4)))
-        });
+        for (var f = 0; f < movement.clues.length; f++) {
+          var correctFeature = movement.clues[f];
+          var wrongFeatures = getRandomWrong(allClues, correctFeature, 4);
+
+          result.push({
+            question: movement.name + " akımı için hangisi doğrudur?",
+            correct: correctFeature,
+            options: shuffle([correctFeature].concat(wrongFeatures))
+          });
+        }
       }
 
       return result;
     }
 
     function showQuestion() {
-      if (index >= questions.length) {
+      if (currentIndex >= currentQuestions.length) {
         finishTest();
         return;
       }
 
-      var q = questions[index];
+      var q = currentQuestions[currentIndex];
 
-      document.getElementById("progressText").innerText = (index + 1) + " / " + questions.length;
+      document.getElementById("progressText").innerText = (currentIndex + 1) + " / " + currentQuestions.length;
       document.getElementById("questionText").innerText = q.question;
 
       var answers = document.getElementById("answers");
@@ -764,53 +1034,53 @@
         var btn = document.createElement("button");
         btn.className = "answer";
         btn.innerText = q.options[i];
-
-        btn.addEventListener("click", makeAnswerHandler(btn, q.options[i], q));
-
+        btn.onclick = makeAnswerHandler(btn, q.options[i], q);
         answers.appendChild(btn);
       }
     }
 
-    function makeAnswerHandler(btn, selected, q) {
+    function makeAnswerHandler(button, selected, question) {
       return function() {
-        answerQuestion(btn, selected, q);
+        answerQuestion(button, selected, question);
       };
     }
 
-    function answerQuestion(btn, selected, q) {
+    function answerQuestion(button, selected, q) {
       var buttons = document.getElementsByClassName("answer");
 
       for (var i = 0; i < buttons.length; i++) {
         buttons[i].disabled = true;
       }
 
-      if (selected === q.answer) {
-        correct++;
-        btn.classList.add("correct");
+      if (selected === q.correct) {
+        correctCount++;
+        button.classList.add("correct");
       } else {
-        wrong++;
-        btn.classList.add("wrong");
+        wrongCount++;
+        button.classList.add("wrong");
 
         for (var b = 0; b < buttons.length; b++) {
-          if (buttons[b].innerText === q.answer) buttons[b].classList.add("correct");
+          if (buttons[b].innerText === q.correct) {
+            buttons[b].classList.add("correct");
+          }
         }
 
-        saveWrong(q.question, selected, q.answer);
+        saveWrong(q.question, selected, q.correct);
       }
 
       setTimeout(function() {
-        index++;
+        currentIndex++;
         showQuestion();
       }, 850);
     }
 
     function finishTest() {
-      var total = correct + wrong;
-      var percent = total === 0 ? 0 : Math.round((correct / total) * 100);
+      var total = correctCount + wrongCount;
+      var percent = total === 0 ? 0 : Math.round((correctCount / total) * 100);
 
-      document.getElementById("resultNumber").innerText = correct + "/" + total;
+      document.getElementById("resultNumber").innerText = correctCount + "/" + total;
       document.getElementById("resultText").innerHTML =
-        "Doğru: <b>" + correct + "</b> &nbsp; Yanlış: <b>" + wrong + "</b><br>Başarı: <b>%" + percent + "</b>";
+        "Doğru: <b>" + correctCount + "</b> &nbsp; Yanlış: <b>" + wrongCount + "</b><br>Başarı: <b>%" + percent + "</b>";
 
       showScreen("resultScreen");
     }
@@ -821,34 +1091,36 @@
       list.innerHTML = "";
 
       if (wrongs.length === 0) {
-        list.innerHTML = "<p style='text-align:center;'>Henüz yanlış yok kanka.</p>";
+        list.innerHTML = '<div class="empty">Henüz yanlış yok kanka.</div>';
       } else {
         for (var i = 0; i < wrongs.length; i++) {
-          var div = document.createElement("div");
-          div.className = "wrong-item";
-          div.innerHTML =
+          var item = document.createElement("div");
+          item.className = "wrong-item";
+          item.innerHTML =
             "<b>Soru:</b> " + escapeHtml(wrongs[i].question) + "<br>" +
             "<b>Senin cevabın:</b> " + escapeHtml(wrongs[i].selected) + "<br>" +
-            "<b>Doğru cevap:</b> " + escapeHtml(wrongs[i].answer) + "<br>" +
+            "<b>Doğru cevap:</b> " + escapeHtml(wrongs[i].correct) + "<br>" +
             "<small>" + escapeHtml(wrongs[i].date) + "</small>";
-          list.appendChild(div);
+          list.appendChild(item);
         }
       }
 
       showScreen("wrongScreen");
     }
 
-    function saveWrong(question, selected, answer) {
+    function saveWrong(question, selected, correct) {
       var wrongs = JSON.parse(localStorage.getItem("edebiyatWrongs") || "[]");
 
       wrongs.unshift({
         question: question,
         selected: selected,
-        answer: answer,
+        correct: correct,
         date: new Date().toLocaleString("tr-TR")
       });
 
-      if (wrongs.length > 250) wrongs = wrongs.slice(0, 250);
+      if (wrongs.length > 200) {
+        wrongs = wrongs.slice(0, 200);
+      }
 
       localStorage.setItem("edebiyatWrongs", JSON.stringify(wrongs));
     }
@@ -863,7 +1135,9 @@
       var wrongs = [];
 
       for (var i = 0; i < array.length; i++) {
-        if (array[i] !== correct && unique.indexOf(array[i]) === -1) unique.push(array[i]);
+        if (array[i] !== correct && unique.indexOf(array[i]) === -1) {
+          unique.push(array[i]);
+        }
       }
 
       unique = shuffle(unique);
@@ -880,9 +1154,9 @@
 
       for (var i = arr.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
-        var tmp = arr[i];
+        var temp = arr[i];
         arr[i] = arr[j];
-        arr[j] = tmp;
+        arr[j] = temp;
       }
 
       return arr;
