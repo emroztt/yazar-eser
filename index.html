@@ -477,28 +477,79 @@ function showQuestion(){if(qIndex>=questions.length){finishTest();return}var q=q
 function makeHandler(btn,selected,q){return function(){answerQuestion(btn,selected,q)}}
 function answerQuestion(btn,selected,q){var bs=document.getElementsByClassName('answer');for(var i=0;i<bs.length;i++)bs[i].disabled=true;if(selected===q.answer){correct++;btn.classList.add('correct')}else{wrong++;btn.classList.add('wrong');for(var b=0;b<bs.length;b++)if(bs[b].innerText===q.answer)bs[b].classList.add('correct');sessionMistakes.push({question:q.question,selected:selected,answer:q.answer});saveWrong(q.question,selected,q.answer)}setTimeout(function(){qIndex++;showQuestion()},850)}
 function finishTest(){var total=correct+wrong,p=total===0?0:Math.round(correct/total*100);byId('resultNumber').innerText=correct+'/'+total;byId('resultText').innerHTML='Doğru: <b>'+correct+'</b> &nbsp; Yanlış: <b>'+wrong+'</b><br>Başarı: <b>%'+p+'</b>';byId('analysisBox').innerHTML=generateAnalysis(total,p);showScreen('resultScreen')}
-function detectWeakArea(){
-  if(sessionMistakes.length===0)return '';
-  var counts={},best='',max=0;
+function inferMistakeType(m){
+  var q=m.question||'', a=m.answer||'';
+  if(currentCategory==='movements' || q.indexOf('edebi akım')>-1 || q.indexOf('akımı')>-1 || q.indexOf('akımla')>-1)return 'Edebi Akım';
+  if(currentCategory==='characters' || q.indexOf('kahramanlarıdır')>-1)return 'Roman Kahramanı';
+  if(q.indexOf('adlı eser kime aittir')>-1)return 'Eser → Yazar';
+  if(q.indexOf('adlı sanatçının eseri')>-1)return 'Yazar → Eser';
+  return 'Genel';
+}
+function getShortMistakeLabel(m){
+  var q=m.question||'', ans=m.answer||'';
+  var m1=q.match(/"(.+?)" adlı eser kime aittir\?/);
+  if(m1)return '“'+m1[1]+'” → '+ans;
+  var m2=q.match(/^(.+?) adlı sanatçının eseri hangisidir\?/);
+  if(m2)return m2[1]+' → '+ans;
+  if(q.indexOf('kahramanlarıdır')>-1)return ans+' kahramanları';
+  if(q.indexOf('edebi akım')>-1 || q.indexOf('akımı')>-1 || q.indexOf('akımla')>-1)return ans+' akımı';
+  return ans;
+}
+function getWrongSummary(){
+  var counts={}, types={}, examples=[];
   for(var i=0;i<sessionMistakes.length;i++){
-    var a=sessionMistakes[i].answer,area=currentCategory==='movements'?'Edebi Akımlar':currentCategory==='characters'?'Roman Kahramanları':getAuthorPeriod(a)||getWorkPeriod(a)||currentPeriod||'Genel';
-    counts[area]=(counts[area]||0)+1;
-    if(counts[area]>max){max=counts[area];best=area}
+    var m=sessionMistakes[i], typ=inferMistakeType(m), key='';
+    if(typ==='Edebi Akım')key=m.answer;
+    else if(typ==='Roman Kahramanı')key=m.answer;
+    else key=getAuthorPeriod(m.answer)||getWorkPeriod(m.answer)||'Genel';
+    counts[key]=(counts[key]||0)+1;
+    types[typ]=(types[typ]||0)+1;
+    if(examples.length<4)examples.push(getShortMistakeLabel(m));
   }
-  return best;
+  var topKey='',topVal=0,topType='',topTypeVal=0;
+  for(var k in counts){if(counts[k]>topVal){topVal=counts[k];topKey=k}}
+  for(var t in types){if(types[t]>topTypeVal){topTypeVal=types[t];topType=t}}
+  return {area:topKey,areaCount:topVal,type:topType,typeCount:topTypeVal,examples:examples};
 }
 function generateAnalysis(total,p){
-  var area=detectWeakArea();
   var title='<div class="analysis-title">🤖 Yapay Zeka Analizi</div>';
   if(total===0)return title+'Test verisi oluşmadı.';
-  if(wrong===0)return title+'Mükemmel gittin kanka. Bu bölümde hata yok. Aynı ayarda soru sayısını artırıp hızını test et.';
-  var level=p>=85?'iyi':p>=65?'orta':'zayıf';
+  if(wrong===0){
+    if(total<20)return title+'Hatasız gittin kanka. Bunu ezberledin demek için aynı bölümden 20-30 soruya çıkıp tekrar dene.';
+    return title+'Çok iyi. Bu bölümde hata yok. Bir sonraki adım: şık sayısını 5 yapıp zorluğu yükselt.';
+  }
+  var s=getWrongSummary();
+  var ex=s.examples.length?'<br><b>Kaçırdığın örnekler:</b> '+s.examples.join(' | '):'';
   var msg='';
-  if(currentCategory==='movements')msg='Edebi akımlarda özellikle Türk edebiyatındaki temsilci-dönem bağını tekrar et. Namık Kemal-Romantizm, Halit Ziya-Realizm, Ahmet Haşim-Sembolizm, Tevfik Fikret-Parnasizm eşleşmeleri kritik.';
-  else if(currentCategory==='characters')msg='Roman kahramanlarında ezberin kopuk görünüyor. Kahramanları tek tek değil, eser adıyla blok hâlinde ezberle.';
-  else if(currentCategory==='frequent')msg='Sık sorulanlarda eser-yazar ve roman kahramanı karışıyor. Yanlış çıkan eseri kahramanıyla birlikte blok hâlinde tekrar et.';
-  else msg='Yazar-eser kısmında zayıf alanın '+(area||'seçtiğin dönem')+'. Bu dönemden 20 soru daha çöz, yanlış çıkan eserleri deftere yaz.';
-  return title+'Başarı düzeyin <b>'+level+'</b>. En çok zorlandığın alan: <b>'+(area||'genel tekrar')+'</b>.<br>'+msg;
+  if(p>=90){
+    msg='Genel durumun çok iyi; bu sonuç zayıf konu değil, nokta atışı eksik gösteriyor.';
+  }else if(p>=75){
+    msg='Temelin iyi ama birkaç eşleşme karışıyor. Yanlış çıkanları küçük kart gibi tekrar etmen yeter.';
+  }else if(p>=55){
+    msg='Orta seviyedesin. Yanlışların aynı başlıkta toplanıyorsa önce orayı bitir, sonra tekrar test çöz.';
+  }else{
+    msg='Bu bölüm henüz oturmamış. Soru çözmeden önce 10 dakikalık hızlı tekrar yapman daha verimli olur.';
+  }
+
+  if(wrong===1){
+    var one=sessionMistakes[0];
+    return title+'Tek yanlışın var: <b>'+getShortMistakeLabel(one)+'</b>.<br>'+msg+'<br><b>Öneri:</b> Bu eşleşmeyi deftere yaz, aynı ayarda 10 soru daha çöz.';
+  }
+
+  var specific='';
+  if(currentCategory==='movements'){
+    specific='Yanlışların özellikle <b>'+s.area+'</b> çevresinde. Akımı özellikleriyle değil, temsilci + anahtar kelimeyle bağla. Örnek: Romantizm = duygu/hayal; Realizm = gözlem/nesnellik; Sembolizm = musiki/kapalılık.';
+  }else if(currentCategory==='characters'){
+    specific='Yanlışların roman kahramanı eşleştirmesinde. Kahramanları tek tek değil, eserle blok ezberle: <b>eser adı + 2 ana kahraman</b> şeklinde çalış.';
+  }else if(currentCategory==='frequent'){
+    specific='Sık sorulanlarda en çok takıldığın taraf <b>'+s.type+'</b>. Dönem adı tek başına önemli değil; asıl çalışman gerekenler aşağıdaki kaçırdığın eşleşmeler.';
+  }else if(currentCategory==='authorWork'){
+    specific='Bu testte en çok <b>'+s.area+'</b> tarafı karışmış. Seçtiğin dönemden sadece yanlış çıkan yazar-eserleri tekrar et; tüm listeyi baştan okuma.';
+  }else{
+    specific='Yanlışların <b>'+s.area+'</b> çevresinde toplanıyor.';
+  }
+
+  return title+msg+'<br>'+specific+ex+'<br><b>Çalışma önerisi:</b> Yanlış çıkan '+Math.min(wrong,4)+' eşleşmeyi 2 dakika tekrar et, sonra aynı bölümden 10 soru daha çöz.';
 }
 function showWrongs(){var wrongs=JSON.parse(localStorage.getItem('edebiyatWrongs')||'[]'),list=byId('wrongList');list.innerHTML='';if(wrongs.length===0)list.innerHTML='<div class="empty">Henüz yanlış yok kanka.</div>';else for(var i=0;i<wrongs.length;i++){var d=document.createElement('div');d.className='wrong-item';d.innerHTML='<b>Soru:</b> '+escapeHtml(wrongs[i].question)+'<br><b>Senin cevabın:</b> '+escapeHtml(wrongs[i].selected)+'<br><b>Doğru cevap:</b> '+escapeHtml(wrongs[i].answer)+'<br><small>'+escapeHtml(wrongs[i].date)+'</small>';list.appendChild(d)}showScreen('wrongScreen')}
 function saveWrong(question,selected,answer){var w=JSON.parse(localStorage.getItem('edebiyatWrongs')||'[]');w.unshift({question:question,selected:selected,answer:answer,date:new Date().toLocaleString('tr-TR')});if(w.length>250)w=w.slice(0,250);localStorage.setItem('edebiyatWrongs',JSON.stringify(w))}
