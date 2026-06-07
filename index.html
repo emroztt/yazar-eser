@@ -273,7 +273,98 @@ body.theme-light label{color:rgba(36,17,10,.70)}
 body.theme-light select{background:#fffaf2;color:#24110a;border:1px solid rgba(124,45,18,.12)}
 
 @media(max-width:430px){.app{padding:14px 13px 30px}h1{font-size:34px}.question{font-size:19px}.menu-card{border-radius:24px}}
-  </style>
+  
+
+    .feedback-overlay{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+      padding:18px;z-index:60;background:rgba(7,6,11,.62);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)
+    }
+    .feedback-overlay.active{display:flex}
+    .feedback-card{
+      width:min(100%,520px);border-radius:30px;padding:18px;
+      background:linear-gradient(180deg,rgba(69,33,30,.96),rgba(52,26,33,.96));
+      border:1px solid rgba(255,140,120,.32);
+      box-shadow:0 30px 80px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.12);
+      color:var(--text)
+    }
+    .feedback-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
+    .feedback-badge{
+      width:62px;height:62px;border-radius:22px;display:grid;place-items:center;flex:0 0 62px;
+      background:linear-gradient(145deg,rgba(255,93,93,.22),rgba(255,68,51,.10));
+      border:1px solid rgba(255,93,93,.26);font-size:28px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 0 0 1px rgba(255,93,93,.05)
+    }
+    .feedback-kicker{font-size:16px;font-weight:900;color:#ffb1a4;margin:2px 0 4px}
+    .feedback-title{font-size:32px;line-height:1.05;font-weight:1000;margin:0 0 6px;letter-spacing:-.7px}
+    .feedback-sub{color:rgba(255,248,238,.78);font-size:15px;line-height:1.45}
+    .feedback-core{
+      border-radius:26px;padding:18px;border:1px solid rgba(255,93,93,.24);
+      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05)
+    }
+    .feedback-question-label{font-size:12px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;color:#ffb77f;margin-bottom:8px}
+    .feedback-question{font-size:24px;font-weight:1000;line-height:1.18;letter-spacing:-.5px;margin-bottom:14px}
+    .feedback-answer-box{
+      border-radius:24px;padding:18px 16px;text-align:center;margin-top:12px;
+      border:1px solid rgba(255,255,255,.10)
+    }
+    .feedback-answer-box .small{font-size:14px;font-weight:800;opacity:.9;margin-bottom:6px}
+    .feedback-answer-box .big{font-size:20px;font-weight:1000;line-height:1.25}
+    .feedback-answer-box.correct-box{
+      background:linear-gradient(180deg,rgba(61,94,52,.46),rgba(44,69,40,.34));
+      border-color:rgba(75,190,109,.34);color:#f5fff7
+    }
+    .feedback-answer-box.selected-box{
+      background:linear-gradient(180deg,rgba(122,39,39,.38),rgba(88,31,35,.28));
+      border-color:rgba(255,93,93,.28);color:#fff3f0
+    }
+    .feedback-actions{display:flex;gap:12px;align-items:center;margin-top:18px}
+    .feedback-flag{
+      width:72px;height:72px;border-radius:24px;border:1px solid rgba(255,154,125,.22);
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+      color:#fff3e8;font-size:28px;display:grid;place-items:center;flex:0 0 72px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.06)
+    }
+    .feedback-next{
+      flex:1;border:none;border-radius:24px;padding:20px 18px;cursor:pointer;
+      font-size:19px;font-weight:1000;color:white;
+      background:linear-gradient(135deg,#ff5c3d,#ff3d32);
+      box-shadow:0 16px 36px rgba(255,61,50,.26)
+    }
+    .feedback-next:active,.feedback-flag:active{transform:scale(.985)}
+
+    body.theme-light .feedback-overlay{background:rgba(145,86,35,.18)}
+    body.theme-light .feedback-card{
+      background:linear-gradient(180deg,rgba(255,246,238,.98),rgba(252,237,228,.98));
+      border-color:rgba(234,107,59,.28);color:#4d241d
+    }
+    body.theme-light .feedback-kicker{color:#c2410c}
+    body.theme-light .feedback-sub{color:rgba(77,36,29,.72)}
+    body.theme-light .feedback-core{background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,248,243,.86));border-color:rgba(234,107,59,.18)}
+    body.theme-light .feedback-question-label{color:#c2410c}
+    body.theme-light .feedback-answer-box.correct-box{color:#163620}
+    body.theme-light .feedback-answer-box.selected-box{color:#661d1d}
+    body.theme-light .feedback-flag{color:#7c2d12;background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,248,243,.9));border-color:rgba(234,107,59,.18)}
+
+
+    .wrong-ai-box{
+      display:none;margin:14px 0 14px;padding:16px;border-radius:22px;
+      background:linear-gradient(135deg,rgba(255,209,102,.16),rgba(255,47,70,.10));
+      border:1px solid rgba(255,209,102,.24);
+      box-shadow:0 18px 42px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.10);
+      color:var(--text);line-height:1.5;font-size:14px
+    }
+    .wrong-ai-box.active{display:block}
+    .wrong-ai-box .analysis-title{font-weight:1000;color:var(--gold);font-size:17px;margin-bottom:8px}
+    .wrong-ai-box b{color:var(--gold)}
+    body.theme-light .wrong-ai-box{
+      color:#4d241d;background:linear-gradient(135deg,rgba(255,231,186,.88),rgba(255,239,230,.84));
+      border-color:rgba(234,107,59,.20)
+    }
+    body.theme-light .wrong-ai-box .analysis-title, body.theme-light .wrong-ai-box b{color:#b45309}
+
+</style>
 </head>
 <body>
 <div class="app">
@@ -300,7 +391,7 @@ body.theme-light select{background:#fffaf2;color:#24110a;border:1px solid rgba(1
 </div></div>
 <div class="screen" id="testScreen"><div class="progress" id="progressText"></div><div class="question-card"><div class="question" id="questionText"></div><div class="answers" id="answers"></div></div><button class="ghost-btn" data-home="" type="button">Testi Bitir</button></div>
 <div class="screen" id="resultScreen"><h1 class="top-title">Sonuç</h1><div class="panel"><div class="result-number" id="resultNumber"></div><div class="result-text" id="resultText"></div><div class="analysis-box" id="analysisBox"></div><button class="main-btn" id="repeatBtn" type="button">Aynı Testten Tekrar Çöz</button><button class="ghost-btn" data-home="" type="button">Ana Menü</button></div></div>
-<div class="screen" id="wrongScreen"><h1 class="top-title">Yanlışlarım</h1><div id="wrongList"></div><button class="main-btn" id="clearWrongBtn" type="button">Yanlışları Temizle</button><button class="ghost-btn" data-home="" type="button">Ana Menü</button></div>
+<div class="screen" id="wrongScreen"><h1 class="top-title">Yanlışlarım</h1><button class="main-btn" id="wrongAiBtn" type="button">🤖 Yapay Zeka Desteği</button><div class="wrong-ai-box" id="wrongAiBox"></div><div id="wrongList"></div><button class="main-btn" id="clearWrongBtn" type="button">Yanlışları Temizle</button><button class="ghost-btn" data-home="" type="button">Ana Menü</button></div>
 </div>
 
 <div class="settings-modal" id="globalSettingsModal" aria-hidden="true">
@@ -318,6 +409,35 @@ body.theme-light select{background:#fffaf2;color:#24110a;border:1px solid rgba(1
       <div><label>Tema</label><select id="themeModeSelect"><option value="dark">Koyu Tema</option><option value="light">Açık Tema</option></select></div>
     </div>
     <button class="main-btn settings-save" id="globalSettingsSave" type="button">Ayarları Kaydet</button>
+  </div>
+</div>
+
+<div class="feedback-overlay" id="wrongFeedbackModal" aria-hidden="true">
+  <div class="feedback-card">
+    <div class="feedback-head">
+      <div class="feedback-badge">❗</div>
+      <div>
+        <div class="feedback-kicker">Yanlış cevap</div>
+        <div class="feedback-title">Doğru cevabı incele</div>
+        <div class="feedback-sub">Kısa bir tekrar yapıp sıradaki soruya geçebilirsin.</div>
+      </div>
+    </div>
+    <div class="feedback-core">
+      <div class="feedback-question-label">Soru</div>
+      <div class="feedback-question" id="wrongModalQuestion"></div>
+      <div class="feedback-answer-box correct-box">
+        <div class="small">Doğru cevap</div>
+        <div class="big" id="wrongModalCorrect"></div>
+      </div>
+      <div class="feedback-answer-box selected-box">
+        <div class="small">Senin seçimin</div>
+        <div class="big" id="wrongModalSelected"></div>
+      </div>
+    </div>
+    <div class="feedback-actions">
+      <button class="feedback-flag" id="wrongModalClose" type="button">⚑</button>
+      <button class="feedback-next" id="wrongModalNext" type="button">→ Sıradaki Soru</button>
+    </div>
   </div>
 </div>
 
@@ -348,11 +468,35 @@ var movements=[
 ];
 var firsts=[["Türk dilinin ilk sözlüğü hangisidir?","Divanü Lügati't-Türk"],['İlk siyasetname örneği hangisidir?','Kutadgu Bilig'],['İlk yazılı edebî metin hangisidir?','Göktürk Yazıtları'],['İlk Türkçe sözlük hangisidir?','Kamus-ı Türkî'],['Türkçenin ilk dil bilgisi kitabı hangisidir?','Sarf-ı Türkî'],['İlk tezkire örneği hangisidir?','Mecalisü’n-Nefais'],['Anadolu sahasında yazılan ilk tezkire hangisidir?','Heşt Behişt'],['İlk bibliyografya örneği hangisidir?',"Keşfü'z-Zunun"],['İlk atasözleri derlemesi hangisidir?','Durub-ı Emsal-i Osmaniye'],['İlk hatıra kitabı hangisidir?','Babürnâme'],['En önemli gezi yazısı örneği hangisidir?','Seyahatname'],['İlk yerli roman hangisidir?','Taaşşuk-ı Talat ve Fitnat'],['İlk edebî roman hangisidir?','İntibah'],['İlk realist roman denemesi hangisidir?','Araba Sevdası'],['İlk köy romanı denemesi hangisidir?','Karabibik'],['İlk psikolojik roman hangisidir?','Eylül'],['İlk tiyatro eseri hangisidir?','Şair Evlenmesi']];
 var frequentPairs=[["Nabizade Nazım", "Zehra"], ["Fuzuli", "Su Kasidesi"], ["Yahya Kemal Beyatlı", "Süleymaniye'de Bayram Sabahı"], ["Yunus Emre", "Risaletü'n Nushiyye"], ["Reşat Nuri Güntekin", "Acımak"], ["Ahmet Yesevi", "Divan-ı Hikmet"], ["Namık Kemal", "Vatan Yahut Silistre"], ["Ahmet Vefik Paşa", "Lehçe-i Osmânî"], ["Sabahattin Ali", "Kuyucaklı Yusuf"], ["Ahmet Rasim", "Gülüp Ağladıklarım"], ["Reşat Nuri Güntekin", "Anadolu Notları"], ["Ziya Paşa", "Harabad"], ["Cenap Şahabettin", "Avrupa Mektupları"], ["Oktay Rıfat Horozcu", "Âşık Merdiveni"], ["Cenap Şahabettin", "Afak-ı Irak"], ["Muallim Naci", "Lügat-i Naci"], ["Abdülhak Hamit Tarhan", "Makber"], ["Mercimek Ahmet", "Kabusnâme"], ["Mevlana", "Mektûbat"], ["Kaşgarlı Mahmut", "Dîvânu Lugâti't-Türk"], ["Şeyh Galip", "Hüsn ü Aşk"], ["İlhan Berk", "Avluya Düşen Gölge"], ["Şinasi", "Şair Evlenmesi"], ["Edip Cansever", "Ben Ruhi Bey Nasılım"], ["Mehmet Rauf", "Eylül"], ["Ahmet Hikmet Müftüoğlu", "Çağlayanlar"], ["Halide Edip Adıvar", "Akile Hanım Sokağı"], ["Ahmet Hikmet Müftüoğlu", "Haristan ve Gülistan"], ["Recaizade Mahmud Ekrem", "Çok Bilen Çok Yanılır"], ["Ziya Gökalp", "Altın Işık"], ["Halit Ziya Uşaklıgil", "Kırık Hayatlar"], ["Yusuf Has Hacip", "Kutadgu Bilig"], ["Hüseyin Cahit Yalçın", "Nadide"], ["Muallim Naci", "Demdeme"], ["Edip Ahmet Yükneki", "Atebetü'l Hakayık"], ["Ömer Seyfettin", "Pembe İncili Kaftan"], ["Fuzuli", "Leyla ile Mecnun"], ["Tevfik Fikret", "Rübab-ı Şikeste"], ["Mehmet Akif Ersoy", "Safahat"], ["Necip Fazıl Kısakürek", "Kaldırımlar"], ["Nabizade Nazım", "Karabibik"], ["Yakup Kadri Karaosmanoğlu", "Nur Baba"], ["Ziya Gökalp", "Kızıl Elma"], ["Halit Ziya Uşaklıgil", "Mezardan Sesler"], ["Nurullah Ataç", "Günlerin Getirdiği"], ["Behçet Necatigil", "Evler"], ["Katip Çelebi", "Keşfü'z Zünun"], ["Yakup Kadri Karaosmanoğlu", "Yaban"], ["Ahmet Mithat Efendi", "Letâif-i Rivâyât"], ["Samipaşazâde Sezai", "Sergüzeşt"], ["Özdemir Asaf", "Dünya Kaçtı Gözüme"], ["Nabi", "Hayriyye"], ["Süleyman Nazif", "Batarya ile Ateş"], ["Edip Cansever", "İkindi Üstü"], ["Recaizade Mahmud Ekrem", "Araba Sevdası"], ["Kemal Bilbaşar", "Memo"], ["Ahmet Rasim", "Meyl-i Dil"], ["Mehmet Emin Yurdakul", "Ordunun Destanı"], ["Baki", "Fazâil'i-Mekke"], ["Peyami Safa", "Ah-Min'el Aşk"], ["Ali Şir Nevaî", "Muhakemetü'l Lügateyn"], ["Baki", "Kanuni Mersiyesi"], ["Samipaşazâde Sezai", "Küçük Şeyler"], ["Moliere", "Cimri"], ["Behçet Necatigil", "Kapalı Çarşı"], ["Orhan Pamuk", "Benim Adım Kırmızı"], ["Halide Edip Adıvar", "Sinekli Bakkal"], ["Hamdullah Suphi Tanrıöver", "Günebakan"], ["Yakup Kadri Karaosmanoğlu", "Hüküm Gecesi"], ["Mehmet Emin Yurdakul", "Türk Sazı"], ["Hüseyin Rahmi Gürpınar", "Mürebbiye"], ["Attila İlhan", "Ayrılık Sevdaya Dahil"], ["Âşık Paşa", "Garibname"], ["Abdülhak Hamit Tarhan", "Zavallı Çocuk"], ["Ömer Seyfettin", "Yalnız Efe"], ["Kemal Tahir", "Esir Şehrin Mahpusu"], ["Âşık Paşa", "Fakrnâme"], ["Nabi", "Hayrâbâd"], ["Ahmet Mithat Efendi", "Felatun Bey ile Rakım Efendi"], ["Şemsettin Sami", "Taaşşuk-ı Talat ve Fitnat"], ["Ziya Gökalp", "Yeni Hayat"], ["Mehmet Emin Yurdakul", "Ey Türk Uyan"], ["Rıfat Ilgaz", "Apartman Çocukları"], ["Ahmedî", "İskendername"], ["Ahmet Vefik Paşa", "Şecere-i Türk"], ["Necati Cumalı", "Dila Hanım"], ["Şeyhî", "Hüsrev-ü Şirin"], ["Halide Edip Adıvar", "Ateşten Gömlek"], ["Abdülhak Hamit Tarhan", "Nesteren"], ["Kenan Hulusi Koray", "Osmanoflar"], ["Arif Nihat Asya", "Kökler ve Dallar"], ["Ahmedî", "Cemşîd ü Hurşid"], ["Mehmet Emin Yurdakul", "İsyan ve Dua"], ["Hüseyin Rahmi Gürpınar", "Kuyruklu Yıldız Altında Bir İzdivaç"], ["Behçet Necatigil", "Yeşeren Otlar"], ["Yahya Kemal Beyatlı", "Eski Şiirin Rüzgârıyla"], ["Ahmet Oktay", "Her Yüz Bir Öykü Yazar"], ["Recaizade Mahmud Ekrem", "Zemzeme"], ["Ziya Paşa", "Rüya"], ["Hamdullah Suphi Tanrıöver", "Dağ Yolu"], ["Yahya Kemal Beyatlı", "Kendi Gök Kubbemiz"], ["Muallim Naci", "Ateşpare"], ["Kemal Bilbaşar", "Cemo"], ["Abdülhak Şinasi Hisar", "Çamlıca'daki Eniştemiz"], ["Necip Fazıl Kısakürek", "Ben ve Ötesi"], ["Ahmet Mithat Efendi", "Dürdane Hanım"], ["Ece Ayhan", "Kınar Hanımın Denizleri"], ["Halide Edip Adıvar", "Handan"], ["Ziya Paşa", "Zafername"], ["Fuzuli", "Şikâyetnâme"], ["Orhan Kemal", "Cemile"], ["Sabahattin Ali", "Havaya Çizilen Dünya"], ["Orhan Veli Kanık", "Vazgeçemediğim"], ["Tarık Buğra", "Osmancık"], ["Mehmet Emin Yurdakul", "Tan Sesleri"], ["Abdülhak Hamit Tarhan", "Sahra"], ["Fuzuli", "Beng ü Bade"], ["Yaşar Nabi Nayır", "Kahramanlar"], ["Reşat Nuri Güntekin", "Yaprak Dökümü"], ["Reşat Nuri Güntekin", "Yeşil Gece"], ["Cemal Süreya", "Üvercinka"], ["Sait Faik Abasıyanık", "Sarnıç"], ["Mevlana", "Mektûbât"], ["Ömer Seyfettin", "Kaşağı"], ["Tevfik Fikret", "Şermin"], ["Namık Kemal", "Cezmi"], ["Yakup Kadri Karaosmanoğlu", "Sodom ve Gomore"], ["Edip Cansever", "Dirlik Düzenlik"], ["Ömer Seyfettin", "Başını Vermeyen Şehit"], ["Yahya Kemal Beyatlı", "Bitmemiş Şiirler"], ["Cahit Külebi", "İçi Sevda Dolu Yolculuk"], ["Sabahattin Ali", "Kürk Mantolu Madonna"], ["Tevfik Fikret", "Haluk'un Defteri"], ["Reşat Nuri Güntekin", "Akşam Güneşi"], ["Muallim Naci", "Şerare"], ["Ömer Seyfettin", "Efruz Bey"], ["Tevfik Fikret", "Rübab'ın Cevabı"], ["Mevlana", "Divan-ı Kebir"], ["Katip Çelebi", "Cihannümâ"], ["Cenap Şahabettin", "Hac Yolunda"], ["Haldun Taner", "Keşanlı Ali Destanı"], ["Özdemir Asaf", "Yalnızlık Paylaşılmaz"], ["Yaşar Kemal", "Yılanı Öldürseler"], ["Attila İlhan", "Sisler Bulvarı"], ["Sabri Esat Siyavuşgil", "Odalar ve Sofalar"], ["Oktay Akbal", "Suçumuz İnsan Olmak"], ["Necati Cumalı", "Zeliş (Tütün Zamanı)"], ["Süleyman Nazif", "Firak-ı Irak"], ["Yaşar Kemal", "Demirciler Çarşısı Cinayeti"], ["İlhan Berk", "Günaydın Yeryüzü"], ["Necip Fazıl Kısakürek", "Örümcek Ağı"], ["Gülşehri", "Mantıku't-Tayr"]];
-var currentCategory='',currentType='',currentPeriod='Tüm Dönemler',currentCount=10,currentOptionCount=5,currentDifficulty='easy',questions=[],qIndex=0,correct=0,wrong=0,lastSettings=null,sessionMistakes=[];
+var currentCategory='',currentType='',currentPeriod='Tüm Dönemler',currentCount=10,currentOptionCount=5,currentDifficulty='easy',questions=[],qIndex=0,correct=0,wrong=0,lastSettings=null,sessionMistakes=[],pendingWrongAdvance=false;
 function byId(id){return document.getElementById(id)}
 function showScreen(id){var s=document.getElementsByClassName('screen');for(var i=0;i<s.length;i++)s[i].classList.remove('active');byId(id).classList.add('active');window.scrollTo(0,0)}
-function goHome(){showScreen('homeScreen')}
+function goHome(){closeWrongFeedback();showScreen('homeScreen')}
 function addOption(sel,val,text){var o=document.createElement('option');o.value=val;o.text=text;sel.appendChild(o)}
+
+function openWrongFeedback(q,selected){
+  pendingWrongAdvance=true;
+  if(byId('wrongModalQuestion'))byId('wrongModalQuestion').innerText=q.question;
+  if(byId('wrongModalCorrect'))byId('wrongModalCorrect').innerText=q.answer;
+  if(byId('wrongModalSelected'))byId('wrongModalSelected').innerText=selected;
+  if(byId('wrongFeedbackModal')){
+    byId('wrongFeedbackModal').classList.add('active');
+    byId('wrongFeedbackModal').setAttribute('aria-hidden','false');
+  }
+}
+function closeWrongFeedback(){
+  pendingWrongAdvance=false;
+  if(byId('wrongFeedbackModal')){
+    byId('wrongFeedbackModal').classList.remove('active');
+    byId('wrongFeedbackModal').setAttribute('aria-hidden','true');
+  }
+}
+function continueAfterWrong(){
+  closeWrongFeedback();
+  qIndex++;
+  showQuestion();
+}
+
 function openSettings(cat){currentCategory=cat;var title=byId('settingsTitle'),periodBox=byId('periodBox'),typeBox=byId('typeBox'),pSel=byId('periodSelect'),tSel=byId('typeSelect'),cSel=byId('countSelect');pSel.innerHTML='';tSel.innerHTML='';cSel.innerHTML='';for(var i=10;i<=100;i+=10)addOption(cSel,String(i),i+' soru');if(cat==='authorWork'){title.innerText='Yazar - Eser';periodBox.style.display='block';typeBox.style.display='block';var ps=['İslamiyet İlk Dönem','Halk Edebiyatı','Divan / Geçiş','Tanzimat','Servetifünun','Fecriati','Milli Edebiyat','Cumhuriyet'];for(var p=0;p<ps.length;p++)addOption(pSel,ps[p],ps[p]);addOption(tSel,'authorToWork','Yazar - Eser');addOption(tSel,'workToAuthor','Eser - Yazar')}else{periodBox.style.display='none';typeBox.style.display='none';title.innerText=cat==='frequent'?'Sık Sorulanlar':cat==='movements'?'Edebi Akımlar':'Roman Kahramanları'}showScreen('settingsScreen')}
 function startTest(){currentCount=Number(byId('countSelect').value);currentOptionCount=Number(byId('optionCountSelect').value);currentDifficulty=byId('difficultySelect').value;if(currentCategory==='authorWork'){currentPeriod=byId('periodSelect').value;currentType=byId('typeSelect').value}else{currentPeriod='Tüm Dönemler';currentType=currentCategory}lastSettings=[currentCategory,currentType,currentPeriod,currentCount,currentOptionCount,currentDifficulty];questions=shuffle(buildQuestions());if(questions.length>currentCount)questions=questions.slice(0,currentCount);qIndex=0;correct=0;wrong=0;sessionMistakes=[];showScreen('testScreen');showQuestion()}
 function repeatSameTest(){if(!lastSettings){goHome();return}currentCategory=lastSettings[0];currentType=lastSettings[1];currentPeriod=lastSettings[2];currentCount=lastSettings[3];currentOptionCount=lastSettings[4]||5;currentDifficulty=lastSettings[5]||'easy';questions=shuffle(buildQuestions());if(questions.length>currentCount)questions=questions.slice(0,currentCount);qIndex=0;correct=0;wrong=0;sessionMistakes=[];showScreen('testScreen');showQuestion()}
@@ -549,9 +693,9 @@ function balancedMovementQuestions(pool,count){
   return result;
 }
 function buildFirstQuestions(){var answers=[],res=[];for(var i=0;i<firsts.length;i++)uniquePush(answers,firsts[i][1]);for(var f=0;f<firsts.length;f++)res.push({question:firsts[f][0],answer:firsts[f][1],options:shuffle([firsts[f][1]].concat(getRandomWrong(answers,firsts[f][1],optionWrongCount())))});return res}
-function showQuestion(){if(qIndex>=questions.length){finishTest();return}var q=questions[qIndex];byId('progressText').innerText=(qIndex+1)+' / '+questions.length;byId('questionText').innerText=q.question;var ans=byId('answers');ans.innerHTML='';for(var i=0;i<q.options.length;i++){var b=document.createElement('button');b.type='button';b.className='answer';b.innerText=q.options[i];b.addEventListener('click',makeHandler(b,q.options[i],q));ans.appendChild(b)}}
+function showQuestion(){closeWrongFeedback();if(qIndex>=questions.length){finishTest();return}var q=questions[qIndex];byId('progressText').innerText=(qIndex+1)+' / '+questions.length;byId('questionText').innerText=q.question;var ans=byId('answers');ans.innerHTML='';for(var i=0;i<q.options.length;i++){var b=document.createElement('button');b.type='button';b.className='answer';b.innerText=q.options[i];b.addEventListener('click',makeHandler(b,q.options[i],q));ans.appendChild(b)}}
 function makeHandler(btn,selected,q){return function(){answerQuestion(btn,selected,q)}}
-function answerQuestion(btn,selected,q){var bs=document.getElementsByClassName('answer');for(var i=0;i<bs.length;i++)bs[i].disabled=true;if(selected===q.answer){correct++;btn.classList.add('correct')}else{wrong++;btn.classList.add('wrong');for(var b=0;b<bs.length;b++)if(bs[b].innerText===q.answer)bs[b].classList.add('correct');sessionMistakes.push({question:q.question,selected:selected,answer:q.answer});saveWrong(q.question,selected,q.answer)}setTimeout(function(){qIndex++;showQuestion()},850)}
+function answerQuestion(btn,selected,q){var bs=document.getElementsByClassName('answer');for(var i=0;i<bs.length;i++)bs[i].disabled=true;if(selected===q.answer){correct++;btn.classList.add('correct');setTimeout(function(){qIndex++;showQuestion()},650)}else{wrong++;btn.classList.add('wrong');for(var b=0;b<bs.length;b++)if(bs[b].innerText===q.answer)bs[b].classList.add('correct');sessionMistakes.push({question:q.question,selected:selected,answer:q.answer});saveWrong(q.question,selected,q.answer);openWrongFeedback(q,selected)}}
 function finishTest(){var total=correct+wrong,p=total===0?0:Math.round(correct/total*100);byId('resultNumber').innerText=correct+'/'+total;byId('resultText').innerHTML='Doğru: <b>'+correct+'</b> &nbsp; Yanlış: <b>'+wrong+'</b><br>Başarı: <b>%'+p+'</b>';byId('analysisBox').innerHTML=generateAnalysis(total,p);showScreen('resultScreen')}
 function inferMistakeType(m){
   var q=m.question||'', a=m.answer||'';
@@ -627,7 +771,69 @@ function generateAnalysis(total,p){
 
   return title+msg+'<br>'+specific+ex+'<br><b>Çalışma önerisi:</b> Yanlış çıkan '+Math.min(wrong,4)+' eşleşmeyi 2 dakika tekrar et, sonra aynı bölümden 10 soru daha çöz.';
 }
-function showWrongs(){var wrongs=JSON.parse(localStorage.getItem('edebiyatWrongs')||'[]'),list=byId('wrongList');list.innerHTML='';if(wrongs.length===0)list.innerHTML='<div class="empty">Henüz yanlış yok kanka.</div>';else for(var i=0;i<wrongs.length;i++){var d=document.createElement('div');d.className='wrong-item';d.innerHTML='<b>Soru:</b> '+escapeHtml(wrongs[i].question)+'<br><b>Senin cevabın:</b> '+escapeHtml(wrongs[i].selected)+'<br><b>Doğru cevap:</b> '+escapeHtml(wrongs[i].answer)+'<br><small>'+escapeHtml(wrongs[i].date)+'</small>';list.appendChild(d)}showScreen('wrongScreen')}
+
+function categoryFromQuestionText(text){
+  text=String(text||'');
+  if(text.indexOf('hangi eserin kahramanlarıdır')!==-1)return 'Roman kahramanı';
+  if(text.indexOf('hangi edebi akıma')!==-1||text.indexOf('edebi akımla')!==-1)return 'Edebi akım';
+  if(text.indexOf('kime aittir')!==-1)return 'Eser → Yazar';
+  if(text.indexOf('sanatçının eseri')!==-1)return 'Yazar → Eser';
+  if(text.indexOf('ilk')!==-1||text.indexOf('İlk')!==-1)return 'İlkler';
+  return 'Genel';
+}
+function analyzeStoredWrongs(){
+  var wrongs=JSON.parse(localStorage.getItem('edebiyatWrongs')||'[]');
+  var box=byId('wrongAiBox');
+  if(!box)return;
+  if(wrongs.length===0){
+    box.classList.add('active');
+    box.innerHTML='<div class="analysis-title">🤖 Yapay Zeka Desteği</div>Henüz yanlış kaydın yok kanka. Önce birkaç test çöz, sonra burada sana net çalışma yönü çıkarayım.';
+    return;
+  }
+
+  var sample=wrongs.slice(0,30);
+  var typeCount={}, answerCount={}, detail=[];
+  for(var i=0;i<sample.length;i++){
+    var q=sample[i].question||'';
+    var cat=categoryFromQuestionText(q);
+    typeCount[cat]=(typeCount[cat]||0)+1;
+    var ans=sample[i].answer||sample[i].correct||'';
+    if(ans)answerCount[ans]=(answerCount[ans]||0)+1;
+    if(detail.length<5){
+      detail.push('<b>'+escapeHtml(q)+'</b><br>Sen: '+escapeHtml(sample[i].selected||'')+' — Doğru: '+escapeHtml(ans));
+    }
+  }
+
+  var topType='Genel', topTypeN=0;
+  for(var k in typeCount){if(typeCount[k]>topTypeN){topType=k;topTypeN=typeCount[k]}}
+  var repeated=[];
+  for(var a in answerCount){if(answerCount[a]>=2)repeated.push(a+' ('+answerCount[a]+')')}
+
+  var advice='';
+  if(topType==='Eser → Yazar'){
+    advice='En çok <b>eser-yazar eşleştirmesinde</b> hata var. Çalışırken eseri görünce yazarı söyleme şeklinde tekrar yap. Özellikle yanlış çıkan eserleri küçük liste yapıp 5 dakika arayla dön.';
+  }else if(topType==='Yazar → Eser'){
+    advice='En çok <b>yazar-eser yönünde</b> hata var. Aynı yazarın birden fazla eserini karıştırıyorsun. Yazar başlığı açıp altına 3-5 temel eser yazman daha iyi olur.';
+  }else if(topType==='Roman kahramanı'){
+    advice='En çok <b>roman kahramanı</b> kısmı karışmış. Kahramanları tek tek ezberlemek yerine eserin 2-3 ayırt edici karakterini beraber tekrar et.';
+  }else if(topType==='Edebi akım'){
+    advice='En çok <b>edebi akım</b> tarafında hata var. Özellikleri ezberlemek yerine temsilci + anahtar kavram şeklinde çalış: Romantizm=duygu/hayal, Realizm=gözlem/nesnellik gibi.';
+  }else if(topType==='İlkler'){
+    advice='<b>İlkler</b> kısmında hata var. Bunlar direkt ezber sorusu; her gün 10 tane hızlı tekrar en verimli yöntem olur.';
+  }else{
+    advice='Yanlışların karışık dağılmış. Şimdilik yanlış çıkan ilk 5 soruyu tekrar et, sonra aynı bölümden 10 soru çöz.';
+  }
+
+  var repeatText=repeated.length?'<br><b>Tekrar karışan cevaplar:</b> '+escapeHtml(repeated.slice(0,5).join(', ')):'';  
+  var score='<b>Son '+sample.length+' yanlışta en baskın alan:</b> '+escapeHtml(topType)+' ('+topTypeN+' kez)';
+  var html='<div class="analysis-title">🤖 Yapay Zeka Desteği</div>'+score+repeatText+'<br><br>'+advice;
+  html+='<br><br><b>Öncelikli tekrar listesi:</b><br>'+detail.join('<br><br>');
+  html+='<br><br><b>Plan:</b> Bu listedeki yanlışları 5 dakika tekrar et, sonra aynı bölümden 10 soru çöz. Hedefin en az 8/10 olsun.';
+  box.classList.add('active');
+  box.innerHTML=html;
+}
+
+function showWrongs(){var ai=byId('wrongAiBox');if(ai){ai.classList.remove('active');ai.innerHTML=''}var wrongs=JSON.parse(localStorage.getItem('edebiyatWrongs')||'[]'),list=byId('wrongList');list.innerHTML='';if(wrongs.length===0)list.innerHTML='<div class="empty">Henüz yanlış yok kanka.</div>';else for(var i=0;i<wrongs.length;i++){var d=document.createElement('div');d.className='wrong-item';d.innerHTML='<b>Soru:</b> '+escapeHtml(wrongs[i].question)+'<br><b>Senin cevabın:</b> '+escapeHtml(wrongs[i].selected)+'<br><b>Doğru cevap:</b> '+escapeHtml(wrongs[i].answer)+'<br><small>'+escapeHtml(wrongs[i].date)+'</small>';list.appendChild(d)}showScreen('wrongScreen')}
 function saveWrong(question,selected,answer){var w=JSON.parse(localStorage.getItem('edebiyatWrongs')||'[]');w.unshift({question:question,selected:selected,answer:answer,date:new Date().toLocaleString('tr-TR')});if(w.length>250)w=w.slice(0,250);localStorage.setItem('edebiyatWrongs',JSON.stringify(w))}
 function clearWrongs(){localStorage.removeItem('edebiyatWrongs');showWrongs()}
 function getRandomWrong(arr,correct,count){var u=[],w=[];for(var i=0;i<arr.length;i++)if(arr[i]!==correct&&u.indexOf(arr[i])===-1)u.push(arr[i]);u=shuffle(u);for(var j=0;j<u.length&&w.length<count;j++)w.push(u[j]);return w}
@@ -708,7 +914,10 @@ document.addEventListener('DOMContentLoaded',function(){
   byId('startBtn').addEventListener('click',startTest);
   byId('repeatBtn').addEventListener('click',repeatSameTest);
   byId('clearWrongBtn').addEventListener('click',clearWrongs);
+  byId('wrongAiBtn').addEventListener('click',analyzeStoredWrongs);
   byId('globalSettingsBtn').addEventListener('click',function(){loadThemeControls();openGlobalSettings()});
+  byId('wrongModalNext').addEventListener('click',continueAfterWrong);
+  byId('wrongModalClose').addEventListener('click',continueAfterWrong);
   byId('globalSettingsClose').addEventListener('click',closeGlobalSettings);
   byId('globalSettingsSave').addEventListener('click',saveGlobalSettings);
   byId('globalSettingsModal').addEventListener('click',function(e){if(e.target===this)closeGlobalSettings()});
