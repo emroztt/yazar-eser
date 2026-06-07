@@ -180,7 +180,25 @@
     .wrong-item{background:rgba(255,255,255,.11);border:1px solid var(--stroke);border-radius:18px;padding:14px;margin-bottom:10px;color:rgba(255,248,238,.90);font-size:14px;line-height:1.45}
     .wrong-item b{color:var(--gold)}
     .empty{text-align:center;color:rgba(255,248,238,.72);padding:28px 10px}.mini-note{margin-top:18px;text-align:center;font-size:12px;color:rgba(255,248,238,.50)}
-    @media(max-width:430px){.app{padding:14px 13px 30px}h1{font-size:34px}.question{font-size:19px}.menu-card{border-radius:24px}}
+    
+.analysis-box{
+  margin-top:16px;
+  padding:15px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.14);
+  color:rgba(255,255,255,0.88);
+  line-height:1.5;
+  font-size:14px;
+}
+.analysis-box b{color:#ffc26b}
+.analysis-box .analysis-title{
+  font-size:17px;
+  font-weight:950;
+  margin-bottom:8px;
+  color:#ffc26b;
+}
+@media(max-width:430px){.app{padding:14px 13px 30px}h1{font-size:34px}.question{font-size:19px}.menu-card{border-radius:24px}}
   </style>
 </head>
 <body>
@@ -192,7 +210,7 @@
 <h1>Edebiyat Test</h1>
 </div>
 <div class="menu">
-<button class="menu-card" data-open="frequent" type="button"><div class="menu-top"><div class="icon">⭐</div><h2>Sık Sorulanlar</h2></div><p>Sadece eser-yazar: sık gelen eserlerin yazarını bul.</p></button>
+<button class="menu-card" data-open="frequent" type="button"><div class="menu-top"><div class="icon">⭐</div><h2>Sık Sorulanlar</h2></div><p>Sık gelen eser-yazar ve roman kahramanı sorularını çöz.</p></button>
 <button class="menu-card" data-open="authorWork" type="button"><div class="menu-top"><div class="icon">✍️</div><h2>Yazar - Eser</h2></div><p>Dönem seç; yazardan eseri veya eserden yazarı bul.</p></button>
 <button class="menu-card" data-open="movements" type="button"><div class="menu-top"><div class="icon">🔥</div><h2>Edebi Akımlar</h2></div><p>Özellik, bilgi ve az sayıda temsilci üzerinden akımı bul.</p></button>
 <button class="menu-card" data-open="characters" type="button"><div class="menu-top"><div class="icon">🎭</div><h2>Roman Kahramanları</h2></div><p>Kahramanlar verilsin, hangi eserin olduğunu seç.</p></button>
@@ -206,7 +224,7 @@
 <button class="main-btn" id="startBtn" type="button">Teste Başla</button><button class="ghost-btn" data-home="" type="button">Ana Menü</button>
 </div></div>
 <div class="screen" id="testScreen"><div class="progress" id="progressText"></div><div class="question-card"><div class="question" id="questionText"></div><div class="answers" id="answers"></div></div><button class="ghost-btn" data-home="" type="button">Testi Bitir</button></div>
-<div class="screen" id="resultScreen"><h1 class="top-title">Sonuç</h1><div class="panel"><div class="result-number" id="resultNumber"></div><div class="result-text" id="resultText"></div><button class="main-btn" id="repeatBtn" type="button">Aynı Testten Tekrar Çöz</button><button class="ghost-btn" data-home="" type="button">Ana Menü</button></div></div>
+<div class="screen" id="resultScreen"><h1 class="top-title">Sonuç</h1><div class="panel"><div class="result-number" id="resultNumber"></div><div class="result-text" id="resultText"></div><div class="analysis-box" id="analysisBox"></div><button class="main-btn" id="repeatBtn" type="button">Aynı Testten Tekrar Çöz</button><button class="ghost-btn" data-home="" type="button">Ana Menü</button></div></div>
 <div class="screen" id="wrongScreen"><h1 class="top-title">Yanlışlarım</h1><div id="wrongList"></div><button class="main-btn" id="clearWrongBtn" type="button">Yanlışları Temizle</button><button class="ghost-btn" data-home="" type="button">Ana Menü</button></div>
 </div>
 
@@ -239,18 +257,29 @@ var authorWorks=[
 ['Milli Edebiyat','Ömer Seyfettin',['Diyet','Bomba','Yüksek Ökçeler','Efruz Bey']],['Milli Edebiyat','Ziya Gökalp',['Kızıl Elma','Türkçülüğün Esasları']],['Milli Edebiyat','Yakup Kadri Karaosmanoğlu',['Yaban','Kiralık Konak','Sodom ve Gomore']],['Milli Edebiyat','Halide Edip Adıvar',['Ateşten Gömlek','Vurun Kahpeye']],['Milli Edebiyat','Reşat Nuri Güntekin',['Çalıkuşu','Yaprak Dökümü','Yeşil Gece']],
 ['Cumhuriyet','Ahmet Hamdi Tanpınar',['Huzur','Saatleri Ayarlama Enstitüsü','Beş Şehir']],['Cumhuriyet','Peyami Safa',['Fatih-Harbiye','Dokuzuncu Hariciye Koğuşu']],['Cumhuriyet','Oğuz Atay',['Tutunamayanlar','Tehlikeli Oyunlar']],['Cumhuriyet','Yusuf Atılgan',['Anayurt Oteli','Aylak Adam']],['Cumhuriyet','Yaşar Kemal',['İnce Memed','Teneke']],['Cumhuriyet','Orhan Kemal',['Bereketli Topraklar Üzerinde','72. Koğuş']],['Cumhuriyet','Fakir Baykurt',['Yılanların Öcü','Irazca’nın Dirliği']]
 ];
-var characters=[['Araba Sevdası',['Bihruz Bey','Periveş','Keşfi Bey']],['İntibah',['Ali Bey','Mahpeyker','Dilaşup']],['Aşk-ı Memnu',['Adnan Bey','Bihter','Behlül','Nihal']],['Eylül',['Necip','Suat','Süreyya']],['Mai ve Siyah',['Ahmet Cemil','Lamia','Hüseyin Nazmi']],['Yaprak Dökümü',['Ali Rıza Bey','Ferhunde','Leyla','Necla']],['Çalıkuşu',['Feride','Kamuran']],['Yaban',['Ahmet Celal','Emine','Mehmet Ali']],['Huzur',['Mümtaz','Nuran','Suat','İhsan']],['Anayurt Oteli',['Zebercet']],['Tutunamayanlar',['Selim Işık','Turgut Özben']],['İnce Memed',['Memed','Hatce','Abdi Ağa']],['Kuyucaklı Yusuf',['Yusuf','Muazzez']],['Fatih-Harbiye',['Neriman','Şinasi','Macit']]];
-var movements=[['Klasisizm',['Akıl ve sağduyu','Kuralcılık','Eski Yunan ve Latin etkisi'],['Moliere']],['Romantizm',['Duygu ve hayal','Hürriyet','Tarihî konular','Sanatçı kişiliğini gizlemez'],['Victor Hugo','Namık Kemal']],['Realizm',['Gözlem','Nesnellik','Çevre tasviri','Neden-sonuç'],['Balzac','Flaubert']],['Natüralizm',['Soyaçekim','Determinizm','Toplum laboratuvarı','Sokak dili'],['Emile Zola']],['Parnasizm',['Biçim kusursuzluğu','Sanat sanat içindir','Kuyumcu titizliği'],['Tevfik Fikret','Cenap Şahabettin']],['Sembolizm',['Musiki','Kapalılık','Sezdirme','Alacakaranlık'],['Ahmet Haşim','Verlaine']],['Fütürizm',['Hız','Makineleşme','Gelecekçilik','Dinamizm'],['Marinetti','Nazım Hikmet']],['Dadaizm',['Kuralsızlık','Anlamsızlık','Geleneksel sanatı reddetme'],['Tristan Tzara']],['Sürrealizm',['Bilinçaltı','Rüya','Freud','Otomatik yazı'],['Andre Breton']],['Egzistansiyalizm',['Varoluş','Bunaltı','Yabancılaşma','Sorumluluk'],['Sartre','Camus']]];
+var characters=[["Araba Sevdası", ["Bihruz Bey", "Periveş", "Keşfi Bey"]], ["Cezmi", ["Cezmi", "Adil Giray", "Perihan", "Şehriyar"]], ["İntibah", ["Ali Bey", "Mahpeyker", "Dilaşup"]], ["Karabibik", ["Karabibik", "Yosturoğlu", "Koca İmam", "Huri", "Hüseyin", "Eftalya"]], ["Sergüzeşt", ["Asaf Paşa", "Celal", "Dilber", "Taravet", "Cevher"]], ["Zehra", ["Zehra", "Suphi", "Sırrı Cemal"]], ["Aşk-ı Memnu", ["Adnan Bey", "Bihter", "Behlül", "Nihal", "Firdevs Hanım"]], ["Eylül", ["Necip", "Suat", "Süreyya"]], ["Kırık Hayatlar", ["Ömer", "Behiç", "Vadide", "Neyyir", "Leyla", "Selma"]], ["Mai ve Siyah", ["Lamia", "Ahmet Cemil", "Hüseyin Nazmi"]], ["Mürebbiye", ["Dehri Efendi", "Matmazel Anjel", "Şem'i", "Sadri"]], ["Şık", ["Şatırzade", "Şöhret Bey", "Madam Potiş"]], ["Şıpsevdi", ["Meftun Bey", "Edibe Hanım", "Kasım Efendi"]], ["Yaprak Dökümü", ["Ali Rıza Bey", "Hayriye Hanım", "Ferhunde", "Leyla", "Necla", "Fikret"]], ["Ateşten Gömlek", ["Ayşe", "Peyami", "Binbaşı İhsan"]], ["Çalıkuşu", ["Feride", "Kamuran", "Doktor Hayrullah Bey"]], ["Handan", ["Neriman", "Hüsnü Paşa", "Refik Cemal"]], ["Nur Baba", ["Nur Baba", "Ziba Hanım", "Nigar Hanım", "Süheyla"]], ["Sodom ve Gomore", ["Leyla", "Necdet", "Sami Bey"]], ["Vurun Kahpeye", ["Aliye", "Hacı Fettah", "Tahsin Bey"]], ["Yaban", ["Ahmet Celal", "Emine", "Mehmet Ali", "İsmail"]], ["Sinekli Bakkal", ["Rabia", "Osman / Peregrini", "Kız Tevfik", "Emine", "Vehbi Dede"]], ["Yeşil Gece", ["Şahin", "Kazım"]], ["Tatarcık", ["Lale"]], ["Aganta Burina Burinata", ["Mahmut", "Halil Usta"]], ["Anayurt Oteli", ["Zebercet"]], ["Ayaşlı ve Kiracıları", ["Ayaşlı İbrahim", "Hasan Bey", "Buharalı Abdülkerim", "Faika", "Fuat", "İffet Hanım", "Şefik Bey"]], ["Bereketli Topraklar Üzerinde", ["İflahsızın Yusuf", "Köse Hasan", "Pehlivan Ali"]], ["Dokuzuncu Hariciye Koğuşu", ["Hasta Bir Çocuk", "Nüzhet", "Doktor Ragıp"]], ["Fatih-Harbiye", ["Neriman", "Faiz Bey", "Şinasi", "Macit"]], ["Huzur", ["İhsan", "Nuran", "Suat", "Mümtaz"]], ["İnce Memed", ["Memed", "Hatce", "Abdi Ağa"]], ["Kuyucaklı Yusuf", ["Yusuf", "Muazzez", "Selahattin Bey"]], ["Küçük Ağa", ["Mehmet Reşit Efendi / İstanbullu Hoca", "Çolak Salih"]], ["Matmazel Noralya'nın Koltuğu", ["Ferit", "Nilüfer", "Fotika"]], ["Sözde Kızlar", ["Behiç", "Mebrure", "Nafi Bey"]], ["Tutunamayanlar", ["Selim Işık", "Turgut Özben"]], ["Yılanların Öcü", ["Kara Bayram", "Haceli", "Irazca Ana"]]];
+var movements=[
+['Romantizm',['Duygu ve hayal','Hürriyet düşüncesi','Tarihî konulara yönelme','Sanatçı kişiliğini gizlememe','Tanzimat birinci döneminde etkili olma'],['Namık Kemal','Ahmet Mithat Efendi','Abdülhak Hamit Tarhan']],
+['Realizm',['Gözlem','Nesnel anlatım','Çevre tasviri','Neden-sonuç ilişkisi','Günlük hayat gerçekliği'],['Recaizade Mahmud Ekrem','Halit Ziya Uşaklıgil','Yakup Kadri Karaosmanoğlu','Refik Halit Karay']],
+['Natüralizm',['Soyaçekim','Determinizm','Toplum laboratuvarı','Sokak dili','İnsan çevre ve kalıtımın ürünü'],['Nabizade Nazım','Hüseyin Rahmi Gürpınar']],
+['Parnasizm',['Biçim kusursuzluğu','Sanat sanat içindir','Kuyumcu titizliği','Şiirde gerçekçilik','Dış dünya tasviri'],['Tevfik Fikret','Cenap Şahabettin']],
+['Sembolizm',['Musiki','Kapalılık','Sezdirme','Alacakaranlık','İmge ve çağrışım'],['Ahmet Haşim','Cenap Şahabettin']],
+['Klasisizm',['Akıl ve sağduyu','Kuralcılık','Eski Yunan ve Latin etkisi','Üç birlik kuralı'],['Şinasi']],
+['Fütürizm',['Hız','Makineleşme','Gelecekçilik','Dinamizm','Gelenek karşıtlığı'],['Nazım Hikmet']],
+['Sürrealizm',['Bilinçaltı','Rüya','Freud','Otomatik yazı','Mantık denetiminin dışına çıkma'],['Garipçiler']],
+['Egzistansiyalizm',['Varoluş','Bunaltı','Yabancılaşma','Seçme özgürlüğü','Sorumluluk'],['Yusuf Atılgan','Oğuz Atay']],
+['Dadaizm',['Kuralsızlık','Anlamsızlık','Geleneksel sanatı reddetme'],[]]
+];
 var firsts=[["Türk dilinin ilk sözlüğü hangisidir?","Divanü Lügati't-Türk"],['İlk siyasetname örneği hangisidir?','Kutadgu Bilig'],['İlk yazılı edebî metin hangisidir?','Göktürk Yazıtları'],['İlk Türkçe sözlük hangisidir?','Kamus-ı Türkî'],['Türkçenin ilk dil bilgisi kitabı hangisidir?','Sarf-ı Türkî'],['İlk tezkire örneği hangisidir?','Mecalisü’n-Nefais'],['Anadolu sahasında yazılan ilk tezkire hangisidir?','Heşt Behişt'],['İlk bibliyografya örneği hangisidir?',"Keşfü'z-Zunun"],['İlk atasözleri derlemesi hangisidir?','Durub-ı Emsal-i Osmaniye'],['İlk hatıra kitabı hangisidir?','Babürnâme'],['En önemli gezi yazısı örneği hangisidir?','Seyahatname'],['İlk yerli roman hangisidir?','Taaşşuk-ı Talat ve Fitnat'],['İlk edebî roman hangisidir?','İntibah'],['İlk realist roman denemesi hangisidir?','Araba Sevdası'],['İlk köy romanı denemesi hangisidir?','Karabibik'],['İlk psikolojik roman hangisidir?','Eylül'],['İlk tiyatro eseri hangisidir?','Şair Evlenmesi']];
 var frequentPairs=[["Nabizade Nazım", "Zehra"], ["Fuzuli", "Su Kasidesi"], ["Yahya Kemal Beyatlı", "Süleymaniye'de Bayram Sabahı"], ["Yunus Emre", "Risaletü'n Nushiyye"], ["Reşat Nuri Güntekin", "Acımak"], ["Ahmet Yesevi", "Divan-ı Hikmet"], ["Namık Kemal", "Vatan Yahut Silistre"], ["Ahmet Vefik Paşa", "Lehçe-i Osmânî"], ["Sabahattin Ali", "Kuyucaklı Yusuf"], ["Ahmet Rasim", "Gülüp Ağladıklarım"], ["Reşat Nuri Güntekin", "Anadolu Notları"], ["Ziya Paşa", "Harabad"], ["Cenap Şahabettin", "Avrupa Mektupları"], ["Oktay Rıfat Horozcu", "Âşık Merdiveni"], ["Cenap Şahabettin", "Afak-ı Irak"], ["Muallim Naci", "Lügat-i Naci"], ["Abdülhak Hamit Tarhan", "Makber"], ["Mercimek Ahmet", "Kabusnâme"], ["Mevlana", "Mektûbat"], ["Kaşgarlı Mahmut", "Dîvânu Lugâti't-Türk"], ["Şeyh Galip", "Hüsn ü Aşk"], ["İlhan Berk", "Avluya Düşen Gölge"], ["Şinasi", "Şair Evlenmesi"], ["Edip Cansever", "Ben Ruhi Bey Nasılım"], ["Mehmet Rauf", "Eylül"], ["Ahmet Hikmet Müftüoğlu", "Çağlayanlar"], ["Halide Edip Adıvar", "Akile Hanım Sokağı"], ["Ahmet Hikmet Müftüoğlu", "Haristan ve Gülistan"], ["Recaizade Mahmud Ekrem", "Çok Bilen Çok Yanılır"], ["Ziya Gökalp", "Altın Işık"], ["Halit Ziya Uşaklıgil", "Kırık Hayatlar"], ["Yusuf Has Hacip", "Kutadgu Bilig"], ["Hüseyin Cahit Yalçın", "Nadide"], ["Muallim Naci", "Demdeme"], ["Edip Ahmet Yükneki", "Atebetü'l Hakayık"], ["Ömer Seyfettin", "Pembe İncili Kaftan"], ["Fuzuli", "Leyla ile Mecnun"], ["Tevfik Fikret", "Rübab-ı Şikeste"], ["Mehmet Akif Ersoy", "Safahat"], ["Necip Fazıl Kısakürek", "Kaldırımlar"], ["Nabizade Nazım", "Karabibik"], ["Yakup Kadri Karaosmanoğlu", "Nur Baba"], ["Ziya Gökalp", "Kızıl Elma"], ["Halit Ziya Uşaklıgil", "Mezardan Sesler"], ["Nurullah Ataç", "Günlerin Getirdiği"], ["Behçet Necatigil", "Evler"], ["Katip Çelebi", "Keşfü'z Zünun"], ["Yakup Kadri Karaosmanoğlu", "Yaban"], ["Ahmet Mithat Efendi", "Letâif-i Rivâyât"], ["Samipaşazâde Sezai", "Sergüzeşt"], ["Özdemir Asaf", "Dünya Kaçtı Gözüme"], ["Nabi", "Hayriyye"], ["Süleyman Nazif", "Batarya ile Ateş"], ["Edip Cansever", "İkindi Üstü"], ["Recaizade Mahmud Ekrem", "Araba Sevdası"], ["Kemal Bilbaşar", "Memo"], ["Ahmet Rasim", "Meyl-i Dil"], ["Mehmet Emin Yurdakul", "Ordunun Destanı"], ["Baki", "Fazâil'i-Mekke"], ["Peyami Safa", "Ah-Min'el Aşk"], ["Ali Şir Nevaî", "Muhakemetü'l Lügateyn"], ["Baki", "Kanuni Mersiyesi"], ["Samipaşazâde Sezai", "Küçük Şeyler"], ["Moliere", "Cimri"], ["Behçet Necatigil", "Kapalı Çarşı"], ["Orhan Pamuk", "Benim Adım Kırmızı"], ["Halide Edip Adıvar", "Sinekli Bakkal"], ["Hamdullah Suphi Tanrıöver", "Günebakan"], ["Yakup Kadri Karaosmanoğlu", "Hüküm Gecesi"], ["Mehmet Emin Yurdakul", "Türk Sazı"], ["Hüseyin Rahmi Gürpınar", "Mürebbiye"], ["Attila İlhan", "Ayrılık Sevdaya Dahil"], ["Âşık Paşa", "Garibname"], ["Abdülhak Hamit Tarhan", "Zavallı Çocuk"], ["Ömer Seyfettin", "Yalnız Efe"], ["Kemal Tahir", "Esir Şehrin Mahpusu"], ["Âşık Paşa", "Fakrnâme"], ["Nabi", "Hayrâbâd"], ["Ahmet Mithat Efendi", "Felatun Bey ile Rakım Efendi"], ["Şemsettin Sami", "Taaşşuk-ı Talat ve Fitnat"], ["Ziya Gökalp", "Yeni Hayat"], ["Mehmet Emin Yurdakul", "Ey Türk Uyan"], ["Rıfat Ilgaz", "Apartman Çocukları"], ["Ahmedî", "İskendername"], ["Ahmet Vefik Paşa", "Şecere-i Türk"], ["Necati Cumalı", "Dila Hanım"], ["Şeyhî", "Hüsrev-ü Şirin"], ["Halide Edip Adıvar", "Ateşten Gömlek"], ["Abdülhak Hamit Tarhan", "Nesteren"], ["Kenan Hulusi Koray", "Osmanoflar"], ["Arif Nihat Asya", "Kökler ve Dallar"], ["Ahmedî", "Cemşîd ü Hurşid"], ["Mehmet Emin Yurdakul", "İsyan ve Dua"], ["Hüseyin Rahmi Gürpınar", "Kuyruklu Yıldız Altında Bir İzdivaç"], ["Behçet Necatigil", "Yeşeren Otlar"], ["Yahya Kemal Beyatlı", "Eski Şiirin Rüzgârıyla"], ["Ahmet Oktay", "Her Yüz Bir Öykü Yazar"], ["Recaizade Mahmud Ekrem", "Zemzeme"], ["Ziya Paşa", "Rüya"], ["Hamdullah Suphi Tanrıöver", "Dağ Yolu"], ["Yahya Kemal Beyatlı", "Kendi Gök Kubbemiz"], ["Muallim Naci", "Ateşpare"], ["Kemal Bilbaşar", "Cemo"], ["Abdülhak Şinasi Hisar", "Çamlıca'daki Eniştemiz"], ["Necip Fazıl Kısakürek", "Ben ve Ötesi"], ["Ahmet Mithat Efendi", "Dürdane Hanım"], ["Ece Ayhan", "Kınar Hanımın Denizleri"], ["Halide Edip Adıvar", "Handan"], ["Ziya Paşa", "Zafername"], ["Fuzuli", "Şikâyetnâme"], ["Orhan Kemal", "Cemile"], ["Sabahattin Ali", "Havaya Çizilen Dünya"], ["Orhan Veli Kanık", "Vazgeçemediğim"], ["Tarık Buğra", "Osmancık"], ["Mehmet Emin Yurdakul", "Tan Sesleri"], ["Abdülhak Hamit Tarhan", "Sahra"], ["Fuzuli", "Beng ü Bade"], ["Yaşar Nabi Nayır", "Kahramanlar"], ["Reşat Nuri Güntekin", "Yaprak Dökümü"], ["Reşat Nuri Güntekin", "Yeşil Gece"], ["Cemal Süreya", "Üvercinka"], ["Sait Faik Abasıyanık", "Sarnıç"], ["Mevlana", "Mektûbât"], ["Ömer Seyfettin", "Kaşağı"], ["Tevfik Fikret", "Şermin"], ["Namık Kemal", "Cezmi"], ["Yakup Kadri Karaosmanoğlu", "Sodom ve Gomore"], ["Edip Cansever", "Dirlik Düzenlik"], ["Ömer Seyfettin", "Başını Vermeyen Şehit"], ["Yahya Kemal Beyatlı", "Bitmemiş Şiirler"], ["Cahit Külebi", "İçi Sevda Dolu Yolculuk"], ["Sabahattin Ali", "Kürk Mantolu Madonna"], ["Tevfik Fikret", "Haluk'un Defteri"], ["Reşat Nuri Güntekin", "Akşam Güneşi"], ["Muallim Naci", "Şerare"], ["Ömer Seyfettin", "Efruz Bey"], ["Tevfik Fikret", "Rübab'ın Cevabı"], ["Mevlana", "Divan-ı Kebir"], ["Katip Çelebi", "Cihannümâ"], ["Cenap Şahabettin", "Hac Yolunda"], ["Haldun Taner", "Keşanlı Ali Destanı"], ["Özdemir Asaf", "Yalnızlık Paylaşılmaz"], ["Yaşar Kemal", "Yılanı Öldürseler"], ["Attila İlhan", "Sisler Bulvarı"], ["Sabri Esat Siyavuşgil", "Odalar ve Sofalar"], ["Oktay Akbal", "Suçumuz İnsan Olmak"], ["Necati Cumalı", "Zeliş (Tütün Zamanı)"], ["Süleyman Nazif", "Firak-ı Irak"], ["Yaşar Kemal", "Demirciler Çarşısı Cinayeti"], ["İlhan Berk", "Günaydın Yeryüzü"], ["Necip Fazıl Kısakürek", "Örümcek Ağı"], ["Gülşehri", "Mantıku't-Tayr"]];
-var currentCategory='',currentType='',currentPeriod='Tüm Dönemler',currentCount=10,currentOptionCount=5,currentDifficulty='easy',questions=[],qIndex=0,correct=0,wrong=0,lastSettings=null;
+var currentCategory='',currentType='',currentPeriod='Tüm Dönemler',currentCount=10,currentOptionCount=5,currentDifficulty='easy',questions=[],qIndex=0,correct=0,wrong=0,lastSettings=null,sessionMistakes=[];
 function byId(id){return document.getElementById(id)}
 function showScreen(id){var s=document.getElementsByClassName('screen');for(var i=0;i<s.length;i++)s[i].classList.remove('active');byId(id).classList.add('active');window.scrollTo(0,0)}
 function goHome(){showScreen('homeScreen')}
 function addOption(sel,val,text){var o=document.createElement('option');o.value=val;o.text=text;sel.appendChild(o)}
 function openSettings(cat){currentCategory=cat;var title=byId('settingsTitle'),periodBox=byId('periodBox'),typeBox=byId('typeBox'),pSel=byId('periodSelect'),tSel=byId('typeSelect'),cSel=byId('countSelect');pSel.innerHTML='';tSel.innerHTML='';cSel.innerHTML='';for(var i=10;i<=100;i+=10)addOption(cSel,String(i),i+' soru');if(cat==='authorWork'){title.innerText='Yazar - Eser';periodBox.style.display='block';typeBox.style.display='block';var ps=['İslamiyet İlk Dönem','Halk Edebiyatı','Divan / Geçiş','Tanzimat','Servetifünun','Fecriati','Milli Edebiyat','Cumhuriyet'];for(var p=0;p<ps.length;p++)addOption(pSel,ps[p],ps[p]);addOption(tSel,'authorToWork','Yazar - Eser');addOption(tSel,'workToAuthor','Eser - Yazar')}else{periodBox.style.display='none';typeBox.style.display='none';title.innerText=cat==='frequent'?'Sık Sorulanlar':cat==='movements'?'Edebi Akımlar':'Roman Kahramanları'}showScreen('settingsScreen')}
-function startTest(){currentCount=Number(byId('countSelect').value);currentOptionCount=Number(byId('optionCountSelect').value);currentDifficulty=byId('difficultySelect').value;if(currentCategory==='authorWork'){currentPeriod=byId('periodSelect').value;currentType=byId('typeSelect').value}else{currentPeriod='Tüm Dönemler';currentType=currentCategory}lastSettings=[currentCategory,currentType,currentPeriod,currentCount,currentOptionCount,currentDifficulty];questions=shuffle(buildQuestions());if(questions.length>currentCount)questions=questions.slice(0,currentCount);qIndex=0;correct=0;wrong=0;showScreen('testScreen');showQuestion()}
-function repeatSameTest(){if(!lastSettings){goHome();return}currentCategory=lastSettings[0];currentType=lastSettings[1];currentPeriod=lastSettings[2];currentCount=lastSettings[3];currentOptionCount=lastSettings[4]||5;currentDifficulty=lastSettings[5]||'easy';questions=shuffle(buildQuestions());if(questions.length>currentCount)questions=questions.slice(0,currentCount);qIndex=0;correct=0;wrong=0;showScreen('testScreen');showQuestion()}
+function startTest(){currentCount=Number(byId('countSelect').value);currentOptionCount=Number(byId('optionCountSelect').value);currentDifficulty=byId('difficultySelect').value;if(currentCategory==='authorWork'){currentPeriod=byId('periodSelect').value;currentType=byId('typeSelect').value}else{currentPeriod='Tüm Dönemler';currentType=currentCategory}lastSettings=[currentCategory,currentType,currentPeriod,currentCount,currentOptionCount,currentDifficulty];questions=shuffle(buildQuestions());if(questions.length>currentCount)questions=questions.slice(0,currentCount);qIndex=0;correct=0;wrong=0;sessionMistakes=[];showScreen('testScreen');showQuestion()}
+function repeatSameTest(){if(!lastSettings){goHome();return}currentCategory=lastSettings[0];currentType=lastSettings[1];currentPeriod=lastSettings[2];currentCount=lastSettings[3];currentOptionCount=lastSettings[4]||5;currentDifficulty=lastSettings[5]||'easy';questions=shuffle(buildQuestions());if(questions.length>currentCount)questions=questions.slice(0,currentCount);qIndex=0;correct=0;wrong=0;sessionMistakes=[];showScreen('testScreen');showQuestion()}
 function optionWrongCount(){return Math.max(3,Math.min(4,currentOptionCount-1))}
 function uniquePush(arr,item){if(item&&arr.indexOf(item)===-1)arr.push(item)}
 function getAllAuthors(){var a=[];for(var i=0;i<authorWorks.length;i++)uniquePush(a,authorWorks[i][1]);for(var f=0;f<frequentPairs.length;f++)uniquePush(a,frequentPairs[f][0]);return a}
@@ -316,18 +345,161 @@ function chooseWrongAuthors(correctAuthor,periodHint){if(currentCategory==='auth
 function chooseWrongWorks(correctWork,correctAuthor,periodHint){var authorWorksList=getWorksOfAuthor(correctAuthor),pool=getWorksByPeriod(periodHint),filtered=[];for(var i=0;i<pool.length;i++)if(authorWorksList.indexOf(pool[i])===-1)filtered.push(pool[i]);return getRandomWrong(filtered,correctWork,optionWrongCount())}
 function chooseWrongWorksForCharacter(correctWork){var all=[];for(var i=0;i<characters.length;i++)uniquePush(all,characters[i][0]);return getRandomWrong(all,correctWork,optionWrongCount())}
 function buildFrequentAuthorQuestions(){var authors=[],res=[],owner={};for(var i=0;i<frequentPairs.length;i++){var a=frequentPairs[i][0],w=frequentPairs[i][1];uniquePush(authors,a);if(!owner[w])owner[w]=[];uniquePush(owner[w],a)}for(var j=0;j<frequentPairs.length;j++){var author=frequentPairs[j][0],work=frequentPairs[j][1];if(owner[work]&&owner[work].length>1)continue;var period=getAuthorPeriod(author);res.push({question:'"'+work+'" adlı eser kime aittir?',answer:author,options:shuffle([author].concat(chooseWrongAuthors(author,period)))})}return res}
-function buildFrequentAllQuestions(){return shuffle(buildFrequentAuthorQuestions())}
+function getFrequentCharacterCount(count){
+  if(count<=10)return 2;
+  if(count<=20)return 4;
+  if(count<=40)return 5;
+  if(count<=60)return 7;
+  if(count<=80)return 9;
+  return 10;
+}
+function buildFrequentAllQuestions(){
+  var charCount=getFrequentCharacterCount(currentCount);
+  var authorQs=shuffle(buildFrequentAuthorQuestions());
+  var charQs=shuffle(buildCharacterQuestions(characters));
+  if(charCount>charQs.length)charCount=charQs.length;
+  var authorCount=Math.max(0,currentCount-charCount);
+  return shuffle(authorQs.slice(0,authorCount).concat(charQs.slice(0,charCount)));
+}
 function buildQuestions(){if(currentCategory==='authorWork')return currentType==='authorToWork'?buildAuthorToWork():buildWorkToAuthor();if(currentCategory==='characters')return buildCharacterQuestions(characters);if(currentCategory==='movements')return buildMovementQuestions();if(currentCategory==='frequent')return buildFrequentAllQuestions();return[]}
 function getAuthorData(){if(currentPeriod==='Tüm Dönemler')return authorWorks.slice();var l=[];for(var i=0;i<authorWorks.length;i++)if(authorWorks[i][0]===currentPeriod)l.push(authorWorks[i]);return l}
 function buildAuthorToWork(){var data=getAuthorData(),res=[];for(var a=0;a<data.length;a++){var period=data[a][0],author=data[a][1],works=data[a][2];for(var w=0;w<works.length;w++){var ans=works[w];res.push({question:author+' adlı sanatçının eseri hangisidir?',answer:ans,options:shuffle([ans].concat(chooseWrongWorks(ans,author,period)))})}}return res}
 function buildWorkToAuthor(){var data=getAuthorData(),owner={},res=[];for(var i=0;i<data.length;i++){for(var j=0;j<data[i][2].length;j++){var work=data[i][2][j];if(!owner[work])owner[work]=[];uniquePush(owner[work],data[i][1])}}for(var a=0;a<data.length;a++){var period=data[a][0],author=data[a][1];for(var w=0;w<data[a][2].length;w++){var workName=data[a][2][w];if(owner[workName]&&owner[workName].length>1)continue;res.push({question:'"'+workName+'" adlı eser kime aittir?',answer:author,options:shuffle([author].concat(chooseWrongAuthors(author,period)))})}}return res}
-function buildCharacterQuestions(src){var res=[];for(var c=0;c<src.length;c++){res.push({question:src[c][1].join(', ')+' hangi eserin kahramanlarıdır?',answer:src[c][0],options:shuffle([src[c][0]].concat(chooseWrongWorksForCharacter(src[c][0])))})}return res}
-function buildMovementQuestions(){var names=[],base=[],authors=[];for(var i=0;i<movements.length;i++)names.push(movements[i][0]);for(var m=0;m<movements.length;m++){var name=movements[m][0],clues=movements[m][1],auth=movements[m][2];for(var c=0;c<clues.length;c++)base.push({question:shuffle(clues).slice(0,3).join(', ')+' özellikleri hangi edebi akıma aittir?',answer:name,options:shuffle([name].concat(getRandomWrong(names,name,optionWrongCount())))});for(var a=0;a<auth.length;a++)authors.push({question:auth[a]+' hangi edebi akımla ilişkilendirilir?',answer:name,options:shuffle([name].concat(getRandomWrong(names,name,optionWrongCount())))})}var limit=currentCount<=10?1:currentCount>=50?6:currentCount>=30?3:2;return shuffle(base).slice(0,Math.max(0,currentCount-limit)).concat(shuffle(authors).slice(0,limit))}
+function normalizeCharacterText(t){
+  return String(t).toLocaleLowerCase('tr-TR')
+    .replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c')
+    .replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim();
+}
+function cleanCharacterList(work,chars){
+  var w=normalizeCharacterText(work),out=[];
+  for(var i=0;i<chars.length;i++){
+    var ch=chars[i],c=normalizeCharacterText(ch);
+    if(!c)continue;
+    // Eser adıyla birebir aynı olan kahramanı çıkar: Cezmi/Cezmi, Zehra/Zehra, Nur Baba/Nur Baba gibi.
+    if(c===w)continue;
+    // Eser adının sonundaki isimle birebir aynıysa çıkar: İnce Memed / Memed gibi.
+    if(c.length>=4 && (w==='ince '+c || w.endsWith(' '+c)))continue;
+    out.push(ch);
+  }
+  return out;
+}
+function buildCharacterQuestions(src){
+  var res=[];
+  for(var c=0;c<src.length;c++){
+    var shown=cleanCharacterList(src[c][0],src[c][1]);
+    if(shown.length===0)continue;
+    res.push({question:shown.join(', ')+' hangi eserin kahramanlarıdır?',answer:src[c][0],options:shuffle([src[c][0]].concat(chooseWrongWorksForCharacter(src[c][0]))),topic:'Roman Kahramanları'});
+  }
+  return res;
+}
+function buildMovementQuestions(){
+  var names=[];
+  for(var i=0;i<movements.length;i++)names.push(movements[i][0]);
+  var pool=[];
+  function add(q,a){
+    pool.push({question:q,answer:a,options:shuffle([a].concat(getRandomWrong(names,a,optionWrongCount()))),topic:'Edebi Akımlar'});
+  }
+
+  /* Türk edebiyatı temsilcileri: bu bölümün ağırlığı artık burada */
+  add('Namık Kemal hangi edebi akımla ilişkilendirilir?','Romantizm');
+  add('Ahmet Mithat Efendi hangi edebi akımla ilişkilendirilir?','Romantizm');
+  add('Abdülhak Hamit Tarhan hangi edebi akımla ilişkilendirilir?','Romantizm');
+  add('Tanzimat birinci dönem sanatçılarını en çok etkileyen edebi akım hangisidir?','Romantizm');
+  add('Duygu, hayal, hürriyet ve sanatçının kişiliğini gizlememesi hangi edebi akımı çağrıştırır?','Romantizm');
+  add('Tarihî konulara yönelme ve zıtlıklardan yararlanma hangi edebi akımın özelliğidir?','Romantizm');
+
+  add('Halit Ziya Uşaklıgil roman anlayışı bakımından hangi edebi akımla ilişkilendirilir?','Realizm');
+  add('Recaizade Mahmud Ekrem roman anlayışı bakımından hangi edebi akımla ilişkilendirilir?','Realizm');
+  add('Yakup Kadri Karaosmanoğlu roman anlayışı bakımından hangi edebi akımla ilişkilendirilir?','Realizm');
+  add('Refik Halit Karay hikâye ve roman anlayışı bakımından hangi edebi akımla ilişkilendirilir?','Realizm');
+  add('Gözlem, nesnellik, çevre tasviri ve neden-sonuç ilişkisi hangi edebi akıma aittir?','Realizm');
+  add('Servetifünun romanında güçlü biçimde görülen gerçekçi anlatım hangi akımı çağrıştırır?','Realizm');
+
+  add('Nabizade Nazım özellikle Zehra romanıyla hangi edebi akımla ilişkilendirilir?','Natüralizm');
+  add('Hüseyin Rahmi Gürpınar roman anlayışı bakımından hangi edebi akımla ilişkilendirilir?','Natüralizm');
+  add('Soyaçekim, determinizm, çevre ve kalıtım etkisi hangi edebi akıma aittir?','Natüralizm');
+  add('İnsanı çevre ve kalıtımın ürünü sayan anlayış hangi edebi akımdır?','Natüralizm');
+
+  add('Tevfik Fikret şiirde biçim kusursuzluğu yönüyle hangi edebi akımla ilişkilendirilir?','Parnasizm');
+  add('Servetifünun şiirinde biçim kusursuzluğu ve ölçü uyak titizliği hangi akımı çağrıştırır?','Parnasizm');
+  add('Sanat sanat içindir, kuyumcu titizliği ve biçim kusursuzluğu hangi edebi akıma aittir?','Parnasizm');
+  add('Şiirde gerçekçilik ve dış dünya tasvirine önem veren akım hangisidir?','Parnasizm');
+
+  add('Ahmet Haşim şiir anlayışı bakımından hangi edebi akımla ilişkilendirilir?','Sembolizm');
+  add('Fecriati şiirinde Ahmet Haşim üzerinden etkisi belirgin olan akım hangisidir?','Sembolizm');
+  add('Musiki, kapalılık, sezdirme ve çağrışım hangi edebi akıma aittir?','Sembolizm');
+  add('Anlam açıklığı yerine imge ve sezdirmenin öne çıktığı akım hangisidir?','Sembolizm');
+
+  add('Şinasi’nin tiyatro ve çeviri anlayışında etkisi görülen akılcı-kuralcı edebi akım hangisidir?','Klasisizm');
+  add('Akıl, sağduyu, kuralcılık ve Eski Yunan-Latin etkisi hangi edebi akıma aittir?','Klasisizm');
+  add('Üç birlik kuralı ve kuralcı tiyatro anlayışı hangi edebi akımla ilişkilidir?','Klasisizm');
+
+  add('Nazım Hikmet’in ilk dönem şiirlerinde etkisi görülen hız, makine ve dinamizm anlayışı hangi akımdır?','Fütürizm');
+  add('Hız, makineleşme, dinamizm ve gelecekçilik hangi edebi akıma aittir?','Fütürizm');
+
+  add('Garipçilerin bilinçaltı ve serbest çağrışım yönünden etkilendiği akım hangisidir?','Sürrealizm');
+  add('Bilinçaltı, rüya, Freud ve otomatik yazı hangi edebi akımı çağrıştırır?','Sürrealizm');
+
+  add('Yusuf Atılgan’ın bireyin yalnızlığı ve yabancılaşması yönüyle ilişkilendirilebileceği akım hangisidir?','Egzistansiyalizm');
+  add('Oğuz Atay’ın bireyin yabancılaşması ve varoluş bunalımı yönüyle ilişkilendirilebileceği akım hangisidir?','Egzistansiyalizm');
+  add('Bunaltı, yabancılaşma, seçme özgürlüğü ve sorumluluk hangi edebi akıma aittir?','Egzistansiyalizm');
+
+  /* Daha az sorulacak ama havuzda kalsın */
+  add('Kuralsızlık, anlamsızlık ve geleneksel sanatı reddetme hangi edebi akıma aittir?','Dadaizm');
+  add('Geometrik düzen, parçalama ve çok boyutlu bakış hangi edebi akıma aittir?','Kübizm');
+  add('Dış dünyanın kişide bıraktığı izlenimi aktarma hangi edebi akıma aittir?','Empresyonizm');
+  add('İç dünya, ruhsal durum ve bireyin çığlığı hangi edebi akıma aittir?','Ekspresyonizm');
+
+  return balancedMovementQuestions(pool,currentCount);
+}
+function balancedMovementQuestions(pool,count){
+  var groups={},keys=[],result=[];
+  for(var i=0;i<pool.length;i++){
+    var a=pool[i].answer;
+    if(!groups[a]){groups[a]=[];keys.push(a)}
+    groups[a].push(pool[i]);
+  }
+  for(var k=0;k<keys.length;k++)groups[keys[k]]=shuffle(groups[keys[k]]);
+  keys=shuffle(keys);
+  while(result.length<count){
+    var added=false;
+    for(var x=0;x<keys.length && result.length<count;x++){
+      var key=keys[x];
+      if(groups[key].length){result.push(groups[key].shift());added=true}
+    }
+    if(!added)break;
+    keys=shuffle(keys);
+  }
+  return result;
+}
 function buildFirstQuestions(){var answers=[],res=[];for(var i=0;i<firsts.length;i++)uniquePush(answers,firsts[i][1]);for(var f=0;f<firsts.length;f++)res.push({question:firsts[f][0],answer:firsts[f][1],options:shuffle([firsts[f][1]].concat(getRandomWrong(answers,firsts[f][1],optionWrongCount())))});return res}
 function showQuestion(){if(qIndex>=questions.length){finishTest();return}var q=questions[qIndex];byId('progressText').innerText=(qIndex+1)+' / '+questions.length;byId('questionText').innerText=q.question;var ans=byId('answers');ans.innerHTML='';for(var i=0;i<q.options.length;i++){var b=document.createElement('button');b.type='button';b.className='answer';b.innerText=q.options[i];b.addEventListener('click',makeHandler(b,q.options[i],q));ans.appendChild(b)}}
 function makeHandler(btn,selected,q){return function(){answerQuestion(btn,selected,q)}}
-function answerQuestion(btn,selected,q){var bs=document.getElementsByClassName('answer');for(var i=0;i<bs.length;i++)bs[i].disabled=true;if(selected===q.answer){correct++;btn.classList.add('correct')}else{wrong++;btn.classList.add('wrong');for(var b=0;b<bs.length;b++)if(bs[b].innerText===q.answer)bs[b].classList.add('correct');saveWrong(q.question,selected,q.answer)}setTimeout(function(){qIndex++;showQuestion()},850)}
-function finishTest(){var total=correct+wrong,p=total===0?0:Math.round(correct/total*100);byId('resultNumber').innerText=correct+'/'+total;byId('resultText').innerHTML='Doğru: <b>'+correct+'</b> &nbsp; Yanlış: <b>'+wrong+'</b><br>Başarı: <b>%'+p+'</b>';showScreen('resultScreen')}
+function answerQuestion(btn,selected,q){var bs=document.getElementsByClassName('answer');for(var i=0;i<bs.length;i++)bs[i].disabled=true;if(selected===q.answer){correct++;btn.classList.add('correct')}else{wrong++;btn.classList.add('wrong');for(var b=0;b<bs.length;b++)if(bs[b].innerText===q.answer)bs[b].classList.add('correct');sessionMistakes.push({question:q.question,selected:selected,answer:q.answer});saveWrong(q.question,selected,q.answer)}setTimeout(function(){qIndex++;showQuestion()},850)}
+function finishTest(){var total=correct+wrong,p=total===0?0:Math.round(correct/total*100);byId('resultNumber').innerText=correct+'/'+total;byId('resultText').innerHTML='Doğru: <b>'+correct+'</b> &nbsp; Yanlış: <b>'+wrong+'</b><br>Başarı: <b>%'+p+'</b>';byId('analysisBox').innerHTML=generateAnalysis(total,p);showScreen('resultScreen')}
+function detectWeakArea(){
+  if(sessionMistakes.length===0)return '';
+  var counts={},best='',max=0;
+  for(var i=0;i<sessionMistakes.length;i++){
+    var a=sessionMistakes[i].answer,area=currentCategory==='movements'?'Edebi Akımlar':currentCategory==='characters'?'Roman Kahramanları':getAuthorPeriod(a)||getWorkPeriod(a)||currentPeriod||'Genel';
+    counts[area]=(counts[area]||0)+1;
+    if(counts[area]>max){max=counts[area];best=area}
+  }
+  return best;
+}
+function generateAnalysis(total,p){
+  var area=detectWeakArea();
+  var title='<div class="analysis-title">🤖 Yapay Zeka Analizi</div>';
+  if(total===0)return title+'Test verisi oluşmadı.';
+  if(wrong===0)return title+'Mükemmel gittin kanka. Bu bölümde hata yok. Aynı ayarda soru sayısını artırıp hızını test et.';
+  var level=p>=85?'iyi':p>=65?'orta':'zayıf';
+  var msg='';
+  if(currentCategory==='movements')msg='Edebi akımlarda özellikle Türk edebiyatındaki temsilci-dönem bağını tekrar et. Namık Kemal-Romantizm, Halit Ziya-Realizm, Ahmet Haşim-Sembolizm, Tevfik Fikret-Parnasizm eşleşmeleri kritik.';
+  else if(currentCategory==='characters')msg='Roman kahramanlarında ezberin kopuk görünüyor. Kahramanları tek tek değil, eser adıyla blok hâlinde ezberle.';
+  else if(currentCategory==='frequent')msg='Sık sorulanlarda eser-yazar ve roman kahramanı karışıyor. Yanlış çıkan eseri kahramanıyla birlikte blok hâlinde tekrar et.';
+  else msg='Yazar-eser kısmında zayıf alanın '+(area||'seçtiğin dönem')+'. Bu dönemden 20 soru daha çöz, yanlış çıkan eserleri deftere yaz.';
+  return title+'Başarı düzeyin <b>'+level+'</b>. En çok zorlandığın alan: <b>'+(area||'genel tekrar')+'</b>.<br>'+msg;
+}
 function showWrongs(){var wrongs=JSON.parse(localStorage.getItem('edebiyatWrongs')||'[]'),list=byId('wrongList');list.innerHTML='';if(wrongs.length===0)list.innerHTML='<div class="empty">Henüz yanlış yok kanka.</div>';else for(var i=0;i<wrongs.length;i++){var d=document.createElement('div');d.className='wrong-item';d.innerHTML='<b>Soru:</b> '+escapeHtml(wrongs[i].question)+'<br><b>Senin cevabın:</b> '+escapeHtml(wrongs[i].selected)+'<br><b>Doğru cevap:</b> '+escapeHtml(wrongs[i].answer)+'<br><small>'+escapeHtml(wrongs[i].date)+'</small>';list.appendChild(d)}showScreen('wrongScreen')}
 function saveWrong(question,selected,answer){var w=JSON.parse(localStorage.getItem('edebiyatWrongs')||'[]');w.unshift({question:question,selected:selected,answer:answer,date:new Date().toLocaleString('tr-TR')});if(w.length>250)w=w.slice(0,250);localStorage.setItem('edebiyatWrongs',JSON.stringify(w))}
 function clearWrongs(){localStorage.removeItem('edebiyatWrongs');showWrongs()}
