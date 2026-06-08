@@ -592,7 +592,7 @@ body:not(.theme-light) .answer.wrong:hover{
 }
 
 
-/* Alt menü: Testler / Notlar / Ayarlar */
+/* Alt menü: Testler / Notlar / Görevler / Ayarlar */
 .settings-fab{display:none!important}
 .app{padding-bottom:110px!important}
 .bottom-nav{
@@ -603,7 +603,7 @@ body:not(.theme-light) .answer.wrong:hover{
   width:min(560px,calc(100% - 24px));
   z-index:55;
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
+  grid-template-columns:1fr 1fr 1fr 1fr;
   gap:8px;
   padding:8px;
   border-radius:24px;
@@ -987,11 +987,101 @@ body.theme-dark .note-card h2, body:not(.theme-light) .note-card h2{color:#eef6f
 body.theme-dark .note-card p, body:not(.theme-light) .note-card p{color:#9fb2cc}
 body.theme-dark .note-card b, body:not(.theme-light) .note-card b{color:#67e8f9}
 
+
+    .xp-widget{
+      position:sticky;top:10px;z-index:30;margin:0 auto 12px;
+      max-width:560px;border:1px solid var(--stroke);border-radius:22px;
+      background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.055));
+      box-shadow:0 18px 45px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.13);
+      backdrop-filter:blur(16px);padding:12px 14px;
+    }
+    .xp-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .xp-level{font-weight:1000;color:var(--gold);font-size:14px}
+    .xp-total{font-size:12px;color:var(--muted);font-weight:800}
+    .xp-bar{height:10px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);margin-top:8px}
+    .xp-fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--primary),var(--secondary));box-shadow:0 0 18px rgba(255,209,102,.55)}
+    .badge-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+    .badge-chip{
+      display:inline-flex;align-items:center;gap:5px;padding:6px 8px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.16);
+      color:var(--text);font-size:11px;font-weight:900;
+    }
+    .badge-chip.locked{opacity:.42;filter:grayscale(1)}
+    .xp-gain{
+      margin:12px 0;padding:12px;border-radius:18px;border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.08);font-weight:900;color:var(--text)
+    }
+    .xp-gain b{color:var(--gold)}
+    body.theme-light .xp-widget{background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(255,255,255,.66))}
+    body.theme-light .badge-chip{background:rgba(0,0,0,.04)}
+
+
+    .task-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 16px}
+    .task-tab{
+      border:1px solid var(--stroke);border-radius:16px;padding:10px 8px;
+      background:rgba(255,255,255,.08);color:var(--text);font-weight:1000;cursor:pointer
+    }
+    .task-tab.active{background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 12px 30px rgba(255,122,24,.22)}
+    .task-list{display:grid;gap:12px}
+    .task-card{
+      border:1px solid var(--stroke);border-radius:22px;padding:15px;
+      background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.05));
+      box-shadow:0 18px 45px rgba(0,0,0,.28)
+    }
+    .task-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .task-title{font-weight:1000;font-size:16px}
+    .task-xp{font-weight:1000;color:var(--gold);white-space:nowrap}
+    .task-desc{color:var(--muted);font-size:13px;line-height:1.45;margin-top:6px}
+    .task-progress{height:10px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.13);border-radius:999px;overflow:hidden;margin-top:12px}
+    .task-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--green),var(--gold),var(--primary));border-radius:999px}
+    .task-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;color:var(--muted);font-size:12px;font-weight:900}
+    .task-done{color:var(--green)}
+    .task-claimed{color:var(--gold)}
+    .badge-gallery{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px
+    }
+    .badge-big{
+      border:1px solid var(--stroke);border-radius:20px;padding:14px 10px;text-align:center;
+      background:rgba(255,255,255,.08);box-shadow:0 12px 32px rgba(0,0,0,.18)
+    }
+    .badge-big .bicon{font-size:30px;display:block;margin-bottom:6px}
+    .badge-big .bname{font-weight:1000;font-size:13px}
+    .badge-big .bdesc{color:var(--muted);font-size:11px;margin-top:5px;line-height:1.35}
+    .badge-big.locked{filter:grayscale(1);opacity:.42}
+    .task-summary{
+      margin-bottom:14px;border-radius:22px;padding:14px;border:1px solid var(--stroke);
+      background:rgba(255,255,255,.08);color:var(--muted);font-weight:800;line-height:1.5
+    }
+    .task-summary b{color:var(--gold)}
+    body.theme-light .task-card, body.theme-light .badge-big, body.theme-light .task-summary{background:rgba(255,255,255,.78)}
+
+
+    /* XP paneli artık üstte görünmez; Görevler bölümünde rozetler ve XP var */
+    .xp-widget{display:none!important}
+
+    .task-subject-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 10px}
+    .task-subject-tab{
+      border:1px solid var(--stroke);border-radius:16px;padding:10px 8px;
+      background:rgba(255,255,255,.08);color:var(--text);font-weight:1000;cursor:pointer
+    }
+    .task-subject-tab.active{background:linear-gradient(135deg,var(--green),var(--primary));color:#fff;box-shadow:0 12px 28px rgba(34,197,94,.20)}
+    .task-note{font-size:12px;color:var(--muted);font-weight:800;margin:0 0 12px;line-height:1.45}
+
 </style>
 </head>
 <body>
 <div class="app">
 <button class="settings-fab" id="globalSettingsBtn" type="button" aria-label="Ayarlar"><span>⚙️</span></button>
+
+<div class="xp-widget" id="xpWidget">
+  <div class="xp-top">
+    <div class="xp-level" id="xpLevelText">Seviye 1</div>
+    <div class="xp-total" id="xpTotalText">0 XP</div>
+  </div>
+  <div class="xp-bar"><div class="xp-fill" id="xpFill"></div></div>
+  <div class="badge-row" id="badgeRow"></div>
+</div>
+
 
 <div class="screen active" id="subjectScreen">
   <div class="hero">
@@ -1209,6 +1299,37 @@ body.theme-dark .note-card b, body:not(.theme-light) .note-card b{color:#67e8f9}
 </div>
 
 
+
+<div class="screen" id="tasksScreen">
+  <button class="ghost-btn subject-back" id="backFromTasks" type="button">← Testler</button>
+  <div class="hero">
+    <div class="pill">🎮 Görevler</div>
+    <h1>XP & Rozetler</h1>
+    <p>Test çöz, görevleri tamamla, seviye atla. Açılan rozetler renkli; kilitli rozetler siyah-beyaz görünür.</p>
+  </div>
+
+  <div class="task-subject-tabs">
+    <button class="task-subject-tab active" data-task-subject="literature" type="button">📚 Edebiyat</button>
+    <button class="task-subject-tab" data-task-subject="history" type="button">🏛️ Tarih</button>
+    <button class="task-subject-tab" data-task-subject="geography" type="button">🌍 Coğrafya</button>
+  </div>
+  <p class="task-note">Her dersin görevi ve rozeti ayrıdır. Edebiyattayken tarih/coğrafya rozetleri görünmez.</p>
+  <div class="task-summary" id="taskSummary"></div>
+
+  <div class="task-tabs">
+    <button class="task-tab active" data-task-tab="daily" type="button">Günlük</button>
+    <button class="task-tab" data-task-tab="weekly" type="button">Haftalık</button>
+    <button class="task-tab" data-task-tab="monthly" type="button">Aylık</button>
+  </div>
+  <div class="task-list" id="taskList"></div>
+
+  <div class="hero" style="padding-bottom:8px">
+    <div class="pill">🏅 Rozet Koleksiyonu</div>
+  </div>
+  <div class="badge-gallery" id="badgeGallery"></div>
+</div>
+
+
 <div class="screen" id="homeScreen">
 <button class="ghost-btn subject-back" id="backToSubjects" type="button">← Dersler</button>
 <div class="hero">
@@ -1290,7 +1411,7 @@ body.theme-dark .note-card b, body:not(.theme-light) .note-card b{color:#67e8f9}
 <button class="main-btn" id="startBtn" type="button">Teste Başla</button><button class="ghost-btn" data-home="" type="button">Ana Menü</button>
 </div></div>
 <div class="screen" id="testScreen"><div class="progress" id="progressText"></div><div class="question-card"><div class="question" id="questionText"></div><div class="answers" id="answers"></div></div><button class="ghost-btn" data-home="" type="button">Testi Bitir</button></div>
-<div class="screen" id="resultScreen"><h1 class="top-title">Sonuç</h1><div class="panel"><div class="result-number" id="resultNumber"></div><div class="result-text" id="resultText"></div><div class="analysis-box" id="analysisBox"></div><button class="main-btn" id="repeatBtn" type="button">Aynı Testten Tekrar Çöz</button><button class="ghost-btn" data-home="" type="button">Ana Menü</button></div></div>
+<div class="screen" id="resultScreen"><h1 class="top-title">Sonuç</h1><div class="panel"><div class="result-number" id="resultNumber"></div><div class="result-text" id="resultText"></div><div class="xp-gain" id="xpGainBox"></div><div class="analysis-box" id="analysisBox"></div><button class="main-btn" id="repeatBtn" type="button">Aynı Testten Tekrar Çöz</button><button class="ghost-btn" data-home="" type="button">Ana Menü</button></div></div>
 <div class="screen" id="wrongScreen"><h1 class="top-title">Yanlışlarım</h1><button class="main-btn" id="wrongAiBtn" type="button">Çalışma Analizi</button><div class="wrong-ai-box" id="wrongAiBox"></div><div id="wrongList"></div><button class="main-btn" id="clearWrongBtn" type="button">Yanlışları Temizle</button><button class="ghost-btn" data-home="" type="button">Ana Menü</button></div>
 </div>
 
@@ -1315,6 +1436,7 @@ body.theme-dark .note-card b, body:not(.theme-light) .note-card b{color:#67e8f9}
 <div class="bottom-nav" id="bottomNav">
   <button class="nav-btn active" id="navTests" type="button"><span class="nav-icon">🧪</span><span>Testler</span></button>
   <button class="nav-btn" id="navNotes" type="button"><span class="nav-icon">📚</span><span>Notlar</span></button>
+  <button class="nav-btn" id="navTasks" type="button"><span class="nav-icon">🎮</span><span>Görevler</span></button>
   <button class="nav-btn" id="navSettings" type="button"><span class="nav-icon">⚙️</span><span>Ayarlar</span></button>
 </div>
 
@@ -2638,6 +2760,476 @@ function buildGeoQuestions(cat){
 var currentCategory='',currentType='',currentPeriod='Tüm Dönemler',currentCount=10,currentOptionCount=5,currentDifficulty='easy',questions=[],qIndex=0,correct=0,wrong=0,lastSettings=null,sessionMistakes=[],repeatWrongSetting=false;
 function byId(id){return document.getElementById(id)}
 
+var TASK_TAB='daily';
+var TASK_DEFS={
+  daily:[
+    {id:'d50',title:'Bugün 50 soru çöz',desc:'Herhangi bir dersten toplam 50 soru bitir.',target:50,type:'questions',xp:80},
+    {id:'dtest3',title:'Bugün 3 test bitir',desc:'Kısa test de olur, yeter ki 3 test tamamlansın.',target:3,type:'tests',xp:70},
+    {id:'dperfect',title:'Hatasız test yap',desc:'En az 10 soruluk bir testi yanlışsız bitir.',target:1,type:'perfects',xp:90}
+  ],
+  weekly:[
+    {id:'w500',title:'Bu hafta 500 soru çöz',desc:'Hafta boyunca toplam 500 soru tamamla.',target:500,type:'questions',xp:500},
+    {id:'w10test',title:'Bu hafta 10 test bitir',desc:'Ders fark etmez, 10 testi tamamla.',target:10,type:'tests',xp:300},
+    {id:'w3subject',title:'3 derste test çöz',desc:'Edebiyat, Tarih ve Coğrafyadan en az birer test çöz.',target:3,type:'subjects',xp:250}
+  ],
+  monthly:[
+    {id:'m2000',title:'Bu ay 2000 soru çöz',desc:'Ay boyunca toplam 2000 soru tamamla.',target:2000,type:'questions',xp:2000},
+    {id:'m50test',title:'Bu ay 50 test bitir',desc:'Düzenli çalışanların rozeti buradan gelir.',target:50,type:'tests',xp:1500},
+    {id:'m10perfect',title:'Bu ay 10 hatasız test yap',desc:'En az 10 soruluk testlerde 10 kez hatasız bitir.',target:10,type:'perfects',xp:1200}
+  ]
+};
+function todayKey(){return new Date().toISOString().slice(0,10)}
+function weekKey(){
+  var d=new Date(), onejan=new Date(d.getFullYear(),0,1);
+  var week=Math.ceil((((d-onejan)/86400000)+onejan.getDay()+1)/7);
+  return d.getFullYear()+'-W'+week;
+}
+function monthKey(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}
+function emptyTaskStats(period,key){return {key:key,questions:0,tests:0,perfects:0,subjects:{literature:false,history:false,geography:false},claimed:[]}}
+function getTaskData(){
+  var data;
+  try{data=JSON.parse(localStorage.getItem('yksTaskData')||'{}')}catch(e){data={}}
+  if(!data.daily||data.daily.key!==todayKey())data.daily=emptyTaskStats('daily',todayKey());
+  if(!data.weekly||data.weekly.key!==weekKey())data.weekly=emptyTaskStats('weekly',weekKey());
+  if(!data.monthly||data.monthly.key!==monthKey())data.monthly=emptyTaskStats('monthly',monthKey());
+  return data;
+}
+function saveTaskData(data){localStorage.setItem('yksTaskData',JSON.stringify(data))}
+function taskProgress(stat,def){
+  if(def.type==='subjects'){
+    var n=0;if(stat.subjects.literature)n++;if(stat.subjects.history)n++;if(stat.subjects.geography)n++;
+    return n;
+  }
+  return stat[def.type]||0;
+}
+function addTaskClaim(stat,id){if(stat.claimed.indexOf(id)===-1)stat.claimed.push(id)}
+function updateTaskProgress(total,p){
+  var data=getTaskData(), subject=subjectNameKey(), taskXP=0, completed=[];
+  ['daily','weekly','monthly'].forEach(function(period){
+    var stat=data[period];
+    stat.questions+=total;
+    stat.tests+=1;
+    if(total>=10 && wrong===0)stat.perfects+=1;
+    stat.subjects[subject]=true;
+
+    TASK_DEFS[period].forEach(function(def){
+      var prog=taskProgress(stat,def);
+      if(prog>=def.target && stat.claimed.indexOf(def.id)===-1){
+        addTaskClaim(stat,def.id);
+        taskXP+=def.xp;
+        completed.push(def.title+' (+'+def.xp+' XP)');
+      }
+    });
+  });
+  saveTaskData(data);
+  if(taskXP>0){
+    var g=getGame();
+    g.xp+=taskXP;
+    saveGame(g);
+  }
+  return {xp:taskXP,completed:completed};
+}
+function taskPeriodName(p){return p==='daily'?'Günlük':p==='weekly'?'Haftalık':'Aylık'}
+function renderTasks(period){
+  TASK_TAB=period||TASK_TAB||'daily';
+  var data=getTaskData(), stat=data[TASK_TAB], list=byId('taskList'), sum=byId('taskSummary');
+  var tabs=document.getElementsByClassName('task-tab');
+  for(var i=0;i<tabs.length;i++)tabs[i].classList.toggle('active',tabs[i].getAttribute('data-task-tab')===TASK_TAB);
+  if(sum){
+    sum.innerHTML='<b>'+taskPeriodName(TASK_TAB)+' hedef:</b> '+stat.questions+' soru • '+stat.tests+' test • '+stat.perfects+' hatasız test';
+  }
+  if(list){
+    list.innerHTML='';
+    TASK_DEFS[TASK_TAB].forEach(function(def){
+      var prog=taskProgress(stat,def), pct=Math.min(100,Math.round(prog/def.target*100));
+      var claimed=stat.claimed.indexOf(def.id)>-1;
+      var card=document.createElement('div');
+      card.className='task-card';
+      card.innerHTML='<div class="task-head"><div><div class="task-title">'+def.title+'</div><div class="task-desc">'+def.desc+'</div></div><div class="task-xp">+'+def.xp+' XP</div></div>'+
+        '<div class="task-progress"><div class="task-progress-fill" style="width:'+pct+'%"></div></div>'+
+        '<div class="task-foot"><span>'+Math.min(prog,def.target)+' / '+def.target+'</span><span class="'+(claimed?'task-claimed':pct>=100?'task-done':'')+'">'+(claimed?'Ödül alındı':pct>=100?'Tamamlandı':'Devam ediyor')+'</span></div>';
+      list.appendChild(card);
+    });
+  }
+}
+function badgeDesc(id){
+  var m={
+    first_test:'İlk testini bitir.',
+    ten_tests:'10 test tamamla.',
+    streak3:'%70+ başarıyla 3 test seri yap.',
+    perfect:'En az 10 soruluk testte hatasız yap.',
+    high90:'En az 10 soruluk testte %90+ yap.',
+    fifty:'50 soruluk test bitir.',
+    literature5:'Edebiyatta 5 test bitir.',
+    history5:'Tarihte 5 test bitir.',
+    geo5:'Coğrafyada 5 test bitir.',
+    treaty_master:'Antlaşmalar testinde %80+ yap.',
+    geo_explorer:'Coğrafya testinde %80+ yap.',
+    work_hunter:'Yazar-eser / sık sorulanlarda %80+ yap.'
+  };
+  return m[id]||'Rozeti açmak için test çöz.';
+}
+function renderBadgeGallery(){
+  var row=byId('badgeGallery');if(!row)return;
+  var g=getGame(), unlocked={};for(var i=0;i<g.badges.length;i++)unlocked[g.badges[i]]=true;
+  row.innerHTML='';
+  BADGE_DEFS.forEach(function(d){
+    var div=document.createElement('div');
+    div.className='badge-big'+(unlocked[d.id]?'':' locked');
+    div.innerHTML='<span class="bicon">'+d.icon+'</span><div class="bname">'+d.name+'</div><div class="bdesc">'+badgeDesc(d.id)+'</div>';
+    row.appendChild(div);
+  });
+}
+function openTasksScreen(){
+  renderXPWidget();
+  renderTasks(TASK_TAB||'daily');
+  renderBadgeGallery();
+  showScreen('tasksScreen');
+}
+
+
+
+var TASK_SUBJECT='literature';
+
+var SUBJECT_TASK_DEFS={
+  literature:{
+    daily:[
+      {id:'lit_d50',title:'Edebiyat 50 soru',desc:'Bugün edebiyattan 50 soru çöz.',target:50,type:'questions',xp:90},
+      {id:'lit_d_author',title:'Yazar-eser antrenmanı',desc:'Bugün yazar-eser veya sık sorulanlardan 25 soru çöz.',target:25,type:'authorWorkQuestions',xp:70},
+      {id:'lit_d_perfect',title:'Edebiyat hatasız test',desc:'En az 10 soruluk edebiyat testini hatasız bitir.',target:1,type:'perfects',xp:90}
+    ],
+    weekly:[
+      {id:'lit_w500',title:'Haftalık 500 edebiyat sorusu',desc:'Bu hafta edebiyattan 500 soru çöz.',target:500,type:'questions',xp:550},
+      {id:'lit_w10',title:'10 edebiyat testi',desc:'Bu hafta edebiyattan 10 test bitir.',target:10,type:'tests',xp:320},
+      {id:'lit_w_author200',title:'200 yazar-eser sorusu',desc:'Bu hafta yazar-eser / sık sorulanlardan 200 soru çöz.',target:200,type:'authorWorkQuestions',xp:420}
+    ],
+    monthly:[
+      {id:'lit_m2000',title:'Aylık 2000 edebiyat sorusu',desc:'Bu ay edebiyattan 2000 soru çöz.',target:2000,type:'questions',xp:2200},
+      {id:'lit_m50',title:'50 edebiyat testi',desc:'Bu ay edebiyattan 50 test bitir.',target:50,type:'tests',xp:1600},
+      {id:'lit_m25perfect',title:'25 edebiyat hatasızı',desc:'Bu ay 25 edebiyat testini hatasız bitir.',target:25,type:'perfects',xp:1800}
+    ]
+  },
+  history:{
+    daily:[
+      {id:'his_d50',title:'Tarih 50 soru',desc:'Bugün tarihten 50 soru çöz.',target:50,type:'questions',xp:90},
+      {id:'his_d_treaty',title:'Antlaşma çalış',desc:'Bugün antlaşmalar / milli mücadele antlaşmalarından 25 soru çöz.',target:25,type:'treatyQuestions',xp:80},
+      {id:'his_d_perfect',title:'Tarih hatasız test',desc:'En az 10 soruluk tarih testini hatasız bitir.',target:1,type:'perfects',xp:90}
+    ],
+    weekly:[
+      {id:'his_w500',title:'Haftalık 500 tarih sorusu',desc:'Bu hafta tarihten 500 soru çöz.',target:500,type:'questions',xp:550},
+      {id:'his_w10',title:'10 tarih testi',desc:'Bu hafta tarihten 10 test bitir.',target:10,type:'tests',xp:320},
+      {id:'his_w_treaty200',title:'200 antlaşma sorusu',desc:'Bu hafta antlaşma ağırlıklı 200 soru çöz.',target:200,type:'treatyQuestions',xp:440}
+    ],
+    monthly:[
+      {id:'his_m2000',title:'Aylık 2000 tarih sorusu',desc:'Bu ay tarihten 2000 soru çöz.',target:2000,type:'questions',xp:2200},
+      {id:'his_m50',title:'50 tarih testi',desc:'Bu ay tarihten 50 test bitir.',target:50,type:'tests',xp:1600},
+      {id:'his_m25perfect',title:'25 tarih hatasızı',desc:'Bu ay 25 tarih testini hatasız bitir.',target:25,type:'perfects',xp:1800}
+    ]
+  },
+  geography:{
+    daily:[
+      {id:'geo_d50',title:'Coğrafya 50 soru',desc:'Bugün coğrafyadan 50 soru çöz.',target:50,type:'questions',xp:90},
+      {id:'geo_d_tytayt',title:'TYT + AYT dengele',desc:'Bugün hem TYT hem AYT coğrafyadan en az birer test çöz.',target:2,type:'levels',xp:85},
+      {id:'geo_d_perfect',title:'Coğrafya hatasız test',desc:'En az 10 soruluk coğrafya testini hatasız bitir.',target:1,type:'perfects',xp:90}
+    ],
+    weekly:[
+      {id:'geo_w500',title:'Haftalık 500 coğrafya sorusu',desc:'Bu hafta coğrafyadan 500 soru çöz.',target:500,type:'questions',xp:550},
+      {id:'geo_w10',title:'10 coğrafya testi',desc:'Bu hafta coğrafyadan 10 test bitir.',target:10,type:'tests',xp:320},
+      {id:'geo_w_tytayt',title:'TYT ve AYT tamamlama',desc:'Bu hafta TYT ve AYT coğrafyadan en az 5er test çöz.',target:10,type:'levelTests',xp:460}
+    ],
+    monthly:[
+      {id:'geo_m2000',title:'Aylık 2000 coğrafya sorusu',desc:'Bu ay coğrafyadan 2000 soru çöz.',target:2000,type:'questions',xp:2200},
+      {id:'geo_m50',title:'50 coğrafya testi',desc:'Bu ay coğrafyadan 50 test bitir.',target:50,type:'tests',xp:1600},
+      {id:'geo_m25perfect',title:'25 coğrafya hatasızı',desc:'Bu ay 25 coğrafya testini hatasız bitir.',target:25,type:'perfects',xp:1800}
+    ]
+  }
+};
+
+var SUBJECT_BADGES={
+  literature:[
+    {id:'lit_first',icon:'📚',name:'İlk Edebiyat',desc:'İlk edebiyat testini bitir.'},
+    {id:'lit_5',icon:'🖋️',name:'Edebiyatçı',desc:'Edebiyatta 5 test bitir.'},
+    {id:'lit_20',icon:'📖',name:'Kitap Kurdu',desc:'Edebiyatta 20 test bitir.'},
+    {id:'lit_1000',icon:'🏛️',name:'Divan Ustası',desc:'Edebiyatta 1000 soru çöz.'},
+    {id:'lit_author_250',icon:'✍️',name:'Eser Avcısı',desc:'Yazar-eser alanında 250 soru çöz.'},
+    {id:'lit_perfect_5',icon:'💎',name:'Kusursuz Edebiyat',desc:'5 hatasız edebiyat testi yap.'},
+    {id:'lit_high90',icon:'🌟',name:'Parlak Kalem',desc:'Edebiyatta %90+ başarı yap.'},
+    {id:'lit_streak3',icon:'🔥',name:'Edebiyat Serisi',desc:'Edebiyatta 3 başarılı test serisi yap.'}
+  ],
+  history:[
+    {id:'his_first',icon:'🏛️',name:'İlk Tarih',desc:'İlk tarih testini bitir.'},
+    {id:'his_5',icon:'📜',name:'Tarihçi',desc:'Tarihte 5 test bitir.'},
+    {id:'his_20',icon:'⚔️',name:'Kronoloji Ustası',desc:'Tarihte 20 test bitir.'},
+    {id:'his_1000',icon:'🛡️',name:'Cihan Tarihçisi',desc:'Tarihte 1000 soru çöz.'},
+    {id:'his_treaty_250',icon:'📜',name:'Antlaşma Ustası',desc:'Antlaşmalardan 250 soru çöz.'},
+    {id:'his_perfect_5',icon:'🏆',name:'Hatasız Tarih',desc:'5 hatasız tarih testi yap.'},
+    {id:'his_high90',icon:'⭐',name:'Savaş Bilgesi',desc:'Tarihte %90+ başarı yap.'},
+    {id:'his_streak3',icon:'🔥',name:'Tarih Serisi',desc:'Tarihte 3 başarılı test serisi yap.'}
+  ],
+  geography:[
+    {id:'geo_first',icon:'🌍',name:'İlk Coğrafya',desc:'İlk coğrafya testini bitir.'},
+    {id:'geo_5',icon:'🧭',name:'Coğrafyacı',desc:'Coğrafyada 5 test bitir.'},
+    {id:'geo_20',icon:'🗺️',name:'Harita Ustası',desc:'Coğrafyada 20 test bitir.'},
+    {id:'geo_1000',icon:'🏔️',name:'Yeryüzü Ustası',desc:'Coğrafyada 1000 soru çöz.'},
+    {id:'geo_tytayt',icon:'🌋',name:'TYT-AYT Dengesi',desc:'TYT ve AYT coğrafyada düzenli test çöz.'},
+    {id:'geo_perfect_5',icon:'💧',name:'Hatasız Coğrafya',desc:'5 hatasız coğrafya testi yap.'},
+    {id:'geo_high90',icon:'☀️',name:'İklim Bilgesi',desc:'Coğrafyada %90+ başarı yap.'},
+    {id:'geo_streak3',icon:'🔥',name:'Coğrafya Serisi',desc:'Coğrafyada 3 başarılı test serisi yap.'}
+  ]
+};
+
+function subjectLabel(s){return s==='history'?'Tarih':s==='geography'?'Coğrafya':'Edebiyat'}
+function isLiteratureWorkCategory(){return currentCategory==='authorWork'||currentCategory==='frequent'}
+function isHistoryTreatyCategory(){return currentCategory==='historyTreaty'||currentCategory==='historyFrequent'||currentCategory==='historyNationalStruggle'}
+function isGeoTytCat(){return currentCategory&&currentCategory.indexOf('geoTyt')===0}
+function isGeoAytCat(){return currentCategory&&currentCategory.indexOf('geo')===0&&currentCategory.indexOf('geoTyt')!==0}
+
+function getSubjectStats(){
+  try{
+    var s=JSON.parse(localStorage.getItem('yksSubjectStats')||'{}');
+    ['literature','history','geography'].forEach(function(k){
+      if(!s[k])s[k]={questions:0,tests:0,perfects:0,streak:0,bestStreak:0,high90:0,authorWorkQuestions:0,treatyQuestions:0,tytTests:0,aytTests:0,badges:[]};
+    });
+    return s;
+  }catch(e){
+    return {literature:{questions:0,tests:0,perfects:0,streak:0,bestStreak:0,high90:0,authorWorkQuestions:0,treatyQuestions:0,tytTests:0,aytTests:0,badges:[]},history:{questions:0,tests:0,perfects:0,streak:0,bestStreak:0,high90:0,authorWorkQuestions:0,treatyQuestions:0,tytTests:0,aytTests:0,badges:[]},geography:{questions:0,tests:0,perfects:0,streak:0,bestStreak:0,high90:0,authorWorkQuestions:0,treatyQuestions:0,tytTests:0,aytTests:0,badges:[]}};
+  }
+}
+function saveSubjectStats(s){localStorage.setItem('yksSubjectStats',JSON.stringify(s))}
+function addSubjectBadge(stats,subject,id,newBadges){
+  var arr=stats[subject].badges||[];
+  if(arr.indexOf(id)===-1){arr.push(id);stats[subject].badges=arr;newBadges.push(id)}
+}
+function updateSubjectBadges(subject,total,p){
+  var stats=getSubjectStats(), st=stats[subject], newBadges=[];
+  if(!st.badges)st.badges=[];
+  if(st.tests>=1)addSubjectBadge(stats,subject,subject==='history'?'his_first':subject==='geography'?'geo_first':'lit_first',newBadges);
+  if(st.tests>=5)addSubjectBadge(stats,subject,subject==='history'?'his_5':subject==='geography'?'geo_5':'lit_5',newBadges);
+  if(st.tests>=20)addSubjectBadge(stats,subject,subject==='history'?'his_20':subject==='geography'?'geo_20':'lit_20',newBadges);
+  if(st.questions>=1000)addSubjectBadge(stats,subject,subject==='history'?'his_1000':subject==='geography'?'geo_1000':'lit_1000',newBadges);
+  if(subject==='literature' && st.authorWorkQuestions>=250)addSubjectBadge(stats,subject,'lit_author_250',newBadges);
+  if(subject==='history' && st.treatyQuestions>=250)addSubjectBadge(stats,subject,'his_treaty_250',newBadges);
+  if(subject==='geography' && st.tytTests>=5 && st.aytTests>=5)addSubjectBadge(stats,subject,'geo_tytayt',newBadges);
+  if(st.perfects>=5)addSubjectBadge(stats,subject,subject==='history'?'his_perfect_5':subject==='geography'?'geo_perfect_5':'lit_perfect_5',newBadges);
+  if(p>=90 && total>=10)addSubjectBadge(stats,subject,subject==='history'?'his_high90':subject==='geography'?'geo_high90':'lit_high90',newBadges);
+  if(st.streak>=3)addSubjectBadge(stats,subject,subject==='history'?'his_streak3':subject==='geography'?'geo_streak3':'lit_streak3',newBadges);
+  saveSubjectStats(stats);
+  return newBadges;
+}
+function updateSubjectStatsAfterTest(subject,total,p){
+  var stats=getSubjectStats(), st=stats[subject];
+  st.questions+=total;st.tests+=1;
+  if(total>=10&&wrong===0)st.perfects+=1;
+  if(p>=90&&total>=10)st.high90+=1;
+  if(p>=70)st.streak+=1;else st.streak=0;
+  if(st.streak>st.bestStreak)st.bestStreak=st.streak;
+  if(subject==='literature'&&isLiteratureWorkCategory())st.authorWorkQuestions+=total;
+  if(subject==='history'&&isHistoryTreatyCategory())st.treatyQuestions+=total;
+  if(subject==='geography'&&isGeoTytCat())st.tytTests+=1;
+  if(subject==='geography'&&isGeoAytCat())st.aytTests+=1;
+  saveSubjectStats(stats);
+  return updateSubjectBadges(subject,total,p);
+}
+
+// Bu fonksiyonlar eski görev sisteminin üzerine yazar: görevler artık ders bazlıdır.
+function taskProgress(stat,def){
+  if(def.type==='levels'){
+    var n=0;if(stat.tytTests>0)n++;if(stat.aytTests>0)n++;return n;
+  }
+  if(def.type==='levelTests')return (stat.tytTests||0)+(stat.aytTests||0);
+  return stat[def.type]||0;
+}
+function emptyTaskStats(period,key){return {key:key,questions:0,tests:0,perfects:0,authorWorkQuestions:0,treatyQuestions:0,tytTests:0,aytTests:0,claimed:[]}}
+function getTaskData(){
+  var data;
+  try{data=JSON.parse(localStorage.getItem('yksTaskDataV2')||'{}')}catch(e){data={}}
+  ['literature','history','geography'].forEach(function(subj){
+    if(!data[subj])data[subj]={};
+    if(!data[subj].daily||data[subj].daily.key!==todayKey())data[subj].daily=emptyTaskStats('daily',todayKey());
+    if(!data[subj].weekly||data[subj].weekly.key!==weekKey())data[subj].weekly=emptyTaskStats('weekly',weekKey());
+    if(!data[subj].monthly||data[subj].monthly.key!==monthKey())data[subj].monthly=emptyTaskStats('monthly',monthKey());
+  });
+  return data;
+}
+function saveTaskData(data){localStorage.setItem('yksTaskDataV2',JSON.stringify(data))}
+function updateTaskProgress(total,p){
+  var data=getTaskData(), subject=subjectNameKey(), taskXP=0, completed=[];
+  ['daily','weekly','monthly'].forEach(function(period){
+    var stat=data[subject][period];
+    stat.questions+=total;
+    stat.tests+=1;
+    if(total>=10 && wrong===0)stat.perfects+=1;
+    if(subject==='literature'&&isLiteratureWorkCategory())stat.authorWorkQuestions+=total;
+    if(subject==='history'&&isHistoryTreatyCategory())stat.treatyQuestions+=total;
+    if(subject==='geography'&&isGeoTytCat())stat.tytTests+=1;
+    if(subject==='geography'&&isGeoAytCat())stat.aytTests+=1;
+    SUBJECT_TASK_DEFS[subject][period].forEach(function(def){
+      var prog=taskProgress(stat,def);
+      if(prog>=def.target && stat.claimed.indexOf(def.id)===-1){
+        stat.claimed.push(def.id);taskXP+=def.xp;completed.push(subjectLabel(subject)+' • '+def.title+' (+'+def.xp+' XP)');
+      }
+    });
+  });
+  saveTaskData(data);
+  if(taskXP>0){var g=getGame();g.xp+=taskXP;saveGame(g)}
+  var subjectBadges=updateSubjectStatsAfterTest(subject,total,p);
+  return {xp:taskXP,completed:completed,subjectBadges:subjectBadges};
+}
+function renderTasks(period){
+  TASK_TAB=period||TASK_TAB||'daily';
+  var data=getTaskData(), stat=data[TASK_SUBJECT][TASK_TAB], list=byId('taskList'), sum=byId('taskSummary');
+  var tabs=document.getElementsByClassName('task-tab');
+  for(var i=0;i<tabs.length;i++)tabs[i].classList.toggle('active',tabs[i].getAttribute('data-task-tab')===TASK_TAB);
+  var stabs=document.getElementsByClassName('task-subject-tab');
+  for(var j=0;j<stabs.length;j++)stabs[j].classList.toggle('active',stabs[j].getAttribute('data-task-subject')===TASK_SUBJECT);
+  if(sum){
+    var extra=TASK_SUBJECT==='literature'?' • yazar-eser: '+stat.authorWorkQuestions:TASK_SUBJECT==='history'?' • antlaşma: '+stat.treatyQuestions:' • TYT test: '+stat.tytTests+' • AYT test: '+stat.aytTests;
+    sum.innerHTML='<b>'+subjectLabel(TASK_SUBJECT)+' / '+taskPeriodName(TASK_TAB)+':</b> '+stat.questions+' soru • '+stat.tests+' test • '+stat.perfects+' hatasız'+extra;
+  }
+  if(list){
+    list.innerHTML='';
+    SUBJECT_TASK_DEFS[TASK_SUBJECT][TASK_TAB].forEach(function(def){
+      var prog=taskProgress(stat,def), pct=Math.min(100,Math.round(prog/def.target*100));
+      var claimed=stat.claimed.indexOf(def.id)>-1;
+      var card=document.createElement('div');
+      card.className='task-card';
+      card.innerHTML='<div class="task-head"><div><div class="task-title">'+def.title+'</div><div class="task-desc">'+def.desc+'</div></div><div class="task-xp">+'+def.xp+' XP</div></div>'+
+        '<div class="task-progress"><div class="task-progress-fill" style="width:'+pct+'%"></div></div>'+
+        '<div class="task-foot"><span>'+Math.min(prog,def.target)+' / '+def.target+'</span><span class="'+(claimed?'task-claimed':pct>=100?'task-done':'')+'">'+(claimed?'Ödül alındı':pct>=100?'Tamamlandı':'Devam ediyor')+'</span></div>';
+      list.appendChild(card);
+    });
+  }
+}
+function renderBadgeGallery(){
+  var row=byId('badgeGallery');if(!row)return;
+  var stats=getSubjectStats(), unlocked={};
+  (stats[TASK_SUBJECT].badges||[]).forEach(function(id){unlocked[id]=true});
+  row.innerHTML='';
+  SUBJECT_BADGES[TASK_SUBJECT].forEach(function(d){
+    var div=document.createElement('div');
+    div.className='badge-big'+(unlocked[d.id]?'':' locked');
+    div.innerHTML='<span class="bicon">'+d.icon+'</span><div class="bname">'+d.name+'</div><div class="bdesc">'+d.desc+'</div>';
+    row.appendChild(div);
+  });
+}
+function openTasksScreen(){
+  TASK_SUBJECT=subjectNameKey();
+  renderXPWidget();
+  renderTasks(TASK_TAB||'daily');
+  renderBadgeGallery();
+  showScreen('tasksScreen');
+}
+
+var BADGE_DEFS=[
+  {id:'first_test',icon:'🎯',name:'İlk Test'},
+  {id:'ten_tests',icon:'🔥',name:'10 Test'},
+  {id:'streak3',icon:'⚡',name:'3 Seri'},
+  {id:'perfect',icon:'🏆',name:'Hatasız'},
+  {id:'high90',icon:'💎',name:'%90+'},
+  {id:'fifty',icon:'🧱',name:'50 Soru'},
+  {id:'literature5',icon:'📚',name:'Edebiyatçı'},
+  {id:'history5',icon:'🏛️',name:'Tarihçi'},
+  {id:'geo5',icon:'🌍',name:'Coğrafyacı'},
+  {id:'treaty_master',icon:'📜',name:'Antlaşma'},
+  {id:'geo_explorer',icon:'🧭',name:'Kaşif'},
+  {id:'work_hunter',icon:'✍️',name:'Eser Avcısı'}
+];
+function defaultGame(){return {xp:0,tests:0,correct:0,streak:0,bestStreak:0,perfects:0,subjects:{literature:0,history:0,geography:0},badges:[]}}
+function getGame(){
+  try{
+    var g=JSON.parse(localStorage.getItem('yksGameData')||'null')||defaultGame();
+    if(!g.subjects)g.subjects={literature:0,history:0,geography:0};
+    if(!g.badges)g.badges=[];
+    return g;
+  }catch(e){return defaultGame()}
+}
+function saveGame(g){localStorage.setItem('yksGameData',JSON.stringify(g))}
+function levelFromXP(xp){return Math.floor(xp/100)+1}
+function xpIntoLevel(xp){return xp%100}
+function addBadge(g,id,newBadges){
+  if(g.badges.indexOf(id)===-1){g.badges.push(id);newBadges.push(id)}
+}
+function subjectNameKey(){
+  if(currentSubject==='history')return 'history';
+  if(currentSubject==='geography')return 'geography';
+  return 'literature';
+}
+function calculateXP(total,p){
+  var gained=correct*5;
+  if(total>=10 && wrong===0)gained+=25;
+  if(total>=10 && p>=90)gained+=15;
+  else if(total>=10 && p>=75)gained+=8;
+  if(total>=50)gained+=20;
+  return gained;
+}
+function awardXP(total,p){
+  var g=getGame(), beforeLevel=levelFromXP(g.xp), newBadges=[], subject=subjectNameKey();
+  var gained=calculateXP(total,p);
+  g.xp+=gained;
+  g.tests+=1;
+  g.correct+=correct;
+  g.subjects[subject]=(g.subjects[subject]||0)+1;
+  if(p>=70)g.streak+=1;else g.streak=0;
+  if(g.streak>g.bestStreak)g.bestStreak=g.streak;
+  if(total>=10 && wrong===0)g.perfects+=1;
+
+  addBadge(g,'first_test',newBadges);
+  if(g.tests>=10)addBadge(g,'ten_tests',newBadges);
+  if(g.streak>=3)addBadge(g,'streak3',newBadges);
+  if(total>=10 && wrong===0)addBadge(g,'perfect',newBadges);
+  if(total>=10 && p>=90)addBadge(g,'high90',newBadges);
+  if(total>=50)addBadge(g,'fifty',newBadges);
+  if(g.subjects.literature>=5)addBadge(g,'literature5',newBadges);
+  if(g.subjects.history>=5)addBadge(g,'history5',newBadges);
+  if(g.subjects.geography>=5)addBadge(g,'geo5',newBadges);
+  if(currentCategory==='historyTreaty' && total>=10 && p>=80)addBadge(g,'treaty_master',newBadges);
+  if(currentCategory && currentCategory.indexOf('geo')===0 && total>=10 && p>=80)addBadge(g,'geo_explorer',newBadges);
+  if((currentCategory==='authorWork'||currentCategory==='frequent') && total>=10 && p>=80)addBadge(g,'work_hunter',newBadges);
+
+  saveGame(g);
+  renderXPWidget();
+
+  var afterLevel=levelFromXP(g.xp);
+  var badgeNames=newBadges.map(function(id){
+    var d=BADGE_DEFS.find(function(b){return b.id===id});
+    return d?d.icon+' '+d.name:id;
+  });
+  return {gained:gained,beforeLevel:beforeLevel,afterLevel:afterLevel,newBadges:badgeNames,streak:g.streak,totalXP:g.xp};
+}
+function renderXPWidget(){
+  var g=getGame();
+  var lvl=levelFromXP(g.xp), inLevel=xpIntoLevel(g.xp);
+  var l=byId('xpLevelText'), t=byId('xpTotalText'), f=byId('xpFill'), row=byId('badgeRow');
+  if(l)l.innerText='Seviye '+lvl;
+  if(t)t.innerText=g.xp+' XP • Sonraki seviye: '+(100-inLevel)+' XP';
+  if(f)f.style.width=inLevel+'%';
+  if(row){
+    row.innerHTML='';
+    var unlocked={};for(var i=0;i<g.badges.length;i++)unlocked[g.badges[i]]=true;
+    for(var b=0;b<BADGE_DEFS.length;b++){
+      var d=BADGE_DEFS[b], span=document.createElement('span');
+      span.className='badge-chip'+(unlocked[d.id]?'':' locked');
+      span.innerText=d.icon+' '+d.name;
+      row.appendChild(span);
+    }
+  }
+}
+
+function subjectBadgeNames(ids){
+  var all=[].concat(SUBJECT_BADGES.literature,SUBJECT_BADGES.history,SUBJECT_BADGES.geography);
+  return ids.map(function(id){
+    var d=all.find(function(x){return x.id===id});
+    return d?d.icon+' '+d.name:id;
+  });
+}
+
+function formatXPGain(info){
+  var levelText=info.afterLevel>info.beforeLevel?' <br><b>Seviye atladın:</b> '+info.beforeLevel+' → '+info.afterLevel:'';
+  var badgeText=info.newBadges.length?' <br><b>Yeni rozet:</b> '+info.newBadges.join(', '):'';
+  return '🎮 <b>+'+info.gained+' XP</b> kazandın. Seri: <b>'+info.streak+'</b>'+levelText+badgeText;
+}
+
+
 function wrongKey(){
   return currentSubject==='history' ? 'edebiyatWrongs_history' : currentSubject==='geography' ? 'edebiyatWrongs_geography' : 'edebiyatWrongs_literature';
 }
@@ -2683,15 +3275,17 @@ function safeClick(id,fn){var el=byId(id);if(el)el.addEventListener('click',fn)}
 function setBottomNav(active){
   var nav=byId('bottomNav');
   if(!nav)return;
-  var show=(active==='tests'||active==='notes'||active==='settings');
+  var show=(active==='tests'||active==='notes'||active==='tasks'||active==='settings');
   if(show)nav.classList.remove('hidden');else nav.classList.add('hidden');
-  var tests=byId('navTests'),notes=byId('navNotes'),settings=byId('navSettings');
+  var tests=byId('navTests'),notes=byId('navNotes'),tasks=byId('navTasks'),settings=byId('navSettings');
   if(tests)tests.classList.toggle('active',active==='tests');
   if(notes)notes.classList.toggle('active',active==='notes');
+  if(tasks)tasks.classList.toggle('active',active==='tasks');
   if(settings)settings.classList.toggle('active',active==='settings');
 }
 function showTestsTab(){showScreen(currentSubject==='history'?'historyHomeScreen':currentSubject==='geography'?(currentGeoLevel==='tyt'?'geoTytHomeScreen':'geoAytHomeScreen'):'homeScreen')}
 function showNotesTab(){showScreen(currentSubject==='history'?'historyNotesScreen':currentSubject==='geography'?'geoNotesScreen':'notesScreen')}
+function showTasksTab(){openTasksScreen()}
 function showSettingsTab(){syncSettingsUI();showScreen('appSettingsScreen')}
 function showSubjectScreen(){showScreen('subjectScreen')}
 function openLiterature(){currentSubject='literature';showScreen('homeScreen')}
@@ -2704,7 +3298,7 @@ function openGeoAyt(){currentSubject='geography';currentGeoLevel='ayt';showScree
 function openGeoTest(cat){currentSubject='geography';currentGeoLevel=(cat.indexOf('geoTyt')===0?'tyt':'ayt');currentGeoCategory=cat;currentCategory=cat;openSettings(cat)}
 function showSoonSubject(name){alert(name+' bölümü çok yakında kanka.')}
 
-function showScreen(id){var s=document.getElementsByClassName('screen');for(var i=0;i<s.length;i++)s[i].classList.remove('active');byId(id).classList.add('active');setBottomNav((id==='homeScreen'||id==='historyHomeScreen'||id==='historyPeriodScreen'||id==='geoAytHomeScreen'||id==='geoTytHomeScreen')?'tests':(id==='notesScreen'||id==='historyNotesScreen'||id==='geoNotesScreen')?'notes':id==='appSettingsScreen'?'settings':'hide');window.scrollTo(0,0)}
+function showScreen(id){var s=document.getElementsByClassName('screen');for(var i=0;i<s.length;i++)s[i].classList.remove('active');byId(id).classList.add('active');setBottomNav((id==='homeScreen'||id==='historyHomeScreen'||id==='historyPeriodScreen'||id==='geoAytHomeScreen'||id==='geoTytHomeScreen')?'tests':(id==='notesScreen'||id==='historyNotesScreen'||id==='geoNotesScreen')?'notes':id==='tasksScreen'?'tasks':id==='appSettingsScreen'?'settings':'hide');window.scrollTo(0,0)}
 function goHome(){showScreen(currentSubject==='history'?'historyHomeScreen':currentSubject==='geography'?(currentGeoLevel==='tyt'?'geoTytHomeScreen':'geoAytHomeScreen'):'homeScreen')}
 function addOption(sel,val,text){var o=document.createElement('option');o.value=val;o.text=text;sel.appendChild(o)}
 
@@ -2993,7 +3587,19 @@ function buildFirstQuestions(){var answers=[],res=[];for(var i=0;i<firsts.length
 function showQuestion(){if(qIndex>=questions.length){finishTest();return}var q=questions[qIndex];byId('progressText').innerText=(qIndex+1)+' / '+questions.length;byId('questionText').innerText=q.question;var ans=byId('answers');ans.innerHTML='';for(var i=0;i<q.options.length;i++){var b=document.createElement('button');b.type='button';b.className='answer';b.innerText=q.options[i];b.addEventListener('click',makeHandler(b,q.options[i],q));ans.appendChild(b)}}
 function makeHandler(btn,selected,q){return function(){answerQuestion(btn,selected,q)}}
 function answerQuestion(btn,selected,q){var bs=document.getElementsByClassName('answer');for(var i=0;i<bs.length;i++)bs[i].disabled=true;if(selected===q.answer){correct++;btn.classList.add('correct')}else{wrong++;btn.classList.add('wrong');for(var b=0;b<bs.length;b++)if(bs[b].innerText===q.answer)bs[b].classList.add('correct');sessionMistakes.push({question:q.question,selected:selected,answer:q.answer});saveWrong(q.question,selected,q.answer);scheduleWrongRepeat(q)}setTimeout(function(){qIndex++;showQuestion()},850)}
-function finishTest(){var total=correct+wrong,p=total===0?0:Math.round(correct/total*100);byId('resultNumber').innerText=correct+'/'+total;byId('resultText').innerHTML='Doğru: <b>'+correct+'</b> &nbsp; Yanlış: <b>'+wrong+'</b><br>Başarı: <b>%'+p+'</b>';byId('analysisBox').innerHTML=generateAnalysis(total,p);showScreen('resultScreen')}
+function finishTest(){
+  var total=correct+wrong,p=total===0?0:Math.round(correct/total*100);
+  var xpInfo=awardXP(total,p);
+  var taskInfo=updateTaskProgress(total,p);
+  renderXPWidget();
+  byId('resultNumber').innerText=correct+'/'+total;
+  byId('resultText').innerHTML='Doğru: <b>'+correct+'</b> &nbsp; Yanlış: <b>'+wrong+'</b><br>Başarı: <b>%'+p+'</b>';
+  var taskLine=taskInfo.xp>0?'<br>✅ <b>Görev ödülü:</b> +'+taskInfo.xp+' XP<br><span style="font-size:12px;color:var(--muted)">'+taskInfo.completed.join(' • ')+'</span>':'';
+  var subjectBadgeLine=(taskInfo.subjectBadges&&taskInfo.subjectBadges.length)?'<br>🏅 <b>Ders rozeti:</b> '+subjectBadgeNames(taskInfo.subjectBadges).join(', '):'';
+  byId('xpGainBox').innerHTML=formatXPGain(xpInfo)+taskLine+subjectBadgeLine;
+  byId('analysisBox').innerHTML=generateAnalysis(total,p);
+  showScreen('resultScreen')
+}
 function inferMistakeType(m){
   var q=m.question||'', a=m.answer||'';
   if(currentCategory&&currentCategory.indexOf('history')===0)return 'Tarih';
@@ -3228,6 +3834,11 @@ document.addEventListener('DOMContentLoaded',function(){
   safeClick('globalSettingsBtn',function(){loadThemeControls();openGlobalSettings()});
   safeClick('navTests',showTestsTab);
   safeClick('navNotes',showNotesTab);
+  safeClick('navTasks',showTasksTab);
+  var taskSubjectTabs=document.querySelectorAll('[data-task-subject]');
+  for(var ts=0;ts<taskSubjectTabs.length;ts++)taskSubjectTabs[ts].addEventListener('click',function(){TASK_SUBJECT=this.getAttribute('data-task-subject');renderTasks(TASK_TAB);renderBadgeGallery()});
+  var taskTabs=document.querySelectorAll('[data-task-tab]');
+  for(var tb=0;tb<taskTabs.length;tb++)taskTabs[tb].addEventListener('click',function(){renderTasks(this.getAttribute('data-task-tab'))});
   safeClick('navSettings',showSettingsTab);
   safeClick('subjectLiterature',openLiterature);
   safeClick('subjectHistory',openHistory);
